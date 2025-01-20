@@ -1,0 +1,27 @@
+{
+    "files.associations": {
+        "task.h": "c",
+        "user_bsp.h": "c",
+        "user_bsp_config.h": "c",
+        "freertos.h": "c",
+        "sstream": "c",
+        "array": "c",
+        "string": "c",
+        "cmsis_os.h": "c",
+        "gpio.h": "c",
+        "main.h": "c",
+        "freertosconfig.h": "c",
+        "dac.h": "c",
+        "fonts.h": "c",
+        "ff.h": "c",
+        "stdlib.h": "c",
+        "bsp_spi_sdcard.h": "c",
+        "sd_fatfs.h": "c",
+        "fatfs.h": "c",
+        "core.h": "c",
+        "semphr.h": "c",
+        "audioconfig.h": "c",
+        "audio.h": "c",
+        "bsp_systimer.h": "c"
+    }
+}
