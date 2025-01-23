@@ -68,7 +68,8 @@ void ReadWav(void const *argument)
         vTaskDelete(NULL);
     }
 
-    f_res = f_lseek(&file, wav_len);
+    f_res = f_rewind(&file);
+    // f_res = f_lseek(&file, wav_len);
     if (f_res != FR_OK)
     {
         Uart1_SendData("指针移动失败，f_res:(%d)\r\n", f_res);
@@ -86,7 +87,7 @@ void ReadWav(void const *argument)
             // Data_16to12_Mult((Wav_DacOutout_Buf), wavBuff, fnum / 2);
             Data_16to12_Mult((Wav_DacOutout_Buf + i * WavBuff_Size), wavBuff, fnum / 2);
 
-            // printf_WavInfo(wavBuff, WavBuff_Size);
+            // printf_WavInfo(Wav_DacOutout_Buf, WavBuff_Size);
 
             // Uart1_SendData("\r\n");
             // Uart1_SendData("\r\n");
@@ -96,22 +97,23 @@ void ReadWav(void const *argument)
         else
         {
             Uart1_SendData("！！文件读取失败：(%d)\r\n", f_res);
+            vTaskDelay(HAL_MAX_DELAY);
         }
     }
 
+    memset(Wav_DacOutout_Buf, 0, wav_len * 2);
     // printf_WavInfo(Wav_DacOutout_Buf, WavBuff_Size * 2);
 
     HAL_DAC_Start_DMA(&hdac, DAC1_CHANNEL_1, (uint32_t *)Wav_DacOutout_Buf, WavBuff_Size * 2, DAC_ALIGN_12B_R);
 
     Uart1_SendData("循环开始\r\n");
     // vTaskDelay(portMAX_DELAY);
-    u64 ptr = 0;
     u64 oldPtr = 0;
+    if (ulTaskNotifyTake(pdTRUE, portMAX_DELAY) > 1)
+        Uart1_SendData("[ERROR] Core obliterated Data!!");
 
     while (1)
     {
-        if (ulTaskNotifyTake(pdTRUE, portMAX_DELAY) > 1)
-            Uart1_SendData("[ERROR] Uart1 obliterated Data!!");
 
         oldPtr = f_tell(&file);
 
@@ -132,14 +134,43 @@ void ReadWav(void const *argument)
         {
             Uart1_SendData("！！文件读取失败：(%d)\r\n", f_res);
 
-            ptr = f_tell(&file);
-            Uart1_SendData("pointer diff:%d",(ptr - oldPtr));
+            f_close(&file);
+            // Uart1_SendData("关闭文件\r\n");
 
-            // f_lseek(&file,oldPtr);
-            // continue;
+            f_res = f_open(&file, tempfilepath, FA_OPEN_EXISTING | FA_READ);
 
-            break;
+            if (f_res != FR_OK)
+            {
+                Uart1_SendData("重新打开失败\r\n");
+                break;
+            }
+
+            f_res = f_lseek(&file, oldPtr);
+            if (f_res != FR_OK)
+            {
+                Uart1_SendData("指针移动失败,f_res:(%d)\r\n", f_res);
+                break;
+            }
+            Uart1_SendData("重新传输开始\r\n");
+
+            // ptr = f_tell(&file);
+            Uart1_SendData("old pointer:%d\r\n", oldPtr);
+            // Uart1_SendData("now pointer:%d\r\n", ptr);
+            // Uart1_SendData("pointer diff:%d\r\n", (ptr - oldPtr));
+
+            // f_res = f_lseek(&file, oldPtr);
+            // if (f_res != FR_OK)
+            // {
+            //     Uart1_SendData("指针移动失败,f_res:(%d)\r\n", f_res);
+            //     vTaskDelay(HAL_MAX_DELAY);
+            // }
+            // ptr = f_tell(&file);
+            // Uart1_SendData("change pointer:%d\r\n", ptr);
+            continue;
         }
+
+        if (ulTaskNotifyTake(pdTRUE, portMAX_DELAY) > 1)
+            Uart1_SendData("[ERROR] Core obliterated Data!!");
 
         // if (0 == (WriteCnt % 2))
         // {

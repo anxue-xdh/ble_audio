@@ -1,8 +1,8 @@
 /*
  * @Date: 2023-06-12 09:56:56
- * @LastEditors: error: error: git config user.name & please set dead value or install git && error: git config user.email & please set dead value or install git & please set dead value or install git
- * @LastEditTime: 2023-06-14 14:14:52
- * @FilePath: \MDK-ARMd:\Work_YJH\Projection\VsCodeStm32\AudioPlayer\UserCore\Src\audio.c
+ * @LastEditors: YourName
+ * @LastEditTime: 2025-01-22 16:53:37
+ * @FilePath: \MDK-ARMd:\Work_YJH\Projection\04_MyPrj\02_BleAudio\03_Software\LocalSound\06_ReadWav_Update\User\Core\audio.c
  */
 #include "audio.h"
 
@@ -41,7 +41,7 @@ int WAV_Format_parsing(Audio_WAV_Info *wav_info, char *audio_wav_ori)
     // fmt
     memcpy(wav_info->fmt_ck.ckID, temp_data, 4);
     temp_data += 4;
-    Uart1_SendData("%s\r\n", wav_info->fmt_ck.ckID);
+    // Uart1_SendData("%s\r\n", wav_info->fmt_ck.ckID);
     if (memcmp(wav_info->fmt_ck.ckID, "fmt ", 4))
     {
         Uart1_SendData("fmt_error\r\n");

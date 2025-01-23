@@ -136,8 +136,8 @@ DRESULT USER_read(
     SD_Error SD_state = SD_RESPONSE_NO_ERROR;
 
     taskENTER_CRITICAL();
-    // SD_state = SD_ReadMultiBlocks(buff, (uint64_t)sector * SD_BLOCKSIZE, SD_BLOCKSIZE, count);
-    SD_state = SD_ReadBlock(buff, (uint64_t)sector * SD_BLOCKSIZE, SD_BLOCKSIZE);
+    SD_state = SD_ReadMultiBlocks(buff, (uint64_t)sector * SD_BLOCKSIZE, SD_BLOCKSIZE, count);
+    // SD_state = SD_ReadBlock(buff, (uint64_t)sector * SD_BLOCKSIZE, SD_BLOCKSIZE);
     taskEXIT_CRITICAL();
     if (SD_state == SD_RESPONSE_NO_ERROR)
     {
@@ -170,8 +170,8 @@ DRESULT USER_write(
 
     taskENTER_CRITICAL();
 
-    // SD_state = SD_WriteMultiBlocks((uint8_t *)buff, (uint64_t)sector * SD_BLOCKSIZE, SD_BLOCKSIZE, count);
-    SD_state = SD_WriteBlock((uint8_t *)buff, (uint64_t)sector * SD_BLOCKSIZE, SD_BLOCKSIZE);
+    SD_state = SD_WriteMultiBlocks((uint8_t *)buff, (uint64_t)sector * SD_BLOCKSIZE, SD_BLOCKSIZE, count);
+    // SD_state = SD_WriteBlock((uint8_t *)buff, (uint64_t)sector * SD_BLOCKSIZE, SD_BLOCKSIZE);
     taskEXIT_CRITICAL();
     if (SD_state == SD_RESPONSE_NO_ERROR)
     {
