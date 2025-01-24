@@ -11,6 +11,8 @@
 
 #include "basic.h"
 
+#include "fatfs.h"
+
 void ReadWav(void const *argument);
 
 short Data_16to12_single(short data);
@@ -18,5 +20,7 @@ int Data_16to12_Mult(short *ret, short *data, int len);
 int Data_16to12_Mult_one(short *data, int len);
 
 void printf_WavInfo(short *data, int len);
+
+FRESULT SD_Read_FileInfo(const char *path);
 
 #endif

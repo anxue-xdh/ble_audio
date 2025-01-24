@@ -1,4 +1,5 @@
 #include "user_bsp.h"
+#include "ff.h"
 
 // extern SemaphoreHandle_t Sem_Uart1;
 void SoftReset(void)
@@ -6,6 +7,11 @@ void SoftReset(void)
     __set_FAULTMASK(1);
     NVIC_SystemReset();
 }
+
+/******     ¡Ÿ ±         *****/
+extern FRESULT SD_Read_FileInfo(const char *path);
+extern char USERPath[4]; /* USER logical drive path */
+/******     ¡Ÿ ±         *****/
 
 char strTmp[500];
 void Uart1_Scan_Task(void)
@@ -37,6 +43,10 @@ void Uart1_Scan_Task(void)
         {
             Uart1_SendData("soft reset");
             SoftReset();
+        }
+        else if (Uart1_strcmp("sd read"))
+        {
+            SD_Read_FileInfo(USERPath);
         }
     }
     // vTaskDelete(NULL);

@@ -4,7 +4,6 @@
 #include "semphr.h"
 #include "task.h"
 
-#include "fatfs.h"
 
 #include "audio.h"
 #include "audioConfig.h"
@@ -29,7 +28,7 @@ void ReadWav(void const *argument)
     // vTaskDelay(portMAX_DELAY);
 
     char tempfilepath[60];
-    // Uart1_SendData("SDPath:%s\r\n", USERPath);
+    Uart1_SendData("SDPath:%s\r\n", USERPath);
 
     // sprintf(tempfilepath, "%s%s", USERPath, "INeverForget_R.wav"); // 拼接出带逻辑驱动器名的完整路径名
     sprintf(tempfilepath, "%s%s", USERPath, "BaJiaoNightRain_R.wav"); // 拼接出带逻辑驱动器名的完整路径名
@@ -124,6 +123,7 @@ void ReadWav(void const *argument)
             if (0 == fnum)
             {
                 Uart1_SendData("文件读取完毕\r\n");
+                HAL_DAC_Stop_DMA(&hdac, DAC1_CHANNEL_1);
                 break;
             }
 
@@ -133,6 +133,7 @@ void ReadWav(void const *argument)
         else
         {
             Uart1_SendData("！！文件读取失败：(%d)\r\n", f_res);
+            // HAL_DAC_Stop_DMA(&hdac, DAC1_CHANNEL_1);
 
             f_close(&file);
             // Uart1_SendData("关闭文件\r\n");
@@ -152,6 +153,7 @@ void ReadWav(void const *argument)
                 break;
             }
             Uart1_SendData("重新传输开始\r\n");
+            // HAL_DAC_Start_DMA(&hdac, DAC1_CHANNEL_1, (uint32_t *)Wav_DacOutout_Buf, WavBuff_Size * 2, DAC_ALIGN_12B_R);
 
             // ptr = f_tell(&file);
             Uart1_SendData("old pointer:%d\r\n", oldPtr);
@@ -231,4 +233,47 @@ int Data_16to12_Mult_one(short *data, int len)
         data[i] = Data_16to12_single(data[i]);
     }
     return len;
+}
+
+
+
+FRESULT SD_Read_FileInfo(const char *path)
+{
+    FRESULT res;
+    DIR dir;
+    FILINFO fno;
+    int nfile, ndir;
+    TCHAR name[64];
+
+    fno.lfname = name;
+    fno.lfsize = 64;
+
+    res = f_opendir(&dir, path); /* Open the directory */
+    if (res == FR_OK)
+    {
+        nfile = ndir = 0;
+        for (;;)
+        {
+            res = f_readdir(&dir, &fno); /* Read a directory item */
+            if (res != FR_OK || fno.fname[0] == 0)
+                break; /* Error or end of dir */
+            if (fno.fattrib & AM_DIR)
+            { /* Directory */
+                Uart1_SendData("   <DIR>   %s\n", fno.lfname);
+                ndir++;
+            }
+            else
+            { /* File */
+                Uart1_SendData("%10u %s\n", fno.fsize, fno.lfname);
+                nfile++;
+            }
+        }
+        f_closedir(&dir);
+        Uart1_SendData("%d dirs, %d files.\n", ndir, nfile);
+    }
+    else
+    {
+        Uart1_SendData("Failed to open \"%s\". (%u)\n", path, res);
+    }
+    return res;
 }
