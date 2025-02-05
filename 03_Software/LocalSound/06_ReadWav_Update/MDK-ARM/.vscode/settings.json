@@ -1,5 +1,6 @@
 {
     "files.associations": {
+        "*.vue": "html",
         "task.h": "c",
         "user_bsp.h": "c",
         "user_bsp_config.h": "c",
@@ -22,6 +23,9 @@
         "semphr.h": "c",
         "audioconfig.h": "c",
         "audio.h": "c",
-        "bsp_systimer.h": "c"
+        "bsp_systimer.h": "c",
+        "bsp_xpt2046_lcd.h": "c",
+        "bsp_ili9341_lcd.h": "c",
+        "palette.h": "c"
     }
 }

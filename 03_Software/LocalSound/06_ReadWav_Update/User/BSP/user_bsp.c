@@ -22,7 +22,7 @@ void System_Init(void)
     __HAL_DMA_ENABLE_IT(&hdma_dac_ch1, DMA_IT_TE);
     __HAL_DMA_ENABLE_IT(&hdma_dac_ch1, DMA_IT_HT);
 
-        // HAL_DAC_Start_DMA(&hdac, DAC1_CHANNEL_1, (uint32_t *)Uart1_Buf, 2048, DAC_ALIGN_12B_R);
+    // HAL_DAC_Start_DMA(&hdac, DAC1_CHANNEL_1, (uint32_t *)Uart1_Buf, 2048, DAC_ALIGN_12B_R);
 
     Uart1_SendData("程序初始化完毕\r\n"); // 实验程序
 }
@@ -31,7 +31,7 @@ void LCD_Init(void)
 {
     ILI9341_GramScan(0);
     ILI9341_Init();
-    LCD_SetFont(&Font8x16);
+    // LCD_SetFont(&Font8x16);
     LCD_SetColors(BLUE, WHITE);
 
     ILI9341_Clear(0, 0, LCD_X_LENGTH, LCD_Y_LENGTH);

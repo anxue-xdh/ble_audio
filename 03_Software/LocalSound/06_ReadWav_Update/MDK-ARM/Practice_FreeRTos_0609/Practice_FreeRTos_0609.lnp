@@ -40,12 +40,10 @@
 "practice_freertos_0609\heap_4.o"
 "practice_freertos_0609\port.o"
 "practice_freertos_0609\bsp_spi_sdcard.o"
-"practice_freertos_0609\sdcard_test.o"
 "practice_freertos_0609\user_bsp.o"
 "practice_freertos_0609\user_bsp_handler.o"
 "practice_freertos_0609\user_bsp_it.o"
 "practice_freertos_0609\bsp_ili9341_lcd.o"
-"practice_freertos_0609\bsp_systimer.o"
 "practice_freertos_0609\fonts.o"
 "practice_freertos_0609\audio.o"
 "practice_freertos_0609\core.o"
@@ -57,6 +55,6 @@
 "practice_freertos_0609\syscall.o"
 "practice_freertos_0609\ccsbcs.o"
 --strict --scatter "Practice_FreeRTos_0609\Practice_FreeRTos_0609.sct"
---summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols
+--summary_stderr --info summarysizes --map --xref --callgraph --symbols
 --info sizes --info totals --info unused --info veneers
 --list "Practice_FreeRTos_0609.map" -o Practice_FreeRTos_0609\Practice_FreeRTos_0609.axf

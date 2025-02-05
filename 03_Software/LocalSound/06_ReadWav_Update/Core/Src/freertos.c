@@ -30,6 +30,8 @@
 #include "bsp_spi_sdcard.h"
 #include "fatfs.h"
 
+//#include "GUI.h"
+
 #include "core.h"
 #include "audio.h"
 /* USER CODE END Includes */
@@ -59,6 +61,8 @@ TaskHandle_t Uart1_Scan_Task_Handle;
 TaskHandle_t Temp_Task_Handle;
 TaskHandle_t ReadWav_Task_Handle;
 
+TaskHandle_t GUI_Task_Handle;
+TaskHandle_t GUI_Touch_Handle;
 // SemaphoreHandle_t Sem_Uart1 = NULL;
 
 /* USER CODE END Variables */
@@ -75,6 +79,9 @@ const osThreadAttr_t SysInitTask_attributes = {
 void Led_Ctr_Task(void const *argument);
 void Led_Test_Task(void const *argument);
 void Temp_Task(void const *argument);
+
+extern void GUI_Task(void const *argument);
+extern void Touch_Task(void *parameter);
 /* USER CODE END FunctionPrototypes */
 
 void Sys_Init_Task(void *argument);
@@ -185,21 +192,22 @@ void MX_FREERTOS_Init(void)
 void Sys_Init_Task(void *argument)
 {
     /* USER CODE BEGIN Sys_Init_Task */
+    BaseType_t xReturn = pdPASS;
     taskENTER_CRITICAL();
 
-    xTaskCreate((TaskFunction_t)Led_Ctr_Task,
-                (const char *)"Led_Ctr_Task",
-                (configSTACK_DEPTH_TYPE)64,
-                (void *)NULL,
-                (UBaseType_t)2,
-                (TaskHandle_t *)&Led_Ctr_Task_Handle);
+    // xTaskCreate((TaskFunction_t)Led_Ctr_Task,
+    //             (const char *)"Led_Ctr_Task",
+    //             (configSTACK_DEPTH_TYPE)64,
+    //             (void *)NULL,
+    //             (UBaseType_t)2,
+    //             (TaskHandle_t *)&Led_Ctr_Task_Handle);
 
-    xTaskCreate((TaskFunction_t)Led_Test_Task,
-                (const char *)"Led_Test_Task",
-                (configSTACK_DEPTH_TYPE)64,
-                (void *)NULL,
-                (UBaseType_t)2,
-                (TaskHandle_t *)&Led_Test_Task_Handle);
+    // xTaskCreate((TaskFunction_t)Led_Test_Task,
+    //             (const char *)"Led_Test_Task",
+    //             (configSTACK_DEPTH_TYPE)64,
+    //             (void *)NULL,
+    //             (UBaseType_t)2,
+    //             (TaskHandle_t *)&Led_Test_Task_Handle);
 
     xTaskCreate((TaskFunction_t)Key_Scan_Task,
                 (const char *)"Key_Scan_Task",
@@ -235,6 +243,24 @@ void Sys_Init_Task(void *argument)
                 (void *)NULL,
                 (UBaseType_t)5,
                 &ReadWav_Task_Handle);
+
+//    xReturn = xTaskCreate((TaskFunction_t)GUI_Task,
+//                          (const char *)"GUI_Task",
+//                          (configSTACK_DEPTH_TYPE)256,
+//                          (void *)NULL,
+//                          (UBaseType_t)2,
+//                          (TaskHandle_t *)&GUI_Task_Handle);
+//    if (pdPASS == xReturn)
+//        Uart1_SendData("Sys_Init_Task successful\r\n");
+
+//    xReturn = xTaskCreate((TaskFunction_t)Touch_Task,
+//                          (const char *)"Touch_Task",
+//                          (configSTACK_DEPTH_TYPE)512,
+//                          (void *)NULL,
+//                          (UBaseType_t)2,
+//                          (TaskHandle_t *)&GUI_Touch_Handle);
+//    if (pdPASS == xReturn)
+//        Uart1_SendData("Touch_Task successful\r\n");
 
     taskEXIT_CRITICAL();
     vTaskDelete(NULL);
