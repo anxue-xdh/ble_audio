@@ -149,7 +149,7 @@
             <RestoreSysVw>1</RestoreSysVw>
           </Target>
           <RunDebugAfterBuild>0</RunDebugAfterBuild>
-          <TargetSelection>1</TargetSelection>
+          <TargetSelection>12</TargetSelection>
           <SimDlls>
             <CpuDll></CpuDll>
             <CpuDllArguments></CpuDllArguments>
@@ -163,7 +163,7 @@
             <PeripheralDll></PeripheralDll>
             <PeripheralDllArguments></PeripheralDllArguments>
             <InitializationFile></InitializationFile>
-            <Driver>BIN\UL2CM3.DLL</Driver>
+            <Driver>BIN\CMSIS_AGDI.dll</Driver>
           </TargetDlls>
         </DebugOption>
         <Utilities>
@@ -1122,21 +1122,6 @@
               <FileType>1</FileType>
               <FilePath>..\User\BSP\fonts.c</FilePath>
             </File>
-            <File>
-              <FileName>bsp_xpt2046_lcd.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\User\BSP\bsp_xpt2046_lcd.c</FilePath>
-            </File>
-            <File>
-              <FileName>palette.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\User\BSP\palette.c</FilePath>
-            </File>
-            <File>
-              <FileName>bsp_spi_flash.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\User\BSP\bsp_spi_flash.c</FilePath>
-            </File>
           </Files>
         </Group>
         <Group>
@@ -1151,6 +1136,11 @@
               <FileName>core.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\User\Core\core.c</FilePath>
+            </File>
+            <File>
+              <FileName>gui.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\User\Core\gui.c</FilePath>
             </File>
           </Files>
         </Group>

@@ -30,7 +30,7 @@
 #include "bsp_spi_sdcard.h"
 #include "fatfs.h"
 
-//#include "GUI.h"
+// #include "GUI.h"
 
 #include "core.h"
 #include "audio.h"
@@ -241,26 +241,26 @@ void Sys_Init_Task(void *argument)
                 (const char *)"ReadWav",
                 (configSTACK_DEPTH_TYPE)2048,
                 (void *)NULL,
-                (UBaseType_t)5,
+                (UBaseType_t)1,
                 &ReadWav_Task_Handle);
 
-//    xReturn = xTaskCreate((TaskFunction_t)GUI_Task,
-//                          (const char *)"GUI_Task",
-//                          (configSTACK_DEPTH_TYPE)256,
-//                          (void *)NULL,
-//                          (UBaseType_t)2,
-//                          (TaskHandle_t *)&GUI_Task_Handle);
-//    if (pdPASS == xReturn)
-//        Uart1_SendData("Sys_Init_Task successful\r\n");
+    xReturn = xTaskCreate((TaskFunction_t)GUI_Task,
+                          (const char *)"GUI_Task",
+                          (configSTACK_DEPTH_TYPE)256,
+                          (void *)NULL,
+                          (UBaseType_t)2,
+                          (TaskHandle_t *)&GUI_Task_Handle);
+    if (pdPASS == xReturn)
+        Uart1_SendData("Sys_Init_Task successful\r\n");
 
-//    xReturn = xTaskCreate((TaskFunction_t)Touch_Task,
-//                          (const char *)"Touch_Task",
-//                          (configSTACK_DEPTH_TYPE)512,
-//                          (void *)NULL,
-//                          (UBaseType_t)2,
-//                          (TaskHandle_t *)&GUI_Touch_Handle);
-//    if (pdPASS == xReturn)
-//        Uart1_SendData("Touch_Task successful\r\n");
+    //    xReturn = xTaskCreate((TaskFunction_t)Touch_Task,
+    //                          (const char *)"Touch_Task",
+    //                          (configSTACK_DEPTH_TYPE)512,
+    //                          (void *)NULL,
+    //                          (UBaseType_t)2,
+    //                          (TaskHandle_t *)&GUI_Touch_Handle);
+    //    if (pdPASS == xReturn)
+    //        Uart1_SendData("Touch_Task successful\r\n");
 
     taskEXIT_CRITICAL();
     vTaskDelete(NULL);

@@ -4,9 +4,10 @@
 #include "semphr.h"
 #include "task.h"
 
-
 #include "audio.h"
 #include "audioConfig.h"
+
+#include "gui.h"
 
 #define WavBuff_Size 256
 
@@ -16,6 +17,8 @@ int16_t wavBuff[WavBuff_Size] = {0}; /* ???? */
 int16_t Wav_DacOutout_Buf[WavBuff_Size * 2] = {0};
 char WriteCnt = 0; // 计数器，用于实现半写入、全写入区分
 
+extern TaskHandle_t GUI_Task_Handle;
+
 void ReadWav(void const *argument)
 {
     FRESULT f_res; /* ?????? */
@@ -24,16 +27,20 @@ void ReadWav(void const *argument)
     Audio_WAV_Info WavData;
     int wav_len;
 
+    ulTaskNotifyTake(pdTRUE, portMAX_DELAY);
+
     Uart1_SendData("\r\n****** Wav文件读取 ******\r\n");
     // vTaskDelay(portMAX_DELAY);
 
     char tempfilepath[60];
-    Uart1_SendData("SDPath:%s\r\n", USERPath);
+    // Uart1_SendData("SDPath:%s\r\n", USERPath);
 
     // sprintf(tempfilepath, "%s%s", USERPath, "INeverForget_R.wav"); // 拼接出带逻辑驱动器名的完整路径名
-    sprintf(tempfilepath, "%s%s", USERPath, "BaJiaoNightRain_R.wav"); // 拼接出带逻辑驱动器名的完整路径名
+    // sprintf(tempfilepath, "%s%s", USERPath, "BaJiaoNightRain_R.wav"); // 拼接出带逻辑驱动器名的完整路径名
     // sprintf(tempfilepath, "%s%s", USERPath, "NiHao.wav"); // 拼接出带逻辑驱动器名的完整路径名
-    // Uart1_SendData("%s\r\n", tempfilepath);
+
+    sprintf(tempfilepath, "%s%s", USERPath, sdFile_Name[musicList_Pointer]); // 拼接出带逻辑驱动器名的完整路径名
+    Uart1_SendData("%s\r\n", tempfilepath);
 
     /*------------------- 文件系统测试：读测试 ------------------------------------*/
     // Uart1_SendData("****** 即将进行文件读取测试... ******\r\n");
@@ -235,9 +242,7 @@ int Data_16to12_Mult_one(short *data, int len)
     return len;
 }
 
-
-
-FRESULT SD_Read_FileInfo(const char *path)
+FRESULT SD_Read_FileInfo(const char *path, char (*list)[64])
 {
     FRESULT res;
     DIR dir;
@@ -265,11 +270,19 @@ FRESULT SD_Read_FileInfo(const char *path)
             else
             { /* File */
                 Uart1_SendData("%10u %s\n", fno.fsize, fno.lfname);
+
+                if (fno.lfname[0] == 0)
+                    continue;
+                memcpy(list[nfile], fno.lfname, strlen(fno.lfname));
+
                 nfile++;
             }
         }
         f_closedir(&dir);
         Uart1_SendData("%d dirs, %d files.\n", ndir, nfile);
+
+        // xTaskNotifyGive(GUI_Task_Handle);
+        xTaskNotify(GUI_Task_Handle, GUI_MusicList_Update, eSetBits);
     }
     else
     {

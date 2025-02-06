@@ -1,5 +1,7 @@
 #include "user_bsp.h"
 
+#include "gui.h"
+
 char Uart_TxBuf[UART1_MAXLEN];
 char Uart1_Buf[UART1_MAXLEN];
 int Uart1_Len = 0;
@@ -11,7 +13,7 @@ void System_Init(void)
 
     Tim_Init();
 
-    LCD_Init();
+    GUI_Init();
 
     HAL_DAC_Start(&hdac, DAC_CHANNEL_1);
 
@@ -25,19 +27,6 @@ void System_Init(void)
     // HAL_DAC_Start_DMA(&hdac, DAC1_CHANNEL_1, (uint32_t *)Uart1_Buf, 2048, DAC_ALIGN_12B_R);
 
     Uart1_SendData("程序初始化完毕\r\n"); // 实验程序
-}
-
-void LCD_Init(void)
-{
-    ILI9341_GramScan(0);
-    ILI9341_Init();
-    // LCD_SetFont(&Font8x16);
-    LCD_SetColors(BLUE, WHITE);
-
-    ILI9341_Clear(0, 0, LCD_X_LENGTH, LCD_Y_LENGTH);
-
-    ILI9341_DispStringLine_EN(LINE(2), "Hello World");
-    ILI9341_DispStringLine_EN(LINE(3), "Thanks you");
 }
 
 void Tim_Init()

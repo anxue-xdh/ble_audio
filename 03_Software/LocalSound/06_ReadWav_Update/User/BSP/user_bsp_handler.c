@@ -1,6 +1,8 @@
 #include "user_bsp.h"
 #include "ff.h"
 
+#include "gui.h"
+
 // extern SemaphoreHandle_t Sem_Uart1;
 void SoftReset(void)
 {
@@ -9,8 +11,10 @@ void SoftReset(void)
 }
 
 /******     ¡Ÿ ±         *****/
-extern FRESULT SD_Read_FileInfo(const char *path);
+extern FRESULT SD_Read_FileInfo(const char *path, char (*list)[64]);
 extern char USERPath[4]; /* USER logical drive path */
+extern TaskHandle_t ReadWav_Task_Handle;
+extern TaskHandle_t GUI_Task_Handle;
 /******     ¡Ÿ ±         *****/
 
 char strTmp[500];
@@ -46,7 +50,11 @@ void Uart1_Scan_Task(void)
         }
         else if (Uart1_strcmp("sd read"))
         {
-            SD_Read_FileInfo(USERPath);
+            SD_Read_FileInfo(USERPath, sdFile_Name);
+        }
+        else if (Uart1_strcmp("music start"))
+        {
+            xTaskNotifyGive(ReadWav_Task_Handle);
         }
     }
     // vTaskDelete(NULL);
@@ -67,9 +75,11 @@ void Key_Run_Task(void)
         switch (keyBit)
         {
         case Key1_Bit:
+            xTaskNotify(GUI_Task_Handle, GUI_Key_Up, eSetBits);
             HAL_GPIO_TogglePin(LED0_GPIO_Port, LED0_Pin);
             break;
         case Key2_Bit:
+            xTaskNotify(GUI_Task_Handle, GUI_Key_Down, eSetBits);
             HAL_GPIO_TogglePin(LED1_GPIO_Port, LED1_Pin);
             break;
         }
@@ -94,7 +104,7 @@ void Key_Scan_Task(void)
         }
         if ((Key1Read() == SET) && (Key_Reg & Key1_Bit))
             Key_Reg &= ~Key1_Bit;
-        if ((Key2Read() == SET) && (Key_Reg & Key2_Bit)) 
+        if ((Key2Read() == SET) && (Key_Reg & Key2_Bit))
             Key_Reg &= ~Key2_Bit;
         vTaskDelay(20);
     }

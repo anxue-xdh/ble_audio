@@ -26,6 +26,7 @@
         "bsp_systimer.h": "c",
         "bsp_xpt2046_lcd.h": "c",
         "bsp_ili9341_lcd.h": "c",
-        "palette.h": "c"
+        "palette.h": "c",
+        "gui.h": "c"
     }
 }

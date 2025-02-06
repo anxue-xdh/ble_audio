@@ -15,9 +15,6 @@
 #include "queue.h"
 #include "event_groups.h"
 
-#include "bsp_ili9341_lcd.h"
-#include "fonts.h"
-
 /*******    Init    **********/
 void System_Init(void);
 void LCD_Init(void);
@@ -53,7 +50,6 @@ extern EventGroupHandle_t EvenGroup_Key_Handle;
 void Key_Run_Task(void);
 void Key_Scan_Task(void);
 /*******    Key    **********/
-
 
 void USER_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim);
 

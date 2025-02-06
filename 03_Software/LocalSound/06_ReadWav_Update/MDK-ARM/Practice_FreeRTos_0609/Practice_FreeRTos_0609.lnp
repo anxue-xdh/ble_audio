@@ -47,6 +47,7 @@
 "practice_freertos_0609\fonts.o"
 "practice_freertos_0609\audio.o"
 "practice_freertos_0609\core.o"
+"practice_freertos_0609\gui.o"
 "practice_freertos_0609\user_diskio.o"
 "practice_freertos_0609\fatfs.o"
 "practice_freertos_0609\diskio.o"
