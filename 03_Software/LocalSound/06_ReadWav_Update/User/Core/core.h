@@ -1,9 +1,9 @@
-/*** 
+/***
  * @Author: YourName
  * @Date: 2025-01-22 10:30:01
- * @LastEditTime: 2025-02-05 17:19:49
+ * @LastEditTime: 2025-02-06 15:55:45
  * @LastEditors: YourName
- * @Description: 
+ * @Description:
  * @FilePath: \MDK-ARMd:\Work_YJH\Projection\04_MyPrj\02_BleAudio\03_Software\LocalSound\06_ReadWav_Update\User\Core\core.h
  * @°æÈ¨ÉùÃ÷
  */
@@ -23,10 +23,6 @@
 #include "fatfs.h"
 
 void ReadWav(void const *argument);
-
-short Data_16to12_single(short data);
-int Data_16to12_Mult(short *ret, short *data, int len);
-int Data_16to12_Mult_one(short *data, int len);
 
 void printf_WavInfo(short *data, int len);
 

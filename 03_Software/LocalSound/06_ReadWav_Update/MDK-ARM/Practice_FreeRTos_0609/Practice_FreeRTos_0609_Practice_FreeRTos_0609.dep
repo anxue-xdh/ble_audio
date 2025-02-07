@@ -1,6 +1,6 @@
 Dependencies for Project 'Practice_FreeRTos_0609', Target 'Practice_FreeRTos_0609': (DO NOT MODIFY !)
-F (startup_stm32f103xe.s)(0x67A2D065)(--cpu Cortex-M3 -g --apcs=interwork -I../Core/Inc-I d:\Work_YJH\Projection\04_MyPrj\02_BleAudio\03_Software\LocalSound\06_ReadWav_Update\MDK-ARM\RTE-I D:\Work_YJH\SoftWare\Keil_MDK5\Packs\ARM\CMSIS\4.3.0\CMSIS\Include-I D:\Work_YJH\SoftWare\Keil_MDK5\Packs\Keil\STM32F1xx_DFP\2.1.0\Device\Include--pd "__UVISION_VERSION SETA 515" --pd "_RTE_ SETA 1" --pd "STM32F10X_HD SETA 1"--list startup_stm32f103xe.lst --xref -o practice_freertos_0609\startup_stm32f103xe.o --depend practice_freertos_0609\startup_stm32f103xe.d)
-F (../Core/Src/main.c)(0x67905C07)(--c99 -c --cpu Cortex-M3 -g -O3 --apcs=interwork --split_sections -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM3 -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -I../User/BSP -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../User/Core -I../User/MiddleWare -I../User/sdcard -I../FATFS/Target -I../FATFS/App -I../Middlewares/Third_Party/FatFs/src -I..\Middlewares\emWin\Config -I..\Middlewares\emWin\Inc-I d:\Work_YJH\Projection\04_MyPrj\02_BleAudio\03_Software\LocalSound\06_ReadWav_Update\MDK-ARM\RTE-I D:\Work_YJH\SoftWare\Keil_MDK5\Packs\ARM\CMSIS\4.3.0\CMSIS\Include-I D:\Work_YJH\SoftWare\Keil_MDK5\Packs\Keil\STM32F1xx_DFP\2.1.0\Device\Include-D__UVISION_VERSION="515" -D_RTE_ -DSTM32F10X_HD -DUSE_HAL_DRIVER -DSTM32F103xE -DUSE_FULL_ASSERT-o practice_freertos_0609\main.o --omf_browse practice_freertos_0609\main.crf --depend practice_freertos_0609\main.d)
+F (startup_stm32f103xe.s)(0x67A5B34B)(--cpu Cortex-M3 -g --apcs=interwork -I../Core/Inc-I d:\Work_YJH\Projection\04_MyPrj\02_BleAudio\03_Software\LocalSound\06_ReadWav_Update\MDK-ARM\RTE-I D:\Work_YJH\SoftWare\Keil_MDK5\Packs\ARM\CMSIS\4.3.0\CMSIS\Include-I D:\Work_YJH\SoftWare\Keil_MDK5\Packs\Keil\STM32F1xx_DFP\2.1.0\Device\Include--pd "__UVISION_VERSION SETA 515" --pd "_RTE_ SETA 1" --pd "STM32F10X_HD SETA 1"--list startup_stm32f103xe.lst --xref -o practice_freertos_0609\startup_stm32f103xe.o --depend practice_freertos_0609\startup_stm32f103xe.d)
+F (../Core/Src/main.c)(0x67A5B1F4)(--c99 -c --cpu Cortex-M3 -g -O3 --apcs=interwork --split_sections -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM3 -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -I../User/BSP -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../User/Core -I../User/MiddleWare -I../User/sdcard -I../FATFS/Target -I../FATFS/App -I../Middlewares/Third_Party/FatFs/src -I..\Middlewares\emWin\Config -I..\Middlewares\emWin\Inc-I d:\Work_YJH\Projection\04_MyPrj\02_BleAudio\03_Software\LocalSound\06_ReadWav_Update\MDK-ARM\RTE-I D:\Work_YJH\SoftWare\Keil_MDK5\Packs\ARM\CMSIS\4.3.0\CMSIS\Include-I D:\Work_YJH\SoftWare\Keil_MDK5\Packs\Keil\STM32F1xx_DFP\2.1.0\Device\Include-D__UVISION_VERSION="515" -D_RTE_ -DSTM32F10X_HD -DUSE_HAL_DRIVER -DSTM32F103xE -DUSE_FULL_ASSERT-o practice_freertos_0609\main.o --omf_browse practice_freertos_0609\main.crf --depend practice_freertos_0609\main.d)
 I (../Core/Inc/main.h)(0x67905829)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h)(0x67905829)
 I (../Core/Inc/stm32f1xx_hal_conf.h)(0x67905829)
@@ -52,8 +52,8 @@ I (../Middlewares/Third_Party/FreeRTOS/Source/include/queue.h)(0x67905829)
 I (../Middlewares/Third_Party/FatFs/src/ff_gen_drv.h)(0x67905829)
 I (../Middlewares/Third_Party/FatFs/src/diskio.h)(0x67905829)
 I (../FATFS/Target/user_diskio.h)(0x67905829)
-I (../User/BSP/user_bsp.h)(0x67A32F52)
-I (../User/BSP/user_bsp_config.h)(0x67905C1F)
+I (../User/BSP/user_bsp.h)(0x67A5B34B)
+I (../User/BSP/user_bsp_config.h)(0x67A5B1F4)
 I (D:\Work_YJH\SoftWare\Keil_MDK5\MainObject\ARM\ARMCC\include\string.h)(0x54C245B8)
 I (D:\Work_YJH\SoftWare\Keil_MDK5\MainObject\ARM\ARMCC\include\stdio.h)(0x54C245B8)
 I (D:\Work_YJH\SoftWare\Keil_MDK5\MainObject\ARM\ARMCC\include\stdlib.h)(0x54C245B8)
@@ -101,7 +101,7 @@ I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_spi.h)(0x67905829)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim.h)(0x67905829)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim_ex.h)(0x67905829)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h)(0x67905829)
-F (../Core/Src/freertos.c)(0x67A40B43)(--c99 -c --cpu Cortex-M3 -g -O3 --apcs=interwork --split_sections -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM3 -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -I../User/BSP -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../User/Core -I../User/MiddleWare -I../User/sdcard -I../FATFS/Target -I../FATFS/App -I../Middlewares/Third_Party/FatFs/src -I..\Middlewares\emWin\Config -I..\Middlewares\emWin\Inc-I d:\Work_YJH\Projection\04_MyPrj\02_BleAudio\03_Software\LocalSound\06_ReadWav_Update\MDK-ARM\RTE-I D:\Work_YJH\SoftWare\Keil_MDK5\Packs\ARM\CMSIS\4.3.0\CMSIS\Include-I D:\Work_YJH\SoftWare\Keil_MDK5\Packs\Keil\STM32F1xx_DFP\2.1.0\Device\Include-D__UVISION_VERSION="515" -D_RTE_ -DSTM32F10X_HD -DUSE_HAL_DRIVER -DSTM32F103xE -DUSE_FULL_ASSERT-o practice_freertos_0609\freertos.o --omf_browse practice_freertos_0609\freertos.crf --depend practice_freertos_0609\freertos.d)
+F (../Core/Src/freertos.c)(0x67A5B34B)(--c99 -c --cpu Cortex-M3 -g -O3 --apcs=interwork --split_sections -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM3 -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -I../User/BSP -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../User/Core -I../User/MiddleWare -I../User/sdcard -I../FATFS/Target -I../FATFS/App -I../Middlewares/Third_Party/FatFs/src -I..\Middlewares\emWin\Config -I..\Middlewares\emWin\Inc-I d:\Work_YJH\Projection\04_MyPrj\02_BleAudio\03_Software\LocalSound\06_ReadWav_Update\MDK-ARM\RTE-I D:\Work_YJH\SoftWare\Keil_MDK5\Packs\ARM\CMSIS\4.3.0\CMSIS\Include-I D:\Work_YJH\SoftWare\Keil_MDK5\Packs\Keil\STM32F1xx_DFP\2.1.0\Device\Include-D__UVISION_VERSION="515" -D_RTE_ -DSTM32F10X_HD -DUSE_HAL_DRIVER -DSTM32F103xE -DUSE_FULL_ASSERT-o practice_freertos_0609\freertos.o --omf_browse practice_freertos_0609\freertos.crf --depend practice_freertos_0609\freertos.d)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h)(0x67905829)
 I (D:\Work_YJH\SoftWare\Keil_MDK5\MainObject\ARM\ARMCC\include\stddef.h)(0x54C245B8)
 I (D:\Work_YJH\SoftWare\Keil_MDK5\MainObject\ARM\ARMCC\include\stdint.h)(0x54C245B8)
@@ -144,8 +144,8 @@ I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim_ex.h)(0x67905829)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h)(0x67905829)
 I (../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os.h)(0x67905829)
 I (../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os2.h)(0x67905829)
-I (../User/BSP/user_bsp.h)(0x67A32F52)
-I (../User/BSP/user_bsp_config.h)(0x67905C1F)
+I (../User/BSP/user_bsp.h)(0x67A5B34B)
+I (../User/BSP/user_bsp_config.h)(0x67A5B1F4)
 I (D:\Work_YJH\SoftWare\Keil_MDK5\MainObject\ARM\ARMCC\include\string.h)(0x54C245B8)
 I (D:\Work_YJH\SoftWare\Keil_MDK5\MainObject\ARM\ARMCC\include\stdio.h)(0x54C245B8)
 I (D:\Work_YJH\SoftWare\Keil_MDK5\MainObject\ARM\ARMCC\include\stdlib.h)(0x54C245B8)
@@ -167,10 +167,10 @@ I (../FATFS/Target/ffconf.h)(0x67905829)
 I (../Middlewares/Third_Party/FatFs/src/ff_gen_drv.h)(0x67905829)
 I (../Middlewares/Third_Party/FatFs/src/diskio.h)(0x67905829)
 I (../FATFS/Target/user_diskio.h)(0x67905829)
-I (../User/Core/core.h)(0x67A32D37)
-I (../User/Core/basic.h)(0x67905829)
+I (../User/Core/core.h)(0x67A5B361)
+I (../User/Core/basic.h)(0x67A5B361)
 I (D:\Work_YJH\SoftWare\Keil_MDK5\MainObject\ARM\ARMCC\include\stdbool.h)(0x54C245B8)
-I (../User/Core/audio.h)(0x67905829)
+I (../User/Core/audio.h)(0x67A5B361)
 I (../User/Core/audioConfig.h)(0x67905829)
 F (../Core/Src/dac.c)(0x67905829)(--c99 -c --cpu Cortex-M3 -g -O3 --apcs=interwork --split_sections -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM3 -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -I../User/BSP -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../User/Core -I../User/MiddleWare -I../User/sdcard -I../FATFS/Target -I../FATFS/App -I../Middlewares/Third_Party/FatFs/src -I..\Middlewares\emWin\Config -I..\Middlewares\emWin\Inc-I d:\Work_YJH\Projection\04_MyPrj\02_BleAudio\03_Software\LocalSound\06_ReadWav_Update\MDK-ARM\RTE-I D:\Work_YJH\SoftWare\Keil_MDK5\Packs\ARM\CMSIS\4.3.0\CMSIS\Include-I D:\Work_YJH\SoftWare\Keil_MDK5\Packs\Keil\STM32F1xx_DFP\2.1.0\Device\Include-D__UVISION_VERSION="515" -D_RTE_ -DSTM32F10X_HD -DUSE_HAL_DRIVER -DSTM32F103xE -DUSE_FULL_ASSERT-o practice_freertos_0609\dac.o --omf_browse practice_freertos_0609\dac.crf --depend practice_freertos_0609\dac.d)
 I (../Core/Inc/dac.h)(0x67905829)
@@ -238,7 +238,7 @@ I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_spi.h)(0x67905829)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim.h)(0x67905829)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim_ex.h)(0x67905829)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h)(0x67905829)
-F (../Core/Src/spi.c)(0x6790A0E0)(--c99 -c --cpu Cortex-M3 -g -O3 --apcs=interwork --split_sections -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM3 -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -I../User/BSP -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../User/Core -I../User/MiddleWare -I../User/sdcard -I../FATFS/Target -I../FATFS/App -I../Middlewares/Third_Party/FatFs/src -I..\Middlewares\emWin\Config -I..\Middlewares\emWin\Inc-I d:\Work_YJH\Projection\04_MyPrj\02_BleAudio\03_Software\LocalSound\06_ReadWav_Update\MDK-ARM\RTE-I D:\Work_YJH\SoftWare\Keil_MDK5\Packs\ARM\CMSIS\4.3.0\CMSIS\Include-I D:\Work_YJH\SoftWare\Keil_MDK5\Packs\Keil\STM32F1xx_DFP\2.1.0\Device\Include-D__UVISION_VERSION="515" -D_RTE_ -DSTM32F10X_HD -DUSE_HAL_DRIVER -DSTM32F103xE -DUSE_FULL_ASSERT-o practice_freertos_0609\spi.o --omf_browse practice_freertos_0609\spi.crf --depend practice_freertos_0609\spi.d)
+F (../Core/Src/spi.c)(0x67A5B1F4)(--c99 -c --cpu Cortex-M3 -g -O3 --apcs=interwork --split_sections -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM3 -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -I../User/BSP -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../User/Core -I../User/MiddleWare -I../User/sdcard -I../FATFS/Target -I../FATFS/App -I../Middlewares/Third_Party/FatFs/src -I..\Middlewares\emWin\Config -I..\Middlewares\emWin\Inc-I d:\Work_YJH\Projection\04_MyPrj\02_BleAudio\03_Software\LocalSound\06_ReadWav_Update\MDK-ARM\RTE-I D:\Work_YJH\SoftWare\Keil_MDK5\Packs\ARM\CMSIS\4.3.0\CMSIS\Include-I D:\Work_YJH\SoftWare\Keil_MDK5\Packs\Keil\STM32F1xx_DFP\2.1.0\Device\Include-D__UVISION_VERSION="515" -D_RTE_ -DSTM32F10X_HD -DUSE_HAL_DRIVER -DSTM32F103xE -DUSE_FULL_ASSERT-o practice_freertos_0609\spi.o --omf_browse practice_freertos_0609\spi.crf --depend practice_freertos_0609\spi.d)
 I (../Core/Inc/spi.h)(0x67905829)
 I (../Core/Inc/main.h)(0x67905829)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h)(0x67905829)
@@ -370,8 +370,8 @@ I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim.h)(0x67905829)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim_ex.h)(0x67905829)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h)(0x67905829)
 I (../Core/Inc/stm32f1xx_it.h)(0x67905829)
-I (../User/BSP/user_bsp.h)(0x67A32F52)
-I (../User/BSP/user_bsp_config.h)(0x67905C1F)
+I (../User/BSP/user_bsp.h)(0x67A5B34B)
+I (../User/BSP/user_bsp_config.h)(0x67A5B1F4)
 I (D:\Work_YJH\SoftWare\Keil_MDK5\MainObject\ARM\ARMCC\include\string.h)(0x54C245B8)
 I (D:\Work_YJH\SoftWare\Keil_MDK5\MainObject\ARM\ARMCC\include\stdio.h)(0x54C245B8)
 I (D:\Work_YJH\SoftWare\Keil_MDK5\MainObject\ARM\ARMCC\include\stdlib.h)(0x54C245B8)
@@ -1161,7 +1161,7 @@ I (../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM3/portmacro.h)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/mpu_wrappers.h)(0x67905829)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/task.h)(0x67905829)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/list.h)(0x67905829)
-F (..\User\sdcard\bsp_spi_sdcard.c)(0x679201AC)(--c99 -c --cpu Cortex-M3 -g -O3 --apcs=interwork --split_sections -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM3 -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -I../User/BSP -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../User/Core -I../User/MiddleWare -I../User/sdcard -I../FATFS/Target -I../FATFS/App -I../Middlewares/Third_Party/FatFs/src -I..\Middlewares\emWin\Config -I..\Middlewares\emWin\Inc-I d:\Work_YJH\Projection\04_MyPrj\02_BleAudio\03_Software\LocalSound\06_ReadWav_Update\MDK-ARM\RTE-I D:\Work_YJH\SoftWare\Keil_MDK5\Packs\ARM\CMSIS\4.3.0\CMSIS\Include-I D:\Work_YJH\SoftWare\Keil_MDK5\Packs\Keil\STM32F1xx_DFP\2.1.0\Device\Include-D__UVISION_VERSION="515" -D_RTE_ -DSTM32F10X_HD -DUSE_HAL_DRIVER -DSTM32F103xE -DUSE_FULL_ASSERT-o practice_freertos_0609\bsp_spi_sdcard.o --omf_browse practice_freertos_0609\bsp_spi_sdcard.crf --depend practice_freertos_0609\bsp_spi_sdcard.d)
+F (..\User\sdcard\bsp_spi_sdcard.c)(0x67A5B1F4)(--c99 -c --cpu Cortex-M3 -g -O3 --apcs=interwork --split_sections -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM3 -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -I../User/BSP -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../User/Core -I../User/MiddleWare -I../User/sdcard -I../FATFS/Target -I../FATFS/App -I../Middlewares/Third_Party/FatFs/src -I..\Middlewares\emWin\Config -I..\Middlewares\emWin\Inc-I d:\Work_YJH\Projection\04_MyPrj\02_BleAudio\03_Software\LocalSound\06_ReadWav_Update\MDK-ARM\RTE-I D:\Work_YJH\SoftWare\Keil_MDK5\Packs\ARM\CMSIS\4.3.0\CMSIS\Include-I D:\Work_YJH\SoftWare\Keil_MDK5\Packs\Keil\STM32F1xx_DFP\2.1.0\Device\Include-D__UVISION_VERSION="515" -D_RTE_ -DSTM32F10X_HD -DUSE_HAL_DRIVER -DSTM32F103xE -DUSE_FULL_ASSERT-o practice_freertos_0609\bsp_spi_sdcard.o --omf_browse practice_freertos_0609\bsp_spi_sdcard.crf --depend practice_freertos_0609\bsp_spi_sdcard.d)
 I (..\User\sdcard\bsp_spi_sdcard.h)(0x67905829)
 I (../Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f1xx.h)(0x67905829)
 I (../Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f103xe.h)(0x67905829)
@@ -1193,9 +1193,9 @@ I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_spi.h)(0x67905829)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim.h)(0x67905829)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim_ex.h)(0x67905829)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h)(0x67905829)
-F (..\User\BSP\user_bsp.c)(0x67A32F49)(--c99 -c --cpu Cortex-M3 -g -O3 --apcs=interwork --split_sections -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM3 -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -I../User/BSP -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../User/Core -I../User/MiddleWare -I../User/sdcard -I../FATFS/Target -I../FATFS/App -I../Middlewares/Third_Party/FatFs/src -I..\Middlewares\emWin\Config -I..\Middlewares\emWin\Inc-I d:\Work_YJH\Projection\04_MyPrj\02_BleAudio\03_Software\LocalSound\06_ReadWav_Update\MDK-ARM\RTE-I D:\Work_YJH\SoftWare\Keil_MDK5\Packs\ARM\CMSIS\4.3.0\CMSIS\Include-I D:\Work_YJH\SoftWare\Keil_MDK5\Packs\Keil\STM32F1xx_DFP\2.1.0\Device\Include-D__UVISION_VERSION="515" -D_RTE_ -DSTM32F10X_HD -DUSE_HAL_DRIVER -DSTM32F103xE -DUSE_FULL_ASSERT-o practice_freertos_0609\user_bsp.o --omf_browse practice_freertos_0609\user_bsp.crf --depend practice_freertos_0609\user_bsp.d)
-I (..\User\BSP\user_bsp.h)(0x67A32F52)
-I (..\User\BSP\user_bsp_config.h)(0x67905C1F)
+F (..\User\BSP\user_bsp.c)(0x67A5B34B)(--c99 -c --cpu Cortex-M3 -g -O3 --apcs=interwork --split_sections -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM3 -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -I../User/BSP -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../User/Core -I../User/MiddleWare -I../User/sdcard -I../FATFS/Target -I../FATFS/App -I../Middlewares/Third_Party/FatFs/src -I..\Middlewares\emWin\Config -I..\Middlewares\emWin\Inc-I d:\Work_YJH\Projection\04_MyPrj\02_BleAudio\03_Software\LocalSound\06_ReadWav_Update\MDK-ARM\RTE-I D:\Work_YJH\SoftWare\Keil_MDK5\Packs\ARM\CMSIS\4.3.0\CMSIS\Include-I D:\Work_YJH\SoftWare\Keil_MDK5\Packs\Keil\STM32F1xx_DFP\2.1.0\Device\Include-D__UVISION_VERSION="515" -D_RTE_ -DSTM32F10X_HD -DUSE_HAL_DRIVER -DSTM32F103xE -DUSE_FULL_ASSERT-o practice_freertos_0609\user_bsp.o --omf_browse practice_freertos_0609\user_bsp.crf --depend practice_freertos_0609\user_bsp.d)
+I (..\User\BSP\user_bsp.h)(0x67A5B34B)
+I (..\User\BSP\user_bsp_config.h)(0x67A5B1F4)
 I (D:\Work_YJH\SoftWare\Keil_MDK5\MainObject\ARM\ARMCC\include\string.h)(0x54C245B8)
 I (D:\Work_YJH\SoftWare\Keil_MDK5\MainObject\ARM\ARMCC\include\stdio.h)(0x54C245B8)
 I (D:\Work_YJH\SoftWare\Keil_MDK5\MainObject\ARM\ARMCC\include\stdlib.h)(0x54C245B8)
@@ -1249,12 +1249,12 @@ I (../Middlewares/Third_Party/FreeRTOS/Source/include/semphr.h)(0x67905829)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/queue.h)(0x67905829)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/event_groups.h)(0x67905829)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/timers.h)(0x67905829)
-I (../User/Core/gui.h)(0x67A41CFC)
-I (../User/Core/basic.h)(0x67905829)
+I (../User/Core/gui.h)(0x67A5B361)
+I (../User/Core/basic.h)(0x67A5B361)
 I (D:\Work_YJH\SoftWare\Keil_MDK5\MainObject\ARM\ARMCC\include\stdbool.h)(0x54C245B8)
-F (..\User\BSP\user_bsp_handler.c)(0x67A41D31)(--c99 -c --cpu Cortex-M3 -g -O3 --apcs=interwork --split_sections -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM3 -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -I../User/BSP -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../User/Core -I../User/MiddleWare -I../User/sdcard -I../FATFS/Target -I../FATFS/App -I../Middlewares/Third_Party/FatFs/src -I..\Middlewares\emWin\Config -I..\Middlewares\emWin\Inc-I d:\Work_YJH\Projection\04_MyPrj\02_BleAudio\03_Software\LocalSound\06_ReadWav_Update\MDK-ARM\RTE-I D:\Work_YJH\SoftWare\Keil_MDK5\Packs\ARM\CMSIS\4.3.0\CMSIS\Include-I D:\Work_YJH\SoftWare\Keil_MDK5\Packs\Keil\STM32F1xx_DFP\2.1.0\Device\Include-D__UVISION_VERSION="515" -D_RTE_ -DSTM32F10X_HD -DUSE_HAL_DRIVER -DSTM32F103xE -DUSE_FULL_ASSERT-o practice_freertos_0609\user_bsp_handler.o --omf_browse practice_freertos_0609\user_bsp_handler.crf --depend practice_freertos_0609\user_bsp_handler.d)
-I (..\User\BSP\user_bsp.h)(0x67A32F52)
-I (..\User\BSP\user_bsp_config.h)(0x67905C1F)
+F (..\User\BSP\user_bsp_handler.c)(0x67A5B361)(--c99 -c --cpu Cortex-M3 -g -O3 --apcs=interwork --split_sections -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM3 -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -I../User/BSP -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../User/Core -I../User/MiddleWare -I../User/sdcard -I../FATFS/Target -I../FATFS/App -I../Middlewares/Third_Party/FatFs/src -I..\Middlewares\emWin\Config -I..\Middlewares\emWin\Inc-I d:\Work_YJH\Projection\04_MyPrj\02_BleAudio\03_Software\LocalSound\06_ReadWav_Update\MDK-ARM\RTE-I D:\Work_YJH\SoftWare\Keil_MDK5\Packs\ARM\CMSIS\4.3.0\CMSIS\Include-I D:\Work_YJH\SoftWare\Keil_MDK5\Packs\Keil\STM32F1xx_DFP\2.1.0\Device\Include-D__UVISION_VERSION="515" -D_RTE_ -DSTM32F10X_HD -DUSE_HAL_DRIVER -DSTM32F103xE -DUSE_FULL_ASSERT-o practice_freertos_0609\user_bsp_handler.o --omf_browse practice_freertos_0609\user_bsp_handler.crf --depend practice_freertos_0609\user_bsp_handler.d)
+I (..\User\BSP\user_bsp.h)(0x67A5B34B)
+I (..\User\BSP\user_bsp_config.h)(0x67A5B1F4)
 I (D:\Work_YJH\SoftWare\Keil_MDK5\MainObject\ARM\ARMCC\include\string.h)(0x54C245B8)
 I (D:\Work_YJH\SoftWare\Keil_MDK5\MainObject\ARM\ARMCC\include\stdio.h)(0x54C245B8)
 I (D:\Work_YJH\SoftWare\Keil_MDK5\MainObject\ARM\ARMCC\include\stdlib.h)(0x54C245B8)
@@ -1313,12 +1313,12 @@ I (../Middlewares/Third_Party/FatFs/src/integer.h)(0x67905829)
 I (../FATFS/Target/ffconf.h)(0x67905829)
 I (../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os.h)(0x67905829)
 I (../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os2.h)(0x67905829)
-I (../User/Core/gui.h)(0x67A41CFC)
-I (../User/Core/basic.h)(0x67905829)
+I (../User/Core/gui.h)(0x67A5B361)
+I (../User/Core/basic.h)(0x67A5B361)
 I (D:\Work_YJH\SoftWare\Keil_MDK5\MainObject\ARM\ARMCC\include\stdbool.h)(0x54C245B8)
 F (..\User\BSP\user_bsp_it.c)(0x67905829)(--c99 -c --cpu Cortex-M3 -g -O3 --apcs=interwork --split_sections -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM3 -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -I../User/BSP -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../User/Core -I../User/MiddleWare -I../User/sdcard -I../FATFS/Target -I../FATFS/App -I../Middlewares/Third_Party/FatFs/src -I..\Middlewares\emWin\Config -I..\Middlewares\emWin\Inc-I d:\Work_YJH\Projection\04_MyPrj\02_BleAudio\03_Software\LocalSound\06_ReadWav_Update\MDK-ARM\RTE-I D:\Work_YJH\SoftWare\Keil_MDK5\Packs\ARM\CMSIS\4.3.0\CMSIS\Include-I D:\Work_YJH\SoftWare\Keil_MDK5\Packs\Keil\STM32F1xx_DFP\2.1.0\Device\Include-D__UVISION_VERSION="515" -D_RTE_ -DSTM32F10X_HD -DUSE_HAL_DRIVER -DSTM32F103xE -DUSE_FULL_ASSERT-o practice_freertos_0609\user_bsp_it.o --omf_browse practice_freertos_0609\user_bsp_it.crf --depend practice_freertos_0609\user_bsp_it.d)
-I (..\User\BSP\user_bsp.h)(0x67A32F52)
-I (..\User\BSP\user_bsp_config.h)(0x67905C1F)
+I (..\User\BSP\user_bsp.h)(0x67A5B34B)
+I (..\User\BSP\user_bsp_config.h)(0x67A5B1F4)
 I (D:\Work_YJH\SoftWare\Keil_MDK5\MainObject\ARM\ARMCC\include\string.h)(0x54C245B8)
 I (D:\Work_YJH\SoftWare\Keil_MDK5\MainObject\ARM\ARMCC\include\stdio.h)(0x54C245B8)
 I (D:\Work_YJH\SoftWare\Keil_MDK5\MainObject\ARM\ARMCC\include\stdlib.h)(0x54C245B8)
@@ -1373,7 +1373,7 @@ I (../Middlewares/Third_Party/FreeRTOS/Source/include/queue.h)(0x67905829)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/event_groups.h)(0x67905829)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/timers.h)(0x67905829)
 I (..\User\BSP\bsp_sysTimer.h)(0x67905829)
-F (..\User\BSP\bsp_ili9341_lcd.c)(0x67A30358)(--c99 -c --cpu Cortex-M3 -g -O3 --apcs=interwork --split_sections -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM3 -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -I../User/BSP -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../User/Core -I../User/MiddleWare -I../User/sdcard -I../FATFS/Target -I../FATFS/App -I../Middlewares/Third_Party/FatFs/src -I..\Middlewares\emWin\Config -I..\Middlewares\emWin\Inc-I d:\Work_YJH\Projection\04_MyPrj\02_BleAudio\03_Software\LocalSound\06_ReadWav_Update\MDK-ARM\RTE-I D:\Work_YJH\SoftWare\Keil_MDK5\Packs\ARM\CMSIS\4.3.0\CMSIS\Include-I D:\Work_YJH\SoftWare\Keil_MDK5\Packs\Keil\STM32F1xx_DFP\2.1.0\Device\Include-D__UVISION_VERSION="515" -D_RTE_ -DSTM32F10X_HD -DUSE_HAL_DRIVER -DSTM32F103xE -DUSE_FULL_ASSERT-o practice_freertos_0609\bsp_ili9341_lcd.o --omf_browse practice_freertos_0609\bsp_ili9341_lcd.crf --depend practice_freertos_0609\bsp_ili9341_lcd.d)
+F (..\User\BSP\bsp_ili9341_lcd.c)(0x67A5B34B)(--c99 -c --cpu Cortex-M3 -g -O3 --apcs=interwork --split_sections -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM3 -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -I../User/BSP -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../User/Core -I../User/MiddleWare -I../User/sdcard -I../FATFS/Target -I../FATFS/App -I../Middlewares/Third_Party/FatFs/src -I..\Middlewares\emWin\Config -I..\Middlewares\emWin\Inc-I d:\Work_YJH\Projection\04_MyPrj\02_BleAudio\03_Software\LocalSound\06_ReadWav_Update\MDK-ARM\RTE-I D:\Work_YJH\SoftWare\Keil_MDK5\Packs\ARM\CMSIS\4.3.0\CMSIS\Include-I D:\Work_YJH\SoftWare\Keil_MDK5\Packs\Keil\STM32F1xx_DFP\2.1.0\Device\Include-D__UVISION_VERSION="515" -D_RTE_ -DSTM32F10X_HD -DUSE_HAL_DRIVER -DSTM32F103xE -DUSE_FULL_ASSERT-o practice_freertos_0609\bsp_ili9341_lcd.o --omf_browse practice_freertos_0609\bsp_ili9341_lcd.crf --depend practice_freertos_0609\bsp_ili9341_lcd.d)
 I (..\User\BSP\bsp_ili9341_lcd.h)(0x67905829)
 I (../Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f1xx.h)(0x67905829)
 I (../Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f103xe.h)(0x67905829)
@@ -1406,7 +1406,7 @@ I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim.h)(0x67905829)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim_ex.h)(0x67905829)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h)(0x67905829)
 I (..\User\BSP\fonts.h)(0x67905829)
-F (..\User\BSP\fonts.c)(0x67A3039D)(--c99 -c --cpu Cortex-M3 -g -O3 --apcs=interwork --split_sections -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM3 -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -I../User/BSP -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../User/Core -I../User/MiddleWare -I../User/sdcard -I../FATFS/Target -I../FATFS/App -I../Middlewares/Third_Party/FatFs/src -I..\Middlewares\emWin\Config -I..\Middlewares\emWin\Inc-I d:\Work_YJH\Projection\04_MyPrj\02_BleAudio\03_Software\LocalSound\06_ReadWav_Update\MDK-ARM\RTE-I D:\Work_YJH\SoftWare\Keil_MDK5\Packs\ARM\CMSIS\4.3.0\CMSIS\Include-I D:\Work_YJH\SoftWare\Keil_MDK5\Packs\Keil\STM32F1xx_DFP\2.1.0\Device\Include-D__UVISION_VERSION="515" -D_RTE_ -DSTM32F10X_HD -DUSE_HAL_DRIVER -DSTM32F103xE -DUSE_FULL_ASSERT-o practice_freertos_0609\fonts.o --omf_browse practice_freertos_0609\fonts.crf --depend practice_freertos_0609\fonts.d)
+F (..\User\BSP\fonts.c)(0x67A5B34B)(--c99 -c --cpu Cortex-M3 -g -O3 --apcs=interwork --split_sections -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM3 -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -I../User/BSP -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../User/Core -I../User/MiddleWare -I../User/sdcard -I../FATFS/Target -I../FATFS/App -I../Middlewares/Third_Party/FatFs/src -I..\Middlewares\emWin\Config -I..\Middlewares\emWin\Inc-I d:\Work_YJH\Projection\04_MyPrj\02_BleAudio\03_Software\LocalSound\06_ReadWav_Update\MDK-ARM\RTE-I D:\Work_YJH\SoftWare\Keil_MDK5\Packs\ARM\CMSIS\4.3.0\CMSIS\Include-I D:\Work_YJH\SoftWare\Keil_MDK5\Packs\Keil\STM32F1xx_DFP\2.1.0\Device\Include-D__UVISION_VERSION="515" -D_RTE_ -DSTM32F10X_HD -DUSE_HAL_DRIVER -DSTM32F103xE -DUSE_FULL_ASSERT-o practice_freertos_0609\fonts.o --omf_browse practice_freertos_0609\fonts.crf --depend practice_freertos_0609\fonts.d)
 I (..\User\BSP\fonts.h)(0x67905829)
 I (../Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f1xx.h)(0x67905829)
 I (../Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f103xe.h)(0x67905829)
@@ -1438,9 +1438,9 @@ I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_spi.h)(0x67905829)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim.h)(0x67905829)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim_ex.h)(0x67905829)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h)(0x67905829)
-F (..\User\Core\audio.c)(0x6790B2CD)(--c99 -c --cpu Cortex-M3 -g -O3 --apcs=interwork --split_sections -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM3 -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -I../User/BSP -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../User/Core -I../User/MiddleWare -I../User/sdcard -I../FATFS/Target -I../FATFS/App -I../Middlewares/Third_Party/FatFs/src -I..\Middlewares\emWin\Config -I..\Middlewares\emWin\Inc-I d:\Work_YJH\Projection\04_MyPrj\02_BleAudio\03_Software\LocalSound\06_ReadWav_Update\MDK-ARM\RTE-I D:\Work_YJH\SoftWare\Keil_MDK5\Packs\ARM\CMSIS\4.3.0\CMSIS\Include-I D:\Work_YJH\SoftWare\Keil_MDK5\Packs\Keil\STM32F1xx_DFP\2.1.0\Device\Include-D__UVISION_VERSION="515" -D_RTE_ -DSTM32F10X_HD -DUSE_HAL_DRIVER -DSTM32F103xE -DUSE_FULL_ASSERT-o practice_freertos_0609\audio.o --omf_browse practice_freertos_0609\audio.crf --depend practice_freertos_0609\audio.d)
-I (..\User\Core\audio.h)(0x67905829)
-I (..\User\Core\basic.h)(0x67905829)
+F (..\User\Core\audio.c)(0x67A5B361)(--c99 -c --cpu Cortex-M3 -g -O3 --apcs=interwork --split_sections -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM3 -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -I../User/BSP -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../User/Core -I../User/MiddleWare -I../User/sdcard -I../FATFS/Target -I../FATFS/App -I../Middlewares/Third_Party/FatFs/src -I..\Middlewares\emWin\Config -I..\Middlewares\emWin\Inc-I d:\Work_YJH\Projection\04_MyPrj\02_BleAudio\03_Software\LocalSound\06_ReadWav_Update\MDK-ARM\RTE-I D:\Work_YJH\SoftWare\Keil_MDK5\Packs\ARM\CMSIS\4.3.0\CMSIS\Include-I D:\Work_YJH\SoftWare\Keil_MDK5\Packs\Keil\STM32F1xx_DFP\2.1.0\Device\Include-D__UVISION_VERSION="515" -D_RTE_ -DSTM32F10X_HD -DUSE_HAL_DRIVER -DSTM32F103xE -DUSE_FULL_ASSERT-o practice_freertos_0609\audio.o --omf_browse practice_freertos_0609\audio.crf --depend practice_freertos_0609\audio.d)
+I (..\User\Core\audio.h)(0x67A5B361)
+I (..\User\Core\basic.h)(0x67A5B361)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h)(0x67905829)
 I (../Core/Inc/stm32f1xx_hal_conf.h)(0x67905829)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_rcc.h)(0x67905829)
@@ -1475,8 +1475,8 @@ I (D:\Work_YJH\SoftWare\Keil_MDK5\MainObject\ARM\ARMCC\include\stdio.h)(0x54C245
 I (D:\Work_YJH\SoftWare\Keil_MDK5\MainObject\ARM\ARMCC\include\stdbool.h)(0x54C245B8)
 I (..\User\Core\audioConfig.h)(0x67905829)
 I (D:\Work_YJH\SoftWare\Keil_MDK5\MainObject\ARM\ARMCC\include\string.h)(0x54C245B8)
-I (../User/BSP/user_bsp.h)(0x67A32F52)
-I (../User/BSP/user_bsp_config.h)(0x67905C1F)
+I (../User/BSP/user_bsp.h)(0x67A5B34B)
+I (../User/BSP/user_bsp_config.h)(0x67A5B1F4)
 I (D:\Work_YJH\SoftWare\Keil_MDK5\MainObject\ARM\ARMCC\include\stdlib.h)(0x54C245B8)
 I (D:\Work_YJH\SoftWare\Keil_MDK5\MainObject\ARM\ARMCC\include\stdarg.h)(0x54C245B8)
 I (../Core/Inc/dma.h)(0x67905829)
@@ -1498,9 +1498,9 @@ I (../Middlewares/Third_Party/FreeRTOS/Source/include/semphr.h)(0x67905829)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/queue.h)(0x67905829)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/event_groups.h)(0x67905829)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/timers.h)(0x67905829)
-F (..\User\Core\core.c)(0x67A41D0D)(--c99 -c --cpu Cortex-M3 -g -O3 --apcs=interwork --split_sections -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM3 -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -I../User/BSP -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../User/Core -I../User/MiddleWare -I../User/sdcard -I../FATFS/Target -I../FATFS/App -I../Middlewares/Third_Party/FatFs/src -I..\Middlewares\emWin\Config -I..\Middlewares\emWin\Inc-I d:\Work_YJH\Projection\04_MyPrj\02_BleAudio\03_Software\LocalSound\06_ReadWav_Update\MDK-ARM\RTE-I D:\Work_YJH\SoftWare\Keil_MDK5\Packs\ARM\CMSIS\4.3.0\CMSIS\Include-I D:\Work_YJH\SoftWare\Keil_MDK5\Packs\Keil\STM32F1xx_DFP\2.1.0\Device\Include-D__UVISION_VERSION="515" -D_RTE_ -DSTM32F10X_HD -DUSE_HAL_DRIVER -DSTM32F103xE -DUSE_FULL_ASSERT-o practice_freertos_0609\core.o --omf_browse practice_freertos_0609\core.crf --depend practice_freertos_0609\core.d)
-I (..\User\Core\core.h)(0x67A32D37)
-I (..\User\Core\basic.h)(0x67905829)
+F (..\User\Core\core.c)(0x67A5BC7E)(--c99 -c --cpu Cortex-M3 -g -O3 --apcs=interwork --split_sections -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM3 -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -I../User/BSP -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../User/Core -I../User/MiddleWare -I../User/sdcard -I../FATFS/Target -I../FATFS/App -I../Middlewares/Third_Party/FatFs/src -I..\Middlewares\emWin\Config -I..\Middlewares\emWin\Inc-I d:\Work_YJH\Projection\04_MyPrj\02_BleAudio\03_Software\LocalSound\06_ReadWav_Update\MDK-ARM\RTE-I D:\Work_YJH\SoftWare\Keil_MDK5\Packs\ARM\CMSIS\4.3.0\CMSIS\Include-I D:\Work_YJH\SoftWare\Keil_MDK5\Packs\Keil\STM32F1xx_DFP\2.1.0\Device\Include-D__UVISION_VERSION="515" -D_RTE_ -DSTM32F10X_HD -DUSE_HAL_DRIVER -DSTM32F103xE -DUSE_FULL_ASSERT-o practice_freertos_0609\core.o --omf_browse practice_freertos_0609\core.crf --depend practice_freertos_0609\core.d)
+I (..\User\Core\core.h)(0x67A5B361)
+I (..\User\Core\basic.h)(0x67A5B361)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h)(0x67905829)
 I (../Core/Inc/stm32f1xx_hal_conf.h)(0x67905829)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_rcc.h)(0x67905829)
@@ -1552,8 +1552,8 @@ I (../Middlewares/Third_Party/FreeRTOS/Source/include/queue.h)(0x67905829)
 I (../Middlewares/Third_Party/FatFs/src/ff_gen_drv.h)(0x67905829)
 I (../Middlewares/Third_Party/FatFs/src/diskio.h)(0x67905829)
 I (../FATFS/Target/user_diskio.h)(0x67905829)
-I (../User/BSP/user_bsp.h)(0x67A32F52)
-I (../User/BSP/user_bsp_config.h)(0x67905C1F)
+I (../User/BSP/user_bsp.h)(0x67A5B34B)
+I (../User/BSP/user_bsp_config.h)(0x67A5B1F4)
 I (D:\Work_YJH\SoftWare\Keil_MDK5\MainObject\ARM\ARMCC\include\string.h)(0x54C245B8)
 I (D:\Work_YJH\SoftWare\Keil_MDK5\MainObject\ARM\ARMCC\include\stdlib.h)(0x54C245B8)
 I (D:\Work_YJH\SoftWare\Keil_MDK5\MainObject\ARM\ARMCC\include\stdarg.h)(0x54C245B8)
@@ -1566,12 +1566,12 @@ I (../Middlewares/Third_Party/FreeRTOS/Source/include/task.h)(0x67905829)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/list.h)(0x67905829)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/event_groups.h)(0x67905829)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/timers.h)(0x67905829)
-I (..\User\Core\audio.h)(0x67905829)
+I (..\User\Core\audio.h)(0x67A5B361)
 I (..\User\Core\audioConfig.h)(0x67905829)
-I (..\User\Core\gui.h)(0x67A41CFC)
-F (..\User\Core\gui.c)(0x67A41C69)(--c99 -c --cpu Cortex-M3 -g -O3 --apcs=interwork --split_sections -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM3 -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -I../User/BSP -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../User/Core -I../User/MiddleWare -I../User/sdcard -I../FATFS/Target -I../FATFS/App -I../Middlewares/Third_Party/FatFs/src -I..\Middlewares\emWin\Config -I..\Middlewares\emWin\Inc-I d:\Work_YJH\Projection\04_MyPrj\02_BleAudio\03_Software\LocalSound\06_ReadWav_Update\MDK-ARM\RTE-I D:\Work_YJH\SoftWare\Keil_MDK5\Packs\ARM\CMSIS\4.3.0\CMSIS\Include-I D:\Work_YJH\SoftWare\Keil_MDK5\Packs\Keil\STM32F1xx_DFP\2.1.0\Device\Include-D__UVISION_VERSION="515" -D_RTE_ -DSTM32F10X_HD -DUSE_HAL_DRIVER -DSTM32F103xE -DUSE_FULL_ASSERT-o practice_freertos_0609\gui.o --omf_browse practice_freertos_0609\gui.crf --depend practice_freertos_0609\gui.d)
-I (..\User\Core\gui.h)(0x67A41CFC)
-I (..\User\Core\basic.h)(0x67905829)
+I (..\User\Core\gui.h)(0x67A5B361)
+F (..\User\Core\gui.c)(0x67A5B361)(--c99 -c --cpu Cortex-M3 -g -O3 --apcs=interwork --split_sections -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM3 -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -I../User/BSP -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../User/Core -I../User/MiddleWare -I../User/sdcard -I../FATFS/Target -I../FATFS/App -I../Middlewares/Third_Party/FatFs/src -I..\Middlewares\emWin\Config -I..\Middlewares\emWin\Inc-I d:\Work_YJH\Projection\04_MyPrj\02_BleAudio\03_Software\LocalSound\06_ReadWav_Update\MDK-ARM\RTE-I D:\Work_YJH\SoftWare\Keil_MDK5\Packs\ARM\CMSIS\4.3.0\CMSIS\Include-I D:\Work_YJH\SoftWare\Keil_MDK5\Packs\Keil\STM32F1xx_DFP\2.1.0\Device\Include-D__UVISION_VERSION="515" -D_RTE_ -DSTM32F10X_HD -DUSE_HAL_DRIVER -DSTM32F103xE -DUSE_FULL_ASSERT-o practice_freertos_0609\gui.o --omf_browse practice_freertos_0609\gui.crf --depend practice_freertos_0609\gui.d)
+I (..\User\Core\gui.h)(0x67A5B361)
+I (..\User\Core\basic.h)(0x67A5B361)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h)(0x67905829)
 I (../Core/Inc/stm32f1xx_hal_conf.h)(0x67905829)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_rcc.h)(0x67905829)
@@ -1615,8 +1615,8 @@ I (../Middlewares/Third_Party/FreeRTOS/Source/include/semphr.h)(0x67905829)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/queue.h)(0x67905829)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/task.h)(0x67905829)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/list.h)(0x67905829)
-I (../User/BSP/user_bsp.h)(0x67A32F52)
-I (../User/BSP/user_bsp_config.h)(0x67905C1F)
+I (../User/BSP/user_bsp.h)(0x67A5B34B)
+I (../User/BSP/user_bsp_config.h)(0x67A5B1F4)
 I (D:\Work_YJH\SoftWare\Keil_MDK5\MainObject\ARM\ARMCC\include\string.h)(0x54C245B8)
 I (D:\Work_YJH\SoftWare\Keil_MDK5\MainObject\ARM\ARMCC\include\stdlib.h)(0x54C245B8)
 I (D:\Work_YJH\SoftWare\Keil_MDK5\MainObject\ARM\ARMCC\include\stdarg.h)(0x54C245B8)
@@ -1630,7 +1630,7 @@ I (../Middlewares/Third_Party/FreeRTOS/Source/include/event_groups.h)(0x67905829
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/timers.h)(0x67905829)
 I (../User/BSP/bsp_ili9341_lcd.h)(0x67905829)
 I (../User/BSP/fonts.h)(0x67905829)
-F (../FATFS/Target/user_diskio.c)(0x6790ADD7)(--c99 -c --cpu Cortex-M3 -g -O3 --apcs=interwork --split_sections -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM3 -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -I../User/BSP -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../User/Core -I../User/MiddleWare -I../User/sdcard -I../FATFS/Target -I../FATFS/App -I../Middlewares/Third_Party/FatFs/src -I..\Middlewares\emWin\Config -I..\Middlewares\emWin\Inc-I d:\Work_YJH\Projection\04_MyPrj\02_BleAudio\03_Software\LocalSound\06_ReadWav_Update\MDK-ARM\RTE-I D:\Work_YJH\SoftWare\Keil_MDK5\Packs\ARM\CMSIS\4.3.0\CMSIS\Include-I D:\Work_YJH\SoftWare\Keil_MDK5\Packs\Keil\STM32F1xx_DFP\2.1.0\Device\Include-D__UVISION_VERSION="515" -D_RTE_ -DSTM32F10X_HD -DUSE_HAL_DRIVER -DSTM32F103xE -DUSE_FULL_ASSERT-o practice_freertos_0609\user_diskio.o --omf_browse practice_freertos_0609\user_diskio.crf --depend practice_freertos_0609\user_diskio.d)
+F (../FATFS/Target/user_diskio.c)(0x67A5B1F4)(--c99 -c --cpu Cortex-M3 -g -O3 --apcs=interwork --split_sections -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM3 -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -I../User/BSP -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../User/Core -I../User/MiddleWare -I../User/sdcard -I../FATFS/Target -I../FATFS/App -I../Middlewares/Third_Party/FatFs/src -I..\Middlewares\emWin\Config -I..\Middlewares\emWin\Inc-I d:\Work_YJH\Projection\04_MyPrj\02_BleAudio\03_Software\LocalSound\06_ReadWav_Update\MDK-ARM\RTE-I D:\Work_YJH\SoftWare\Keil_MDK5\Packs\ARM\CMSIS\4.3.0\CMSIS\Include-I D:\Work_YJH\SoftWare\Keil_MDK5\Packs\Keil\STM32F1xx_DFP\2.1.0\Device\Include-D__UVISION_VERSION="515" -D_RTE_ -DSTM32F10X_HD -DUSE_HAL_DRIVER -DSTM32F103xE -DUSE_FULL_ASSERT-o practice_freertos_0609\user_diskio.o --omf_browse practice_freertos_0609\user_diskio.crf --depend practice_freertos_0609\user_diskio.d)
 I (D:\Work_YJH\SoftWare\Keil_MDK5\MainObject\ARM\ARMCC\include\string.h)(0x54C245B8)
 I (../Middlewares/Third_Party/FatFs/src/ff_gen_drv.h)(0x67905829)
 I (../Middlewares/Third_Party/FatFs/src/diskio.h)(0x67905829)
@@ -1732,8 +1732,8 @@ I (../Middlewares/Third_Party/FreeRTOS/Source/include/queue.h)(0x67905829)
 I (../Middlewares/Third_Party/FatFs/src/ff_gen_drv.h)(0x67905829)
 I (../Middlewares/Third_Party/FatFs/src/diskio.h)(0x67905829)
 I (../FATFS/Target/user_diskio.h)(0x67905829)
-I (../User/BSP/user_bsp.h)(0x67A32F52)
-I (../User/BSP/user_bsp_config.h)(0x67905C1F)
+I (../User/BSP/user_bsp.h)(0x67A5B34B)
+I (../User/BSP/user_bsp_config.h)(0x67A5B1F4)
 I (D:\Work_YJH\SoftWare\Keil_MDK5\MainObject\ARM\ARMCC\include\string.h)(0x54C245B8)
 I (D:\Work_YJH\SoftWare\Keil_MDK5\MainObject\ARM\ARMCC\include\stdio.h)(0x54C245B8)
 I (D:\Work_YJH\SoftWare\Keil_MDK5\MainObject\ARM\ARMCC\include\stdlib.h)(0x54C245B8)

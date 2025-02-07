@@ -27,6 +27,8 @@
         "bsp_xpt2046_lcd.h": "c",
         "bsp_ili9341_lcd.h": "c",
         "palette.h": "c",
-        "gui.h": "c"
+        "gui.h": "c",
+        "string_view": "c",
+        "basic.h": "c"
     }
 }

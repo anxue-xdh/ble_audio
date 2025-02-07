@@ -50,11 +50,19 @@ void Uart1_Scan_Task(void)
         }
         else if (Uart1_strcmp("sd read"))
         {
-            SD_Read_FileInfo(USERPath, sdFile_Name);
+            SD_Read_FileInfo(USERPath, MusicList);
         }
         else if (Uart1_strcmp("music start"))
         {
             xTaskNotifyGive(ReadWav_Task_Handle);
+        }
+        else if (Uart1_strcmp("music task query"))
+        {
+            if (GUI_Task_Handle != NULL)
+            {
+                eTaskState eReturn = eTaskGetState(GUI_Task_Handle);
+                Uart1_SendData("GUI Task is %d\r\n", eReturn);
+            }
         }
     }
     // vTaskDelete(NULL);
@@ -75,11 +83,11 @@ void Key_Run_Task(void)
         switch (keyBit)
         {
         case Key1_Bit:
-            xTaskNotify(GUI_Task_Handle, GUI_Key_Up, eSetBits);
+            xTaskNotify(GUI_Task_Handle, GUI_TaskBit_Key_Up, eSetBits);
             HAL_GPIO_TogglePin(LED0_GPIO_Port, LED0_Pin);
             break;
         case Key2_Bit:
-            xTaskNotify(GUI_Task_Handle, GUI_Key_Down, eSetBits);
+            xTaskNotify(GUI_Task_Handle, GUI_TaskBit_Key_Down, eSetBits);
             HAL_GPIO_TogglePin(LED1_GPIO_Port, LED1_Pin);
             break;
         }

@@ -4,7 +4,7 @@
  * @LastEditors: error: error: git config user.name & please set dead value or install git && error: git config user.email & please set dead value or install git & please set dead value or install git
  * @LastEditTime: 2023-06-14 14:14:06
  * @FilePath: \MDK-ARMd:\Work_YJH\Projection\VsCodeStm32\AudioPlayer\UserCore\Inc\audio.h
- * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
+ * @Description: 这是默�?��?�置,请�?�置`customMade`, 打开koroFileHeader查看配置 进�?��?�置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
 #ifndef __AUDIO_H__
 #define __AUDIO_H__
@@ -23,8 +23,8 @@
 #define WAVE_FORMAT_ALAW 0x0006
 #define WAVE_FORMAT_MULAW 0x0007
 #define WAVE_FORMAT_EXTENSIBLE 0xFFFE
-#define WAVE_BLCOK_ALIGN_VERIFY (wav_info->fmt_ck.nChannels * wav_info->fmt_ck.wBitsPerSample / 8)                                       // 不可被调用
-#define WAVE_AVG_BYTE_PERSEC_VERIFY (wav_info->fmt_ck.nSamplesPerSec * wav_info->fmt_ck.nChannels * wav_info->fmt_ck.wBitsPerSample / 8) // 不可被调用
+#define WAVE_BLCOK_ALIGN_VERIFY (wav_info->fmt_ck.nChannels * wav_info->fmt_ck.wBitsPerSample / 8)                                       // 不可�?调用
+#define WAVE_AVG_BYTE_PERSEC_VERIFY (wav_info->fmt_ck.nSamplesPerSec * wav_info->fmt_ck.nChannels * wav_info->fmt_ck.wBitsPerSample / 8) // 不可�?调用
 #define WAVE_FMT_CHNANELS_MONO 1
 #define WAVE_FMT_CHNANELS_SETREO 2
 #define WAVE_FMT_SAMPLES_BIT_LOW 0x0008
@@ -47,7 +47,7 @@ typedef struct fmt
     u32 cksize;          //	Chunk size: 16, 18 or 40
     u16 wFormatTag;      //	Format code
     u16 nChannels;       // Number of interleaved channels
-    u32 nSamplesPerSec;  //	Sampling rate (blocks per second)	//unit： bit
+    u32 nSamplesPerSec;  //	Sampling rate (blocks per second)	//unit�? bit
     u32 nAvgBytesPerSec; // Data rate
     u16 nBlockAlign;     //	Data block size (bytes)
     u16 wBitsPerSample;  //	Bits per sample
@@ -86,14 +86,22 @@ typedef struct WAV
     Audio_Fact_Chunk fact_ck;
 #endif
     Audio_Data_Chunk data_ck;
+    u32 wavLen;
 } Audio_WAV_Info;
 
 int WAV_Format_parsing(Audio_WAV_Info *wav_info, char *audio_wav_ori);
 static int audio_wave_info_verify(const Audio_WAV_Info *wav_info);
 char *my_strnstr_kmp(const char *s1, const char *s2, size_t n);
 
+/***    Ӧ�ò�    ***/
 #include "user_bsp.h"
 
 #define Wav_Printf Uart1_SendData
+
+#define Def_Data_16to12_single(data) ((short)(data + (1 << 15)) >> 4)
+#define Wav_Process_SingTrack(in, out, len) Data_16to12_Mult(in, out, len)
+
+int Data_16to12_Mult(short *ret, short *data, int len);
+int Wav_Process_DualTrack(u16 *out_r, u16 *out_l, u16 *in, u32 len);
 
 #endif
