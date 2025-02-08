@@ -89,6 +89,13 @@ typedef struct WAV
     u32 wavLen;
 } Audio_WAV_Info;
 
+typedef struct
+{
+    int16_t *Ch_r; // 右声道
+    int16_t *Ch_l; // 左声道
+    u32 Len;       // 数据长度，左右声道长度必须一致
+} Wav_CH_Data;
+
 int WAV_Format_parsing(Audio_WAV_Info *wav_info, char *audio_wav_ori);
 static int audio_wave_info_verify(const Audio_WAV_Info *wav_info);
 char *my_strnstr_kmp(const char *s1, const char *s2, size_t n);
@@ -102,6 +109,6 @@ char *my_strnstr_kmp(const char *s1, const char *s2, size_t n);
 #define Wav_Process_SingTrack(in, out, len) Data_16to12_Mult(in, out, len)
 
 int Data_16to12_Mult(short *ret, short *data, int len);
-int Wav_Process_DualTrack(u16 *out_r, u16 *out_l, u16 *in, u32 len);
+int Wav_Process_DualTrack(int16_t *out_r, int16_t *out_l, int16_t *in, u32 len);
 
 #endif

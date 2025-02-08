@@ -1,7 +1,7 @@
 /*
  * @Author: YourName
  * @Date: 2025-01-22 10:30:01
- * @LastEditTime: 2025-02-07 16:07:24
+ * @LastEditTime: 2025-02-08 16:22:41
  * @LastEditors: YourName
  * @Description:
  * @FilePath: \MDK-ARMd:\Work_YJH\Projection\04_MyPrj\02_BleAudio\03_Software\LocalSound\06_ReadWav_Update\User\Core\core.c
@@ -40,8 +40,9 @@
 
 /* Private function prototypes -----------------------------------------------*/
 /* USER CODE BEGIN PFP */
-int Wav_OpenFile(FIL *file, char *path, Audio_WAV_Info *WavData);
-int Wav_Output_Init_Sign(FIL *file, char *path, Audio_WAV_Info *WavData, int16_t *out, uint16_t len);
+int Wav_OpenFile(FIL *file, char *path, Audio_WAV_Info *wav);
+int Wav_Player_Init(FIL *file, char *path, Audio_WAV_Info *wav, Wav_CH_Data *wav_ch);
+int Wav_Player(FIL *file, char *path, Audio_WAV_Info *wav, Wav_CH_Data *wav_ch);
 /* USER CODE END PFP */
 
 /* extern variables ---------------------------------------------------------*/
@@ -55,9 +56,9 @@ extern TaskHandle_t GUI_Task_Handle;
 
 void ReadWav(void const *argument)
 {
-    FRESULT f_res; /* ?????? */
-    FIL file;      /* ???? */
-    UINT fnum;     /* ???????? */
+    // FRESULT f_res; /* ?????? */
+    FIL file; /* ???? */
+    // UINT fnum;     /* ???????? */
     Audio_WAV_Info WavData;
     int wav_len;
 
@@ -71,41 +72,93 @@ void ReadWav(void const *argument)
     // 打开文件，读取wav信息
     wav_len = Wav_OpenFile(&file, filePath, &WavData);
     if (wav_len < 0)
+    {
+        f_close(&file);
         vTaskDelete(NULL);
+    }
 
-    int16_t wavBuff[WavBuff_Size] = {0};
-    int16_t Wav_DacOutout_Buf[WavBuff_Size * 2] = {0};
-    char WriteCnt = 0; // 计数器，用于实现半写入、全写入区分
+    Wav_CH_Data wav_ch = {0};
+    // int16_t Wav_DacOutout_Buf[WavBuff_Size * 2] = {0};
 
-    // 初始化DAC输出信号，并开始DMA传输
-    Wav_Output_Init_Sign(&file, filePath, &WavData, Wav_DacOutout_Buf, WavBuff_Size * 2);
+    wav_ch.Ch_r = malloc(sizeof(int16_t) * WavBuff_Size * 2);
+    wav_ch.Ch_l = NULL; // 暂时只用单声道播放
+    wav_ch.Len = WavBuff_Size * 2;
+
+    /*------------------- 初始化DAC输出信号，并开始DMA传输 ------------------------------------*/
+    if (Wav_Player_Init(&file, filePath, &WavData, &wav_ch) < 0)
+    {
+        f_close(&file);
+        vTaskDelete(NULL);
+    }
 
     Wav_Debug_Print("dac start\r\n");
-    Wav_Start(Wav_DacOutout_Buf, WavBuff_Size * 2);
-    // HAL_DAC_Start_DMA(&hdac, DAC1_CHANNEL_1, (uint32_t *)Wav_DacOutout_Buf, WavBuff_Size * 2, DAC_ALIGN_12B_R);
+    Wav_Start(wav_ch.Ch_r, WavBuff_Size * 2);
+    // HAL_DAC_Start_DMA(&hdac, DAC1_CHANNEL_1, (uint32_t *)wav_ch.Ch_r, WavBuff_Size * 2, DAC_ALIGN_12B_R);
 
     Wav_Debug_Print("循环开始\r\n");
     // vTaskDelay(portMAX_DELAY);
-    u64 oldPtr = 0;
+
     if (ulTaskNotifyTake(pdTRUE, portMAX_DELAY) > 1)
         Wav_Debug_Print("[ERROR] Core obliterated Data!!");
 
+    Wav_Player(&file, filePath, &WavData, &wav_ch);
+
+    /* 不再读写，关闭文件 */
+    Wav_Debug_Print("循环结束\r\n");
+    Wav_Debug_Print("关闭文件\r\n");
+
+    free(wav_ch.Ch_r);
+    // free(wav_ch.Ch_l);
+    f_close(&file);
+    Wav_Stop();
+
+    vTaskDelete(NULL);
+}
+
+int Wav_Player(FIL *file, char *path, Audio_WAV_Info *wav, Wav_CH_Data *wav_ch)
+{
+    FRESULT f_res;
+    UINT fnum;
+    int wReturn = 1;
+    u64 oldPtr = 0;
+    char WriteCnt = 0; // 计数器，用于实现半写入、全写入区分
+
+    int wavTmplen = 0;
+    if (wav->fmt_ck.nChannels == 1)
+        wavTmplen = sizeof(int16_t) * (wav_ch->Len / 2);
+    else
+        wavTmplen = sizeof(int16_t) * (wav_ch->Len);
+
+    Wav_Debug_Print("tmpBuf len:%d\r\n", wavTmplen);
+    int16_t *tmpBuf = (int16_t *)malloc(wavTmplen);
+
     while (1)
     {
+        oldPtr = f_tell(file);
 
-        oldPtr = f_tell(&file);
-
-        f_res = f_read(&file, wavBuff, sizeof(wavBuff), &fnum);
+        f_res = f_read(file, tmpBuf, wavTmplen, &fnum);
         if (f_res == FR_OK)
         {
-            // Wav_Debug_Print("》文件读取成功,读到字节数据：%d\r\n", fnum);
+            // Wav_Debug_Print("》fnum：%d\r\n", fnum);
             if (0 == fnum)
             {
                 Wav_Debug_Print("文件读取完毕\r\n");
                 Wav_Stop();
+                wReturn = -1;
                 break;
             }
-            Wav_Process_SingTrack((Wav_DacOutout_Buf + (WriteCnt % 2) * WavBuff_Size), wavBuff, fnum / 2);
+            // Wav_Process_SingTrack((wav_ch->Ch_r + (WriteCnt % 2) * WavBuff_Size), tmpBuf, fnum / 2);
+
+            if (wav->fmt_ck.nChannels == 1)
+                Wav_Process_SingTrack((wav_ch->Ch_r + (WriteCnt % 2) * (wav_ch->Len / 2)), tmpBuf, wav_ch->Len / 2);
+            else
+            {
+                if (wav_ch->Ch_l != NULL)
+                    Wav_Process_DualTrack((wav_ch->Ch_r + (WriteCnt % 2) * wav_ch->Len), (wav_ch->Ch_l + (WriteCnt % 2) * wav_ch->Len), tmpBuf, wav_ch->Len / 2);
+                else // 可能可以删除，后续需要测试是否可以删除
+                    Wav_Process_DualTrack((wav_ch->Ch_r + (WriteCnt % 2) * wav_ch->Len), NULL, tmpBuf, wav_ch->Len / 2);
+            }
+
             WriteCnt++;
         }
         else
@@ -113,121 +166,37 @@ void ReadWav(void const *argument)
             Wav_Debug_Print("！！文件读取失败：(%d)\r\n", f_res);
             // HAL_DAC_Stop_DMA(&hdac, DAC1_CHANNEL_1);
 
-            f_close(&file);
-            // Wav_Debug_Print("关闭文件\r\n");
-
-            f_res = f_open(&file, filePath, FA_OPEN_EXISTING | FA_READ);
-
+            f_close(file);
+            f_res = f_open(file, path, FA_OPEN_EXISTING | FA_READ);
             if (f_res != FR_OK)
             {
                 Wav_Debug_Print("重新打开失败\r\n");
+                wReturn = -2;
                 break;
             }
 
-            f_res = f_lseek(&file, oldPtr);
+            Wav_Debug_Print("old pointer:%d\r\n", oldPtr);
+            f_res = f_lseek(file, oldPtr);
             if (f_res != FR_OK)
             {
                 Wav_Debug_Print("指针移动失败,f_res:(%d)\r\n", f_res);
+                wReturn = -3;
                 break;
             }
             Wav_Debug_Print("重新传输开始\r\n");
-            // HAL_DAC_Start_DMA(&hdac, DAC1_CHANNEL_1, (uint32_t *)Wav_DacOutout_Buf, WavBuff_Size * 2, DAC_ALIGN_12B_R);
+            // HAL_DAC_Start_DMA(&hdac, DAC1_CHANNEL_1, (uint32_t *)wav_ch.Ch_r, WavBuff_Size * 2, DAC_ALIGN_12B_R);
 
             // ptr = f_tell(&file);
-            Wav_Debug_Print("old pointer:%d\r\n", oldPtr);
             // Wav_Debug_Print("now pointer:%d\r\n", ptr);
             // Wav_Debug_Print("pointer diff:%d\r\n", (ptr - oldPtr));
-
-            // f_res = f_lseek(&file, oldPtr);
-            // if (f_res != FR_OK)
-            // {
-            //     Wav_Debug_Print("指针移动失败,f_res:(%d)\r\n", f_res);
-            //     vTaskDelay(HAL_MAX_DELAY);
-            // }
-            // ptr = f_tell(&file);
-            // Wav_Debug_Print("change pointer:%d\r\n", ptr);
             continue;
         }
-
         if (ulTaskNotifyTake(pdTRUE, portMAX_DELAY) > 1)
             Wav_Debug_Print("[ERROR] Core obliterated Data!!");
-
-        // if (0 == (WriteCnt % 2))
-        // {
-        //     HAL_DAC_Start_DMA(&hdac, DAC1_CHANNEL_1, (uint32_t *)Wav_DacOutout_Buf, WavBuff_Size * 2, DAC_ALIGN_12B_R);
-        // }
-    }
-    /* 不再读写，关闭文件 */
-    Wav_Debug_Print("关闭文件\r\n");
-
-    f_close(&file);
-    Wav_Stop();
-
-    vTaskDelete(NULL);
-}
-
-/**
- * @brief 初始化WAV输出信号
- *
- * 该函数用于初始化WAV音频文件的输出信号。
- *
- * @param file 文件指针，指向已打开的WAV音频文件
- * @param path WAV音频文件的路径
- * @param WavData 指向包含WAV音频信息的结构体指针
- * @param out 输出缓冲区的指针，用于存储处理后的音频数据
- * @param len 输出缓冲区的长度
- *
- * @return 返回值表示函数执行状态：
- *         -1: 文件指针移动失败
- *         -2: 文件读取失败
- *          1: 操作成功
- */
-int Wav_Output_Init_Sign(FIL *file, char *path, Audio_WAV_Info *WavData, int16_t *out, uint16_t len)
-{
-    FRESULT f_res;
-    UINT fnum;
-
-    f_res = f_rewind(file);
-    if (f_res != FR_OK)
-    {
-        Wav_Debug_Print("指针移动失败，f_res:(%d)\r\n", f_res);
-        f_close(file);
-        return -1;
     }
 
-    int wavTmplen = sizeof(int16_t) * (len / 2);
-    Wav_Debug_Print("tmpBuf len:%d\r\n", wavTmplen);
-    int16_t *tmpBuf = (int16_t *)malloc(wavTmplen);
-
-    for (int i = 0; i < 2; i++)
-    {
-        f_res = f_read(file, tmpBuf, wavTmplen, &fnum);
-        if (f_res != FR_OK)
-        {
-            Wav_Debug_Print("！！文件读取失败：(%d)\r\n", f_res);
-            f_close(file);
-            free(tmpBuf);
-            return -2;
-        }
-
-        Wav_Debug_Print("》文件读取成功,读到字节数据：%d\r\n", fnum);
-        Wav_Process_SingTrack((out + i * (len / 2)), tmpBuf, len / 2);
-
-        // printf_WavInfo((out + i * (len / 2)), WavBuff_Size);
-
-        // Wav_Debug_Print("\r\n");
-        // Wav_Debug_Print("\r\n");
-        // Wav_Debug_Print("\r\n");
-        // Wav_Debug_Print("\r\n");
-    }
-    Wav_Debug_Print("wav memset\r\n");
-
-    // 清零wav的文件信息，防止输出奇怪的声音
-    memset(out, 0, WavData->wavLen * 2);
-
-    // printf_WavInfo(out, WavBuff_Size * 2);
     free(tmpBuf);
-    return 1;
+    return wReturn;
 }
 
 /**
@@ -244,7 +213,7 @@ int Wav_Output_Init_Sign(FIL *file, char *path, Audio_WAV_Info *WavData, int16_t
  *         -2: 文件读取失败
  *         -3: 读取到的字节数为0
  */
-int Wav_OpenFile(FIL *file, char *path, Audio_WAV_Info *WavData)
+int Wav_OpenFile(FIL *file, char *path, Audio_WAV_Info *wav)
 {
     FRESULT f_res;
     UINT fnum;
@@ -255,11 +224,6 @@ int Wav_OpenFile(FIL *file, char *path, Audio_WAV_Info *WavData)
         Wav_Debug_Print("不支持的文件类型", f_res);
         return -1;
     }
-
-    // Wav_Debug_Print("\r\n****** 文件读取开始 ******\r\n");
-    // char tempfilepath[60];
-    // sprintf(tempfilepath, "%s%s", USERPath, path); // 拼接出带逻辑驱动器名的完整路径名
-    // Wav_Debug_Print("%s\r\n", tempfilepath);
 
     char wavTmp[WavBuff_Size] = {0}; /* ???? */
     /*------------------- 打开文件 ------------------------------------*/
@@ -285,10 +249,91 @@ int Wav_OpenFile(FIL *file, char *path, Audio_WAV_Info *WavData)
         return -3;
     else
     {
-        wav_len = WAV_Format_parsing(WavData, wavTmp);
-        Wav_Debug_Print("wav_len:%d\n", WavData->wavLen);
+        wav_len = WAV_Format_parsing(wav, wavTmp);
+        Wav_Debug_Print("wav_len:%d\n", wav->wavLen);
         return wav_len;
     }
+}
+
+/**
+ * @brief 初始化并处理WAV音频输出
+ *
+ * 该函数用于初始化WAV音频输出，并处理音频数据。
+ *
+ * @param file 文件指针，指向需要读取的WAV文件
+ * @param path 文件路径，指向WAV文件的路径
+ * @param WavData 指向Audio_WAV_Info结构体的指针，存储WAV文件的元数据信息
+ * @param out 指向输出音频数据的缓冲区
+ * @param len 输出音频数据的长度
+ *
+ * @return 返回值表示函数执行结果：
+ *         -1：输入参数为空
+ *         -2：文件指针移动失败
+ *         -3：文件读取失败
+ *          1：成功
+ */
+int Wav_Player_Init(FIL *file, char *path, Audio_WAV_Info *wav, Wav_CH_Data *wav_ch)
+{
+    FRESULT f_res;
+    UINT fnum;
+
+    if ((file == NULL) || (path == NULL) || (wav == NULL) || (wav_ch == NULL))
+        return -1;
+
+    f_res = f_rewind(file);
+    if (f_res != FR_OK)
+    {
+        Wav_Debug_Print("指针移动失败，f_res:(%d)\r\n", f_res);
+        f_close(file);
+        return -2;
+    }
+
+    int wavTmplen = 0;
+    if (wav->fmt_ck.nChannels == 1)
+        wavTmplen = sizeof(int16_t) * (wav_ch->Len / 2);
+    else
+        wavTmplen = sizeof(int16_t) * (wav_ch->Len);
+
+    Wav_Debug_Print("tmpBuf len:%d\r\n", wavTmplen);
+    int16_t *tmpBuf = (int16_t *)malloc(wavTmplen);
+
+    for (int i = 0; i < 2; i++)
+    {
+        f_res = f_read(file, tmpBuf, wavTmplen, &fnum);
+        if (f_res != FR_OK)
+        {
+            Wav_Debug_Print("！！文件读取失败：(%d)\r\n", f_res);
+            f_close(file);
+            free(tmpBuf);
+            return -3;
+        }
+
+        Wav_Debug_Print("》文件读取成功,读到字节数据：%d\r\n", fnum);
+        if (i == 0) // 清零wav的文件信息，防止输出奇怪的声音
+            memset(tmpBuf, 0, wav->wavLen * 2);
+
+        if (wav->fmt_ck.nChannels == 1)
+            Wav_Process_SingTrack((wav_ch->Ch_r + i * (wav_ch->Len / 2)), tmpBuf, wav_ch->Len / 2);
+        else
+        {
+            if (wav_ch->Ch_l != NULL)
+                Wav_Process_DualTrack((wav_ch->Ch_r + i * wav_ch->Len), (wav_ch->Ch_l + i * wav_ch->Len), tmpBuf, wav_ch->Len / 2);
+            else // 可能可以删除，后续需要测试是否可以删除
+                Wav_Process_DualTrack((wav_ch->Ch_r + i * wav_ch->Len), NULL, tmpBuf, wav_ch->Len / 2);
+        }
+
+        // printf_WavInfo((out + i * (len / 2)), WavBuff_Size);
+
+        // Wav_Debug_Print("\r\n");
+        // Wav_Debug_Print("\r\n");
+        // Wav_Debug_Print("\r\n");
+        // Wav_Debug_Print("\r\n");
+    }
+    Wav_Debug_Print("wav memset\r\n");
+
+    // printf_WavInfo(out, WavBuff_Size * 2);
+    free(tmpBuf);
+    return 1;
 }
 
 void printf_WavInfo(short *data, int len)

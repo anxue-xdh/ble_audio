@@ -254,3 +254,65 @@ continue;
 
 
 准备每次播放时，重新创建一个音乐播放任务，因此需要获取任务的运行状态。但是使用eTaskGetState()函数无法正确获得状态，在任务使用vTaskDelete();删除后，返回值仍然是eSuspended，挂起态，无法正常获取到eDeleted状态。
+
+
+
+## 双声道文件解析速度无法跟上DAC传输速度
+
+双声道44100Hz采样频率的音频文件，
+
+数据传输速率：声道数×采样频率×每样本的数据位数/8
+$$
+nAvgBytesPerSec=nSamplesPerSec*nChannels*cksize/8
+$$
+DAC的输出通讯速率在176.4Kbyte/s = 1.4112Mbit/s，
+
+SPI的8分频BaudRate = 9.0Mbit/s
+
+​	 16分频BaudRate = 4.5Mbit/s
+
+​	 64分频BaudRate = 1.125Mbit/s
+
+> [14:44:05.395]发→◇music start□
+> [14:44:05.400]收←◆[DEBUG] music start
+> 0:/INeverForget.wav
+> 》打开文件成功。
+> 》文件读取成功,读到字节数据：256
+> wave_size:40662910
+> wave_pass
+> fmt_size:16
+> nChannels:2
+> nSamplesPerSec:44100
+> nAvgBytesPerSec:176400
+> fmt_pass
+> data size:40662840
+> wav_len:78
+> tmpBuf len:1024
+> 》文件读取成功,读到字节数据：1024
+> 》文件读取成功,读到字节数据：1024
+> wav memset
+> dac start
+> 循环开始
+> tmpBuf len:1024
+> [ERROR] Core obliterated Data!!
+> [14:44:12.219]收←◆！！文件读取失败：(1)
+> 重新传输开始
+> old pointer:1188864
+> [ERROR] Core obliterated Data!![ERROR] Core obliterated Data!!
+> [14:44:14.901]收←◆！！文件读取失败：(1)
+> 重新传输开始
+> old pointer:1655808
+> [ERROR] Core obliterated Data!!
+> [14:44:15.110]收←◆！！文件读取失败：(1)
+> 重新传输开始
+> old pointer:1686528
+> [ERROR] Core obliterated Data!![ERROR] Core obliterated Data!!
+> [14:44:19.498]收←◆[ERROR] Core obliterated Data!!
+> [14:44:20.242]收←◆[ERROR] Core obliterated Data!!
+> [14:44:20.811]收←◆[ERROR] Core obliterated Data!!
+> [14:44:21.351]收←◆[ERROR] Core obliterated Data!!
+> [14:44:21.739]收←◆[ERROR] Core obliterated Data!!
+> [14:44:21.774]收←◆[ERROR] Core obliterated Data!!
+> [14:44:21.919]收←◆[ERROR] Core obliterated Data!!
+> [14:44:22.327]收←◆[ERROR] Core obliterated Data!!
+

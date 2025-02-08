@@ -1,7 +1,7 @@
 /*
  * @Date: 2023-06-12 09:56:56
  * @LastEditors: YourName
- * @LastEditTime: 2025-02-07 14:20:33
+ * @LastEditTime: 2025-02-07 16:46:24
  * @FilePath: \MDK-ARMd:\Work_YJH\Projection\04_MyPrj\02_BleAudio\03_Software\LocalSound\06_ReadWav_Update\User\Core\audio.c
  */
 #include "audio.h"
@@ -228,7 +228,7 @@ int Data_16to12_Mult(short *ret, short *data, int len)
  *
  * @return 无返回值，如果输入参数无效，则返回-1
  */
-int Wav_Process_DualTrack(u16 *out_r, u16 *out_l, u16 *in, u32 len)
+int Wav_Process_DualTrack(int16_t *out_r, int16_t *out_l, int16_t *in, u32 len)
 {
     if ((out_r == NULL) || (in == NULL))
         return -1;
