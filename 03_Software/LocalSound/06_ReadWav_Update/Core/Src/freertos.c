@@ -34,6 +34,7 @@
 
 #include "core.h"
 #include "audio.h"
+#include "gui.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -79,9 +80,6 @@ const osThreadAttr_t SysInitTask_attributes = {
 void Led_Ctr_Task(void const *argument);
 void Led_Test_Task(void const *argument);
 void Temp_Task(void const *argument);
-
-extern void GUI_Task(void const *argument);
-extern void Touch_Task(void *parameter);
 /* USER CODE END FunctionPrototypes */
 
 void Sys_Init_Task(void *argument);
@@ -112,13 +110,13 @@ __weak void PreSleepProcessing(uint32_t *ulExpectedIdleTime)
 {
     /* place for user code */
     // Uart1_SendData("Entry TickLess Mode\r\n");
-    __HAL_RCC_GPIOA_CLK_DISABLE();
-    __HAL_RCC_GPIOB_CLK_DISABLE();
-    __HAL_RCC_GPIOC_CLK_DISABLE();
-    __HAL_RCC_GPIOD_CLK_DISABLE();
-    __HAL_RCC_GPIOE_CLK_DISABLE();
-    __HAL_RCC_GPIOF_CLK_DISABLE();
-    __HAL_RCC_GPIOG_CLK_DISABLE();
+    // __HAL_RCC_GPIOA_CLK_DISABLE();
+    // __HAL_RCC_GPIOB_CLK_DISABLE();
+    // __HAL_RCC_GPIOC_CLK_DISABLE();
+    // __HAL_RCC_GPIOD_CLK_DISABLE();
+    // __HAL_RCC_GPIOE_CLK_DISABLE();
+    // __HAL_RCC_GPIOF_CLK_DISABLE();
+    // __HAL_RCC_GPIOG_CLK_DISABLE();
     //__HAL_RCC_USART1_CLK_DISABLE();
 }
 
@@ -126,13 +124,13 @@ __weak void PostSleepProcessing(uint32_t *ulExpectedIdleTime)
 {
     /* place for user code */
     // Uart1_SendData("Exit TickLess Mode\r\n");
-    __HAL_RCC_GPIOA_CLK_ENABLE();
-    __HAL_RCC_GPIOB_CLK_ENABLE();
-    __HAL_RCC_GPIOC_CLK_ENABLE();
-    __HAL_RCC_GPIOD_CLK_ENABLE();
-    __HAL_RCC_GPIOE_CLK_ENABLE();
-    __HAL_RCC_GPIOF_CLK_ENABLE();
-    __HAL_RCC_GPIOG_CLK_ENABLE();
+    // __HAL_RCC_GPIOA_CLK_ENABLE();
+    // __HAL_RCC_GPIOB_CLK_ENABLE();
+    // __HAL_RCC_GPIOC_CLK_ENABLE();
+    // __HAL_RCC_GPIOD_CLK_ENABLE();
+    // __HAL_RCC_GPIOE_CLK_ENABLE();
+    // __HAL_RCC_GPIOF_CLK_ENABLE();
+    // __HAL_RCC_GPIOG_CLK_ENABLE();
     //__HAL_RCC_USART1_CLK_ENABLE();
 }
 /* USER CODE END PREPOSTSLEEP */
@@ -195,20 +193,6 @@ void Sys_Init_Task(void *argument)
     BaseType_t xReturn = pdPASS;
     taskENTER_CRITICAL();
 
-    // xTaskCreate((TaskFunction_t)Led_Ctr_Task,
-    //             (const char *)"Led_Ctr_Task",
-    //             (configSTACK_DEPTH_TYPE)64,
-    //             (void *)NULL,
-    //             (UBaseType_t)2,
-    //             (TaskHandle_t *)&Led_Ctr_Task_Handle);
-
-    // xTaskCreate((TaskFunction_t)Led_Test_Task,
-    //             (const char *)"Led_Test_Task",
-    //             (configSTACK_DEPTH_TYPE)64,
-    //             (void *)NULL,
-    //             (UBaseType_t)2,
-    //             (TaskHandle_t *)&Led_Test_Task_Handle);
-
     xTaskCreate((TaskFunction_t)Key_Scan_Task,
                 (const char *)"Key_Scan_Task",
                 (configSTACK_DEPTH_TYPE)64,
@@ -230,19 +214,12 @@ void Sys_Init_Task(void *argument)
                 (UBaseType_t)3,
                 (TaskHandle_t *)&Uart1_Scan_Task_Handle);
 
-    // xTaskCreate((TaskFunction_t)Temp_Task,
-    //             (const char *)"Temp_Task",
-    //             (configSTACK_DEPTH_TYPE)1024,
-    //             (void *)NULL,
+    // xTaskCreate((TaskFunction_t)ReadWav,
+    //             (const char *)"ReadWav",
+    //             (configSTACK_DEPTH_TYPE)2048,
+    //             (void *)MusicList[MusicList_Pointer],
     //             (UBaseType_t)5,
-    //             (TaskHandle_t *)&Temp_Task_Handle);
-
-    xTaskCreate((TaskFunction_t)ReadWav,
-                (const char *)"ReadWav",
-                (configSTACK_DEPTH_TYPE)2048,
-                (void *)NULL,
-                (UBaseType_t)5,
-                &ReadWav_Task_Handle);
+    //             &ReadWav_Task_Handle);
 
     xReturn = xTaskCreate((TaskFunction_t)GUI_Task,
                           (const char *)"GUI_Task",
@@ -269,78 +246,6 @@ void Sys_Init_Task(void *argument)
 
 /* Private application code --------------------------------------------------*/
 /* USER CODE BEGIN Application */
-BYTE ReadBuffer[512] = {0}; /* ???? */
-void Temp_Task(void const *argument)
-{
-    FRESULT f_res; /* ?????? */
-    FIL file;      /* ???? */
-    UINT fnum;     /* ???????? */
-
-    while (1)
-    {
-
-        Uart1_SendData("\r\n****** 这是一个SD卡 文件系统实验 ******\r\n");
-
-        Uart1_SendData("****** 即将进行文件写入测试... ******\r\n");
-
-        char tempfilepath[60];
-        Uart1_SendData("SDPath:%s\r\n", USERPath);
-        // sprintf(tempfilepath, "%s%s", USERPath, "INeverForget.wav"); // 拼接出带逻辑驱动器名的完整路径名
-        sprintf(tempfilepath, "%s%s", USERPath, "NiHao.wav"); // 拼接出带逻辑驱动器名的完整路径名
-        // sprintf(tempfilepath, "%s%s", USERPath, "FatFs.txt");       // 拼接出带逻辑驱动器名的完整路径名
-        Uart1_SendData("%s\r\n", tempfilepath);
-
-        /*------------------- 文件系统测试：读测试 ------------------------------------*/
-        Uart1_SendData("****** 即将进行文件读取测试... ******\r\n");
-        f_res = f_open(&file, tempfilepath, FA_OPEN_EXISTING | FA_READ);
-        Uart1_SendData("f_res:%d\r\n", f_res);
-        if (f_res == FR_OK)
-        {
-            Uart1_SendData("》打开文件成功。\r\n");
-            while (1)
-            {
-                f_res = f_read(&file, ReadBuffer, sizeof(ReadBuffer), &fnum);
-                if (f_res == FR_OK)
-                {
-                    Uart1_SendData("》文件读取成功,读到字节数据：%d\r\n", fnum);
-                    if (0 == fnum)
-                    {
-                        vTaskDelay(HAL_MAX_DELAY);
-                        break;
-                    }
-
-                    int j = 0;
-                    for (int i = 0; i < fnum; i++)
-                    {
-                        Uart1_SendData("%02x ", ReadBuffer[i]);
-                        j++;
-                        if (j == 16)
-                        {
-                            j = 0;
-                            Uart1_SendData("\r\n");
-                        }
-                    }
-                    vTaskDelay(200);
-                }
-                else
-                {
-                    Uart1_SendData("！！文件读取失败：(%d)\r\n", f_res);
-                    break;
-                }
-            }
-        }
-        else
-        {
-            Uart1_SendData("！！打开文件失败。\r\n");
-            break;
-        }
-        vTaskDelay(HAL_MAX_DELAY);
-    }
-    /* 不再读写，关闭文件 */
-    f_close(&file);
-    vTaskDelete(NULL);
-}
-
 void Led_Ctr_Task(void const *argument)
 {
     while (1)

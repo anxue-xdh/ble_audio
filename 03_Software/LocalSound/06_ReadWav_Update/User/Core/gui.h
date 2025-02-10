@@ -15,6 +15,6 @@ extern char MusicList_Num;
 extern char MusicList[SDFile_Name_Num][SDFile_Name_Len];
 
 void GUI_Init(void);
-void GUI_Task(void);
+void GUI_Task(void *argument);
 
 #endif

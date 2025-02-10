@@ -1,7 +1,7 @@
 /*
  * @Author: YourName
  * @Date: 2025-01-22 10:30:01
- * @LastEditTime: 2025-02-08 16:22:41
+ * @LastEditTime: 2025-02-10 17:11:19
  * @LastEditors: YourName
  * @Description:
  * @FilePath: \MDK-ARMd:\Work_YJH\Projection\04_MyPrj\02_BleAudio\03_Software\LocalSound\06_ReadWav_Update\User\Core\core.c
@@ -19,6 +19,7 @@
 #include "audioConfig.h"
 
 #include "gui.h"
+
 /* USER CODE END Includes */
 
 /* Private define ------------------------------------------------------------*/
@@ -29,7 +30,8 @@
 #define Wav_Debug_Print(...)
 #endif
 
-#define WavBuff_Size 256
+// #define WavBuff_Size 256
+#define WavBuff_Size 2048
 #define Wav_Start(out, len) HAL_DAC_Start_DMA(&hdac, DAC1_CHANNEL_1, (uint32_t *)out, len, DAC_ALIGN_12B_R)
 #define Wav_Stop() HAL_DAC_Stop_DMA(&hdac, DAC1_CHANNEL_1)
 /* USER CODE END PD */
@@ -48,6 +50,7 @@ int Wav_Player(FIL *file, char *path, Audio_WAV_Info *wav, Wav_CH_Data *wav_ch);
 /* extern variables ---------------------------------------------------------*/
 /* USER CODE BEGIN EV */
 extern TaskHandle_t GUI_Task_Handle;
+extern TaskHandle_t ReadWav_Task_Handle;
 /* USER CODE END EV */
 
 /* extern function prototypes -----------------------------------------------*/
@@ -63,17 +66,18 @@ void ReadWav(void const *argument)
     int wav_len;
 
     // 等待任务开始，后面会改成创建一个新任务 等待GUI任务发送信号开始播放音乐
-    ulTaskNotifyTake(pdTRUE, portMAX_DELAY);
+    // ulTaskNotifyTake(pdTRUE, portMAX_DELAY);
 
     char filePath[60];
-    sprintf(filePath, "%s%s", USERPath, MusicList[MusicList_Pointer]); // 拼接出带逻辑驱动器名的完整路径名
+    sprintf(filePath, "%s%s", USERPath, (char *)argument); // 拼接出带逻辑驱动器名的完整路径名
     Wav_Debug_Print("%s\r\n", filePath);
 
     // 打开文件，读取wav信息
     wav_len = Wav_OpenFile(&file, filePath, &WavData);
     if (wav_len < 0)
     {
-        f_close(&file);
+        // f_close(&file);
+        // ReadWav_Task_Handle = NULL;
         vTaskDelete(NULL);
     }
 
@@ -87,7 +91,8 @@ void ReadWav(void const *argument)
     /*------------------- 初始化DAC输出信号，并开始DMA传输 ------------------------------------*/
     if (Wav_Player_Init(&file, filePath, &WavData, &wav_ch) < 0)
     {
-        f_close(&file);
+        // f_close(&file);
+        // ReadWav_Task_Handle = NULL;
         vTaskDelete(NULL);
     }
 
@@ -112,6 +117,7 @@ void ReadWav(void const *argument)
     f_close(&file);
     Wav_Stop();
 
+    // ReadWav_Task_Handle = NULL;
     vTaskDelete(NULL);
 }
 
@@ -129,6 +135,7 @@ int Wav_Player(FIL *file, char *path, Audio_WAV_Info *wav, Wav_CH_Data *wav_ch)
     else
         wavTmplen = sizeof(int16_t) * (wav_ch->Len);
 
+    Wav_Debug_Print("player\r\n");
     Wav_Debug_Print("tmpBuf len:%d\r\n", wavTmplen);
     int16_t *tmpBuf = (int16_t *)malloc(wavTmplen);
 
@@ -276,6 +283,7 @@ int Wav_Player_Init(FIL *file, char *path, Audio_WAV_Info *wav, Wav_CH_Data *wav
 {
     FRESULT f_res;
     UINT fnum;
+    Wav_Debug_Print("player_init\r\n");
 
     if ((file == NULL) || (path == NULL) || (wav == NULL) || (wav_ch == NULL))
         return -1;
@@ -296,6 +304,8 @@ int Wav_Player_Init(FIL *file, char *path, Audio_WAV_Info *wav, Wav_CH_Data *wav
 
     Wav_Debug_Print("tmpBuf len:%d\r\n", wavTmplen);
     int16_t *tmpBuf = (int16_t *)malloc(wavTmplen);
+    if (tmpBuf == NULL)
+        return -1;
 
     for (int i = 0; i < 2; i++)
     {

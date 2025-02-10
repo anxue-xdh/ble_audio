@@ -49,7 +49,7 @@ void GUI_Init(void)
     ILI9341_DispStringLine_EN(LINE(1), "        BleAudio_Demo         ");
 }
 
-void GUI_Task(void)
+void GUI_Task(void *argument)
 {
     u32 xReturn = 0;
     while (1)
