@@ -555,13 +555,13 @@ ARM Macro Assembler    Page 9
               00004000 
               00000000 
 Command Line: --debug --xref --diag_suppress=9931 --cpu=Cortex-M3 --apcs=interw
-ork --depend=.\_build\startup_stm32f103xe.d -o.\_build\startup_stm32f103xe.o -I
-../Core/Inc -ID:\Work_YJH\Projection\04_MyPrj\02_BleAudio\03_Software\LocalSoun
-d\06_ReadWav_Update\MDK-ARM\RTE -ID:\Work_YJH\SoftWare\Keil_MDK5\Packs\ARM\CMSI
-S\4.3.0\CMSIS\Include -ID:\Work_YJH\SoftWare\Keil_MDK5\Packs\Keil\STM32F1xx_DFP
-\2.1.0\Device\Include --predefine="__UVISION_VERSION SETA 515" --predefine="_RT
-E_ SETA 1" --predefine="STM32F10X_HD SETA 1" --list=startup_stm32f103xe.lst sta
-rtup_stm32f103xe.s
+ork --depend=practice_freertos_0609\startup_stm32f103xe.d -opractice_freertos_0
+609\startup_stm32f103xe.o -I../Core/Inc -I.\RTE\_Practice_FreeRTos_0609 -IE:\Wo
+rkSpace\STM32\Software\Keil\Pack\ARM\CMSIS\5.8.0\CMSIS\Core\Include -IE:\WorkSp
+ace\STM32\Software\Keil\Pack\Keil\STM32F1xx_DFP\2.1.0\Device\Include --predefin
+e="__UVISION_VERSION SETA 536" --predefine="_RTE_ SETA 1" --predefine="STM32F10
+X_HD SETA 1" --predefine="_RTE_ SETA 1" --list=startup_stm32f103xe.lst startup_
+stm32f103xe.s
 
 
 

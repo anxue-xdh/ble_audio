@@ -56,6 +56,6 @@
 "practice_freertos_0609\syscall.o"
 "practice_freertos_0609\ccsbcs.o"
 --strict --scatter "Practice_FreeRTos_0609\Practice_FreeRTos_0609.sct"
---summary_stderr --info summarysizes --map --xref --callgraph --symbols
+--summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols
 --info sizes --info totals --info unused --info veneers
 --list "Practice_FreeRTos_0609.map" -o Practice_FreeRTos_0609\Practice_FreeRTos_0609.axf

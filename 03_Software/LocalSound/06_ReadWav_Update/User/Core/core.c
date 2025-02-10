@@ -31,13 +31,15 @@
 #endif
 
 // #define WavBuff_Size 256
-#define WavBuff_Size 2048
+#define WavBuff_Size 512
 #define Wav_Start(out, len) HAL_DAC_Start_DMA(&hdac, DAC1_CHANNEL_1, (uint32_t *)out, len, DAC_ALIGN_12B_R)
 #define Wav_Stop() HAL_DAC_Stop_DMA(&hdac, DAC1_CHANNEL_1)
 /* USER CODE END PD */
 
 /* Private variables ---------------------------------------------------------*/
 /* USER CODE BEGIN PV */
+int16_t WAV_CH[WavBuff_Size*2]={0};
+int16_t WAV_TmpBuf[WavBuff_Size]={0};
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -84,7 +86,9 @@ void ReadWav(void const *argument)
     Wav_CH_Data wav_ch = {0};
     // int16_t Wav_DacOutout_Buf[WavBuff_Size * 2] = {0};
 
-    wav_ch.Ch_r = malloc(sizeof(int16_t) * WavBuff_Size * 2);
+    //wav_ch.Ch_r = malloc(sizeof(int16_t) * WavBuff_Size * 2);
+		
+    wav_ch.Ch_r = WAV_CH;
     wav_ch.Ch_l = NULL; // 暂时只用单声道播放
     wav_ch.Len = WavBuff_Size * 2;
 
@@ -137,7 +141,8 @@ int Wav_Player(FIL *file, char *path, Audio_WAV_Info *wav, Wav_CH_Data *wav_ch)
 
     Wav_Debug_Print("player\r\n");
     Wav_Debug_Print("tmpBuf len:%d\r\n", wavTmplen);
-    int16_t *tmpBuf = (int16_t *)malloc(wavTmplen);
+    //int16_t *tmpBuf = (int16_t *)malloc(wavTmplen);
+    int16_t *tmpBuf = WAV_TmpBuf;
 
     while (1)
     {
@@ -303,7 +308,9 @@ int Wav_Player_Init(FIL *file, char *path, Audio_WAV_Info *wav, Wav_CH_Data *wav
         wavTmplen = sizeof(int16_t) * (wav_ch->Len);
 
     Wav_Debug_Print("tmpBuf len:%d\r\n", wavTmplen);
-    int16_t *tmpBuf = (int16_t *)malloc(wavTmplen);
+    //int16_t *tmpBuf = (int16_t *)malloc(wavTmplen);
+    int16_t *tmpBuf = WAV_TmpBuf;
+		
     if (tmpBuf == NULL)
         return -1;
 

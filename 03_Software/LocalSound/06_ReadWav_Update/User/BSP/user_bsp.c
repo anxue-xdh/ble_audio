@@ -1,11 +1,15 @@
 #include "user_bsp.h"
 
 #include "gui.h"
+#include "fatfs.h"
 
 char Uart_TxBuf[UART1_MAXLEN];
 char Uart1_Buf[UART1_MAXLEN];
 int Uart1_Len = 0;
 char Uart1_ReveFlag = False;
+
+extern FRESULT SD_Read_FileInfo(const char *path, char (*list)[64]);
+extern char USERPath[4]; /* USER logical drive path */
 
 void System_Init(void)
 {
@@ -25,6 +29,8 @@ void System_Init(void)
     __HAL_DMA_ENABLE_IT(&hdma_dac_ch1, DMA_IT_HT);
 
     // HAL_DAC_Start_DMA(&hdac, DAC1_CHANNEL_1, (uint32_t *)Uart1_Buf, 2048, DAC_ALIGN_12B_R);
+
+    // SD_Read_FileInfo(USERPath, MusicList);
 
     Uart1_SendData("程序初始化完毕\r\n"); // 实验程序
 }
