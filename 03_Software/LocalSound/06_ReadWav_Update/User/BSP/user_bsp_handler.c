@@ -62,12 +62,12 @@ void Uart1_Scan_Task(void)
 
                 if (eReturn != eDeleted)
                 {
-                    Uart1_SendData("ReadWav_Task_Handle is running");
+                    Uart1_SendData("ReadWav_Task_Handle is running\r\n");
                     continue;
                 }
             }
             // xTaskNotifyGive(ReadWav_Task_Handle);
-            Uart1_SendData("create ReadWav_Task_Handle");
+            Uart1_SendData("create ReadWav_Task_Handle\r\n");
             xTaskCreate((TaskFunction_t)ReadWav,
                         (const char *)"ReadWav",
                         (configSTACK_DEPTH_TYPE)2048,
@@ -119,12 +119,12 @@ void Key_Run_Task(void)
 
                 if (eReturn != eDeleted)
                 {
-                    Uart1_SendData("ReadWav_Task_Handle is running");
+                    Uart1_SendData("ReadWav_Task_Handle is running\r\n");
                     continue;
                 }
             }
             // xTaskNotifyGive(ReadWav_Task_Handle);
-            Uart1_SendData("create ReadWav_Task_Handle");
+            Uart1_SendData("create ReadWav_Task_Handle\r\n");
             xTaskCreate((TaskFunction_t)ReadWav,
                         (const char *)"ReadWav",
                         (configSTACK_DEPTH_TYPE)2048,

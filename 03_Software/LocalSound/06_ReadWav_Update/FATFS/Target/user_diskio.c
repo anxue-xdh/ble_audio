@@ -136,8 +136,12 @@ DRESULT USER_read(
     SD_Error SD_state = SD_RESPONSE_NO_ERROR;
 
     taskENTER_CRITICAL();
-    SD_state = SD_ReadMultiBlocks(buff, (uint64_t)sector * SD_BLOCKSIZE, SD_BLOCKSIZE, count);
-    // SD_state = SD_ReadBlock(buff, (uint64_t)sector * SD_BLOCKSIZE, SD_BLOCKSIZE);
+
+    if (count > 1)
+        SD_state = SD_ReadMultiBlocks(buff, (uint64_t)sector * SD_BLOCKSIZE, SD_BLOCKSIZE, count);
+    else
+        SD_state = SD_ReadBlock(buff, (uint64_t)sector * SD_BLOCKSIZE, SD_BLOCKSIZE);
+
     taskEXIT_CRITICAL();
     if (SD_state == SD_RESPONSE_NO_ERROR)
     {
@@ -158,10 +162,6 @@ DRESULT USER_read(
  */
 #if _USE_WRITE == 1
 
-int fs_count=0;
-int fs_sector =0;
-int fs_blocksize =0;
-
 DRESULT USER_write(
     BYTE pdrv,        /* Physical drive nmuber to identify the drive */
     const BYTE *buff, /* Data to be written */
@@ -171,22 +171,17 @@ DRESULT USER_write(
 {
     /* USER CODE BEGIN WRITE */
     DRESULT res = RES_ERROR;
-//    SD_Error SD_state = SD_RESPONSE_NO_ERROR;
+    SD_Error SD_state = SD_RESPONSE_NO_ERROR;
 
-//    taskENTER_CRITICAL();
-//	
-// fs_count=count;
-// fs_sector =sector;
-//	fs_blocksize= SD_BLOCKSIZE;
-//	
+    taskENTER_CRITICAL();
 
-//    //SD_state = SD_WriteMultiBlocks((uint8_t *)buff, (uint64_t)sector * SD_BLOCKSIZE, SD_BLOCKSIZE, count);
-//    // SD_state = SD_WriteBlock((uint8_t *)buff, (uint64_t)sector * SD_BLOCKSIZE, SD_BLOCKSIZE);
-//    taskEXIT_CRITICAL();
-//    if (SD_state == SD_RESPONSE_NO_ERROR)
-//    {
-//        res = RES_OK;
-//    }
+    SD_state = SD_WriteMultiBlocks((uint8_t *)buff, (uint64_t)sector * SD_BLOCKSIZE, SD_BLOCKSIZE, count);
+    //  SD_state = SD_WriteBlock((uint8_t *)buff, (uint64_t)sector * SD_BLOCKSIZE, SD_BLOCKSIZE);
+    taskEXIT_CRITICAL();
+    if (SD_state == SD_RESPONSE_NO_ERROR)
+    {
+        res = RES_OK;
+    }
 
     return res;
     /* USER CODE END WRITE */

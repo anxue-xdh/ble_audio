@@ -1,7 +1,7 @@
 /*
  * @Author: YourName
  * @Date: 2025-01-22 10:30:01
- * @LastEditTime: 2025-02-10 17:11:19
+ * @LastEditTime: 2025-02-11 16:33:44
  * @LastEditors: YourName
  * @Description:
  * @FilePath: \MDK-ARMd:\Work_YJH\Projection\04_MyPrj\02_BleAudio\03_Software\LocalSound\06_ReadWav_Update\User\Core\core.c
@@ -38,8 +38,8 @@
 
 /* Private variables ---------------------------------------------------------*/
 /* USER CODE BEGIN PV */
-int16_t WAV_CH[WavBuff_Size*2]={0};
-int16_t WAV_TmpBuf[WavBuff_Size]={0};
+int16_t WAV_CH[WavBuff_Size * 2] = {0};
+int16_t WAV_TmpBuf[WavBuff_Size] = {0};
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -58,6 +58,28 @@ extern TaskHandle_t ReadWav_Task_Handle;
 /* extern function prototypes -----------------------------------------------*/
 /* USER CODE BEGIN EFP */
 /* USER CODE END EFP */
+void Start_Wav_Func(void *path)
+{
+    if (ReadWav_Task_Handle != NULL)
+    {
+        eTaskState eReturn = eTaskGetState(ReadWav_Task_Handle);
+        Uart1_SendData("ReadWav_Task_Handle Task is %d\r\n", eReturn);
+
+        if (eReturn != eDeleted)
+        {
+            Uart1_SendData("ReadWav_Task_Handle is running\r\n");
+            return;
+        }
+    }
+    // xTaskNotifyGive(ReadWav_Task_Handle);
+    Uart1_SendData("create ReadWav_Task_Handle\r\n");
+    xTaskCreate((TaskFunction_t)ReadWav,
+                (const char *)"ReadWav",
+                (configSTACK_DEPTH_TYPE)2048,
+                (void *)MusicList[MusicList_Pointer],
+                (UBaseType_t)5,
+                &ReadWav_Task_Handle);
+}
 
 void ReadWav(void const *argument)
 {
@@ -86,8 +108,8 @@ void ReadWav(void const *argument)
     Wav_CH_Data wav_ch = {0};
     // int16_t Wav_DacOutout_Buf[WavBuff_Size * 2] = {0};
 
-    //wav_ch.Ch_r = malloc(sizeof(int16_t) * WavBuff_Size * 2);
-		
+    // wav_ch.Ch_r = malloc(sizeof(int16_t) * WavBuff_Size * 2);
+
     wav_ch.Ch_r = WAV_CH;
     wav_ch.Ch_l = NULL; // 暂时只用单声道播放
     wav_ch.Len = WavBuff_Size * 2;
@@ -141,7 +163,7 @@ int Wav_Player(FIL *file, char *path, Audio_WAV_Info *wav, Wav_CH_Data *wav_ch)
 
     Wav_Debug_Print("player\r\n");
     Wav_Debug_Print("tmpBuf len:%d\r\n", wavTmplen);
-    //int16_t *tmpBuf = (int16_t *)malloc(wavTmplen);
+    // int16_t *tmpBuf = (int16_t *)malloc(wavTmplen);
     int16_t *tmpBuf = WAV_TmpBuf;
 
     while (1)
@@ -308,9 +330,9 @@ int Wav_Player_Init(FIL *file, char *path, Audio_WAV_Info *wav, Wav_CH_Data *wav
         wavTmplen = sizeof(int16_t) * (wav_ch->Len);
 
     Wav_Debug_Print("tmpBuf len:%d\r\n", wavTmplen);
-    //int16_t *tmpBuf = (int16_t *)malloc(wavTmplen);
+    // int16_t *tmpBuf = (int16_t *)malloc(wavTmplen);
     int16_t *tmpBuf = WAV_TmpBuf;
-		
+
     if (tmpBuf == NULL)
         return -1;
 
@@ -324,10 +346,9 @@ int Wav_Player_Init(FIL *file, char *path, Audio_WAV_Info *wav, Wav_CH_Data *wav
             free(tmpBuf);
             return -3;
         }
+        // printf_WavInfo(tmpBuf, WavBuff_Size);
 
         Wav_Debug_Print("》文件读取成功,读到字节数据：%d\r\n", fnum);
-        if (i == 0) // 清零wav的文件信息，防止输出奇怪的声音
-            memset(tmpBuf, 0, wav->wavLen * 2);
 
         if (wav->fmt_ck.nChannels == 1)
             Wav_Process_SingTrack((wav_ch->Ch_r + i * (wav_ch->Len / 2)), tmpBuf, wav_ch->Len / 2);
@@ -339,8 +360,10 @@ int Wav_Player_Init(FIL *file, char *path, Audio_WAV_Info *wav, Wav_CH_Data *wav
                 Wav_Process_DualTrack((wav_ch->Ch_r + i * wav_ch->Len), NULL, tmpBuf, wav_ch->Len / 2);
         }
 
-        // printf_WavInfo((out + i * (len / 2)), WavBuff_Size);
+        // printf_WavInfo((wav_ch->Ch_r + i * (wav_ch->Len / 2)), WavBuff_Size);
 
+        if (i == 0) // 清零wav的文件信息，防止输出奇怪的声音
+            memset(wav_ch->Ch_r, 0, wav->wavLen * 2);
         // Wav_Debug_Print("\r\n");
         // Wav_Debug_Print("\r\n");
         // Wav_Debug_Print("\r\n");
@@ -348,7 +371,7 @@ int Wav_Player_Init(FIL *file, char *path, Audio_WAV_Info *wav, Wav_CH_Data *wav
     }
     Wav_Debug_Print("wav memset\r\n");
 
-    // printf_WavInfo(out, WavBuff_Size * 2);
+    // printf_WavInfo(wav_ch->Ch_r, WavBuff_Size * 2);
     free(tmpBuf);
     return 1;
 }
@@ -358,9 +381,9 @@ void printf_WavInfo(short *data, int len)
     int j = 0;
     for (int i = 0; i < len; i++)
     {
-        Wav_Debug_Print("%d ", data[i]);
+        Wav_Debug_Print("%04d\t", data[i]);
         j++;
-        if (j == 16)
+        if (j == 12)
         {
             j = 0;
             Wav_Debug_Print("\r\n");

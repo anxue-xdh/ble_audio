@@ -239,7 +239,7 @@ SD_Error SD_ReadBlock(uint8_t *pBuffer, uint64_t ReadAddr, uint16_t BlockSize)
  */
 SD_Error SD_ReadMultiBlocks(uint8_t *pBuffer, uint64_t ReadAddr, uint16_t BlockSize, uint32_t NumberOfBlocks)
 {
-  uint32_t i = 0, Offset = 0;
+  uint32_t i = 0;
   SD_Error rvalue = SD_RESPONSE_FAILURE;
 
   // SDHC卡块大小固定为512，且读命令中的地址的单位是sector
@@ -251,18 +251,20 @@ SD_Error SD_ReadMultiBlocks(uint8_t *pBuffer, uint64_t ReadAddr, uint16_t BlockS
 
   /*!< SD chip select low */
   SD_CS_LOW();
-  /*!< Data transfer */
+
+  /*!< 发送CMD18 多块读取命令 */
+  SD_SendCmd(SD_CMD_READ_MULT_BLOCK, ReadAddr, 0xFF);
+  /*!< Check if the SD acknowledged the read block command: R1 response (0x00: no errors) */
+  if (SD_GetResponse(SD_RESPONSE_NO_ERROR))
+  {
+    return SD_RESPONSE_FAILURE;
+  }
+
+  // 开始传输
   while (NumberOfBlocks--)
   {
-    /*!< Send CMD17 (SD_CMD_READ_SINGLE_BLOCK) to read one block */
-    SD_SendCmd(SD_CMD_READ_SINGLE_BLOCK, ReadAddr + Offset, 0xFF);
-    /*!< Check if the SD acknowledged the read block command: R1 response (0x00: no errors) */
-    if (SD_GetResponse(SD_RESPONSE_NO_ERROR))
-    {
-      return SD_RESPONSE_FAILURE;
-    }
-    /*!< Now look for the data token to signify the start of the data */
-    if (!SD_GetResponse(SD_START_DATA_SINGLE_BLOCK_READ))
+    //
+    if (!SD_GetResponse(SD_START_DATA_MULTIPLE_BLOCK_READ))
     {
       /*!< Read the SD block data : read NumByteToRead data */
       for (i = 0; i < BlockSize; i++)
@@ -272,23 +274,34 @@ SD_Error SD_ReadMultiBlocks(uint8_t *pBuffer, uint64_t ReadAddr, uint16_t BlockS
         /*!< Point to the next location where the byte read will be saved */
         pBuffer++;
       }
-      /*!< Set next read address*/
-      Offset += 512;
+
       /*!< get CRC bytes (not really needed by us, but required by SD) */
       SD_ReadByte();
       SD_ReadByte();
       /*!< Set response value to success */
       rvalue = SD_RESPONSE_NO_ERROR;
+
+      /* 添加 Send dummy byte 防止读操作失败 */
+      SD_WriteByte(SD_DUMMY_BYTE);
     }
     else
     {
       /*!< Set response value to failure */
       rvalue = SD_RESPONSE_FAILURE;
+      // 从代码逻辑上来说，我觉得这里应该增加break，因为当系统无法接收到数据头，应当返回错误值，防止错误数据进入系统，
+      // 但是增加这个break后，程序会疯狂出错，同时即使不存在该break，对音频输出效果也没有受到影响（大概）
+      // break;
     }
-
-    /* 添加 Send dummy byte 防止读操作失败 */
-    SD_WriteByte(SD_DUMMY_BYTE);
   }
+
+  /*!< 发送CMD12 停止多块读取 */
+  SD_SendCmd(SD_CMD_STOP_TRANSMISSION, 0, 0xFF);
+  /*!< Check if the SD acknowledged the read block command: R1b 响应 (0x00: no errors) */
+  if (SD_GetResponse(SD_RESPONSE_NO_ERROR))
+  {
+    return SD_RESPONSE_FAILURE;
+  }
+
   /*!< SD chip select high */
   SD_CS_HIGH();
   /*!< Send dummy byte: 8 Clock pulses of delay */
