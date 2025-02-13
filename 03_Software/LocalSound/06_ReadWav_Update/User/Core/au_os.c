@@ -1,13 +1,13 @@
 /*
  * @Author: YourName
  * @Date: 2025-01-22 10:30:01
- * @LastEditTime: 2025-02-11 16:33:44
+ * @LastEditTime: 2025-02-13 14:37:39
  * @LastEditors: YourName
  * @Description:
- * @FilePath: \MDK-ARMd:\Work_YJH\Projection\04_MyPrj\02_BleAudio\03_Software\LocalSound\06_ReadWav_Update\User\Core\core.c
+ * @FilePath: \06_ReadWav_Update\User\Core\au_os.c
  * 版权声明
  */
-#include "core.h"
+#include "au_os.h"
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
@@ -15,8 +15,8 @@
 #include "semphr.h"
 #include "task.h"
 
-#include "audio.h"
-#include "audioConfig.h"
+#include "au_decode.h"
+#include "au_config.h"
 
 #include "gui.h"
 
@@ -31,15 +31,16 @@
 #endif
 
 // #define WavBuff_Size 256
-#define WavBuff_Size 512
+#define WavBuff_Size 1024
 #define Wav_Start(out, len) HAL_DAC_Start_DMA(&hdac, DAC1_CHANNEL_1, (uint32_t *)out, len, DAC_ALIGN_12B_R)
 #define Wav_Stop() HAL_DAC_Stop_DMA(&hdac, DAC1_CHANNEL_1)
 /* USER CODE END PD */
 
 /* Private variables ---------------------------------------------------------*/
 /* USER CODE BEGIN PV */
-int16_t WAV_CH[WavBuff_Size * 2] = {0};
-int16_t WAV_TmpBuf[WavBuff_Size] = {0};
+TaskHandle_t Wav_Task_Handle;
+// int16_t WAV_CH[WavBuff_Size * 2] = {0};
+// int16_t WAV_TmpBuf[WavBuff_Size] = {0};
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -51,42 +52,38 @@ int Wav_Player(FIL *file, char *path, Audio_WAV_Info *wav, Wav_CH_Data *wav_ch);
 
 /* extern variables ---------------------------------------------------------*/
 /* USER CODE BEGIN EV */
-extern TaskHandle_t GUI_Task_Handle;
-extern TaskHandle_t ReadWav_Task_Handle;
 /* USER CODE END EV */
 
 /* extern function prototypes -----------------------------------------------*/
 /* USER CODE BEGIN EFP */
 /* USER CODE END EFP */
-void Start_Wav_Func(void *path)
+void Start_Wav(void)
 {
-    if (ReadWav_Task_Handle != NULL)
+    if (Wav_Task_Handle != NULL)
     {
-        eTaskState eReturn = eTaskGetState(ReadWav_Task_Handle);
-        Uart1_SendData("ReadWav_Task_Handle Task is %d\r\n", eReturn);
+        eTaskState eReturn = eTaskGetState(Wav_Task_Handle);
+        Uart1_SendData("Wav_Task_Handle Task is %d\r\n", eReturn);
 
         if (eReturn != eDeleted)
         {
-            Uart1_SendData("ReadWav_Task_Handle is running\r\n");
+            Uart1_SendData("Wav_Task_Handle is running\r\n");
             return;
         }
     }
-    // xTaskNotifyGive(ReadWav_Task_Handle);
-    Uart1_SendData("create ReadWav_Task_Handle\r\n");
-    xTaskCreate((TaskFunction_t)ReadWav,
-                (const char *)"ReadWav",
+
+    Uart1_SendData("create Wav_Task_Handle\r\n");
+    xTaskCreate((TaskFunction_t)Wav_Task,
+                (const char *)"Wav_Task",
                 (configSTACK_DEPTH_TYPE)2048,
                 (void *)MusicList[MusicList_Pointer],
                 (UBaseType_t)5,
-                &ReadWav_Task_Handle);
+                &Wav_Task_Handle);
 }
 
-void ReadWav(void const *argument)
+void Wav_Task(void const *argument)
 {
-    // FRESULT f_res; /* ?????? */
-    FIL file; /* ???? */
-    // UINT fnum;     /* ???????? */
-    Audio_WAV_Info WavData;
+    FIL file;               // 文件对象
+    Audio_WAV_Info WavData; // wav信息结构体
     int wav_len;
 
     // 等待任务开始，后面会改成创建一个新任务 等待GUI任务发送信号开始播放音乐
@@ -101,16 +98,14 @@ void ReadWav(void const *argument)
     if (wav_len < 0)
     {
         // f_close(&file);
-        // ReadWav_Task_Handle = NULL;
         vTaskDelete(NULL);
     }
 
     Wav_CH_Data wav_ch = {0};
     // int16_t Wav_DacOutout_Buf[WavBuff_Size * 2] = {0};
 
-    // wav_ch.Ch_r = malloc(sizeof(int16_t) * WavBuff_Size * 2);
-
-    wav_ch.Ch_r = WAV_CH;
+    // wav_ch.Ch_r = WAV_CH;
+    wav_ch.Ch_r = malloc(sizeof(int16_t) * WavBuff_Size * 2);
     wav_ch.Ch_l = NULL; // 暂时只用单声道播放
     wav_ch.Len = WavBuff_Size * 2;
 
@@ -118,7 +113,6 @@ void ReadWav(void const *argument)
     if (Wav_Player_Init(&file, filePath, &WavData, &wav_ch) < 0)
     {
         // f_close(&file);
-        // ReadWav_Task_Handle = NULL;
         vTaskDelete(NULL);
     }
 
@@ -143,7 +137,6 @@ void ReadWav(void const *argument)
     f_close(&file);
     Wav_Stop();
 
-    // ReadWav_Task_Handle = NULL;
     vTaskDelete(NULL);
 }
 
@@ -163,8 +156,8 @@ int Wav_Player(FIL *file, char *path, Audio_WAV_Info *wav, Wav_CH_Data *wav_ch)
 
     Wav_Debug_Print("player\r\n");
     Wav_Debug_Print("tmpBuf len:%d\r\n", wavTmplen);
-    // int16_t *tmpBuf = (int16_t *)malloc(wavTmplen);
-    int16_t *tmpBuf = WAV_TmpBuf;
+    int16_t *tmpBuf = (int16_t *)malloc(wavTmplen);
+    // int16_t *tmpBuf = WAV_TmpBuf;
 
     while (1)
     {
@@ -330,8 +323,8 @@ int Wav_Player_Init(FIL *file, char *path, Audio_WAV_Info *wav, Wav_CH_Data *wav
         wavTmplen = sizeof(int16_t) * (wav_ch->Len);
 
     Wav_Debug_Print("tmpBuf len:%d\r\n", wavTmplen);
-    // int16_t *tmpBuf = (int16_t *)malloc(wavTmplen);
-    int16_t *tmpBuf = WAV_TmpBuf;
+    int16_t *tmpBuf = (int16_t *)malloc(wavTmplen);
+    // int16_t *tmpBuf = WAV_TmpBuf;
 
     if (tmpBuf == NULL)
         return -1;
@@ -389,52 +382,4 @@ void printf_WavInfo(short *data, int len)
             Wav_Debug_Print("\r\n");
         }
     }
-}
-FRESULT SD_Read_FileInfo(const char *path, char (*list)[64])
-{
-    FRESULT res;
-    DIR dir;
-    FILINFO fno;
-    int nfile, ndir;
-    TCHAR name[64];
-
-    fno.lfname = name;
-    fno.lfsize = 64;
-
-    res = f_opendir(&dir, path); /* Open the directory */
-    if (res == FR_OK)
-    {
-        nfile = ndir = 0;
-        for (;;)
-        {
-            res = f_readdir(&dir, &fno); /* Read a directory item */
-            if (res != FR_OK || fno.fname[0] == 0)
-                break; /* Error or end of dir */
-            if (fno.fattrib & AM_DIR)
-            { /* Directory */
-                Wav_Debug_Print("   <DIR>   %s\n", fno.lfname);
-                ndir++;
-            }
-            else
-            { /* File */
-                Wav_Debug_Print("%10u %s\n", fno.fsize, fno.lfname);
-
-                if (fno.lfname[0] == 0)
-                    continue;
-                memcpy(list[nfile], fno.lfname, strlen(fno.lfname));
-
-                nfile++;
-            }
-        }
-        f_closedir(&dir);
-        Wav_Debug_Print("%d dirs, %d files.\n", ndir, nfile);
-
-        // xTaskNotifyGive(GUI_Task_Handle);
-        xTaskNotify(GUI_Task_Handle, GUI_TaskBit_MusicList_Update, eSetBits);
-    }
-    else
-    {
-        Wav_Debug_Print("Failed to open \"%s\". (%u)\n", path, res);
-    }
-    return res;
 }

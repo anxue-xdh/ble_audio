@@ -32,8 +32,8 @@
 
 // #include "GUI.h"
 
-#include "core.h"
-#include "audio.h"
+#include "au_os.h"
+#include "au_decode.h"
 #include "gui.h"
 /* USER CODE END Includes */
 
@@ -60,10 +60,7 @@ TaskHandle_t Key_Scan_Task_Handle;
 TaskHandle_t Key_Run_Task_Handle;
 TaskHandle_t Uart1_Scan_Task_Handle;
 TaskHandle_t Temp_Task_Handle;
-TaskHandle_t ReadWav_Task_Handle;
 
-TaskHandle_t GUI_Task_Handle;
-TaskHandle_t GUI_Touch_Handle;
 // SemaphoreHandle_t Sem_Uart1 = NULL;
 
 /* USER CODE END Variables */

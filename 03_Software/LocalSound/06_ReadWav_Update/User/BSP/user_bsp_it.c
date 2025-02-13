@@ -1,13 +1,13 @@
 #include "user_bsp.h"
 
 #include "bsp_sysTimer.h"
-extern TaskHandle_t ReadWav_Task_Handle;
+#include "au_os.h"
 
 void HAL_DAC_ConvHalfCpltCallbackCh1(DAC_HandleTypeDef *hdac)
 {
     BaseType_t ret = pdFALSE;
     // xSemaphoreGiveFromISR(Sem_Uart1, &xHigherPriorityTaskWoken); // 给出信号量
-    vTaskNotifyGiveFromISR(ReadWav_Task_Handle, &ret);
+    vTaskNotifyGiveFromISR(Wav_Task_Handle, &ret);
     if (ret == pdTRUE) // 需要进行任务切换
     {
         portYIELD_FROM_ISR(ret); // 执行任务切换
@@ -20,7 +20,7 @@ void HAL_DAC_ConvCpltCallbackCh1(DAC_HandleTypeDef *hdac)
 
     BaseType_t ret = pdFALSE;
     // xSemaphoreGiveFromISR(Sem_Uart1, &xHigherPriorityTaskWoken); // 给出信号量
-    vTaskNotifyGiveFromISR(ReadWav_Task_Handle, &ret);
+    vTaskNotifyGiveFromISR(Wav_Task_Handle, &ret);
     if (ret == pdTRUE) // 需要进行任务切换
     {
         portYIELD_FROM_ISR(ret); // 执行任务切换

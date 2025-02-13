@@ -2,7 +2,7 @@
 #include "ff.h"
 
 #include "gui.h"
-#include "core.h"
+#include "au_os.h"
 
 // extern SemaphoreHandle_t Sem_Uart1;
 void SoftReset(void)
@@ -12,10 +12,7 @@ void SoftReset(void)
 }
 
 /******     ¡Ÿ ±         *****/
-extern FRESULT SD_Read_FileInfo(const char *path, char (*list)[64]);
 extern char USERPath[4]; /* USER logical drive path */
-extern TaskHandle_t ReadWav_Task_Handle;
-extern TaskHandle_t GUI_Task_Handle;
 /******     ¡Ÿ ±         *****/
 
 char strTmp[500];
@@ -55,32 +52,14 @@ void Uart1_Scan_Task(void)
         }
         else if (Uart1_strcmp("music start"))
         {
-            if (ReadWav_Task_Handle != NULL)
-            {
-                eTaskState eReturn = eTaskGetState(ReadWav_Task_Handle);
-                Uart1_SendData("ReadWav_Task_Handle Task is %d\r\n", eReturn);
-
-                if (eReturn != eDeleted)
-                {
-                    Uart1_SendData("ReadWav_Task_Handle is running\r\n");
-                    continue;
-                }
-            }
-            // xTaskNotifyGive(ReadWav_Task_Handle);
-            Uart1_SendData("create ReadWav_Task_Handle\r\n");
-            xTaskCreate((TaskFunction_t)ReadWav,
-                        (const char *)"ReadWav",
-                        (configSTACK_DEPTH_TYPE)2048,
-                        (void *)MusicList[MusicList_Pointer],
-                        (UBaseType_t)5,
-                        &ReadWav_Task_Handle);
+            Start_Wav();
         }
         else if (Uart1_strcmp("music task query"))
         {
-            if (ReadWav_Task_Handle != NULL)
+            if (Wav_Task_Handle != NULL)
             {
-                eTaskState eReturn = eTaskGetState(ReadWav_Task_Handle);
-                Uart1_SendData("ReadWav_Task_Handle Task is %d\r\n", eReturn);
+                eTaskState eReturn = eTaskGetState(Wav_Task_Handle);
+                Uart1_SendData("Wav_Task_Handle Task is %d\r\n", eReturn);
             }
             else
             {
@@ -112,25 +91,7 @@ void Key_Run_Task(void)
         case Key2_Bit:
             HAL_GPIO_TogglePin(LED1_GPIO_Port, LED1_Pin);
 
-            if (ReadWav_Task_Handle != NULL)
-            {
-                eTaskState eReturn = eTaskGetState(ReadWav_Task_Handle);
-                Uart1_SendData("ReadWav_Task_Handle Task is %d\r\n", eReturn);
-
-                if (eReturn != eDeleted)
-                {
-                    Uart1_SendData("ReadWav_Task_Handle is running\r\n");
-                    continue;
-                }
-            }
-            // xTaskNotifyGive(ReadWav_Task_Handle);
-            Uart1_SendData("create ReadWav_Task_Handle\r\n");
-            xTaskCreate((TaskFunction_t)ReadWav,
-                        (const char *)"ReadWav",
-                        (configSTACK_DEPTH_TYPE)2048,
-                        (void *)MusicList[MusicList_Pointer],
-                        (UBaseType_t)5,
-                        &ReadWav_Task_Handle);
+            Start_Wav();
             break;
         }
     }

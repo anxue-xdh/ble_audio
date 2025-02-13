@@ -29,6 +29,11 @@
         "palette.h": "c",
         "gui.h": "c",
         "string_view": "c",
-        "basic.h": "c"
+        "basic.h": "c",
+        "mylist.h": "c",
+        "assert.h": "c",
+        "my_list.h": "c",
+        "au_decode.h": "c",
+        "au_os.h": "c"
     }
 }

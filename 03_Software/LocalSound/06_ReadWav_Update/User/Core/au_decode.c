@@ -4,13 +4,14 @@
  * @LastEditTime: 2025-02-07 16:46:24
  * @FilePath: \MDK-ARMd:\Work_YJH\Projection\04_MyPrj\02_BleAudio\03_Software\LocalSound\06_ReadWav_Update\User\Core\audio.c
  */
-#include "audio.h"
+#include "au_decode.h"
 
 #if (Define_DEBUG == 1)
 #define Audio_Debug(...) Uart1_SendData(__VA_ARGS__)
 #else
 #define Audio_Debug(...)
 #endif
+
 static int audio_wave_info_verify(const Audio_WAV_Info *wav_info);
 
 /**
