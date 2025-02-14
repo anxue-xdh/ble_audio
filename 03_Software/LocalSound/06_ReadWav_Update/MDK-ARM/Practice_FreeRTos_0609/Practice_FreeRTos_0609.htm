@@ -3,7 +3,7 @@
 <title>Static Call Graph - [Practice_FreeRTos_0609\Practice_FreeRTos_0609.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image Practice_FreeRTos_0609\Practice_FreeRTos_0609.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5050169: Last Updated: Fri Feb 14 15:27:52 2025
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5050169: Last Updated: Fri Feb 14 17:07:26 2025
 <BR><P>
 <H3>Maximum Stack Usage =       2608 bytes + Unknown(Functions without stacksize, Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -2105,8 +2105,8 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[63]"></a>Key_Run_Task</STRONG> (Thumb, 70 bytes, Stack size 8 bytes, user_bsp_handler.o(i.Key_Run_Task))
-<BR><BR>[Stack]<UL><LI>Max Depth = 176 + Unknown Stack Size
-<LI>Call Chain = Key_Run_Task &rArr; Start_Wav &rArr; USART_SendData &rArr; vsprintf &rArr; _printf_char_common &rArr; __printf
+<BR><BR>[Stack]<UL><LI>Max Depth = 168 + Unknown Stack Size
+<LI>Call Chain = Key_Run_Task &rArr; HAL_GPIO_TogglePin &rArr; assert_failed &rArr; USART_SendData &rArr; vsprintf &rArr; _printf_char_common &rArr; __printf
 </UL>
 <BR>[Calls]<UL><LI><a href="#[106]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_GPIO_TogglePin
 <LI><a href="#[151]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xEventGroupWaitBits
@@ -2482,8 +2482,8 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[64]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Uart1_Scan_Task
 </UL>
 
-<P><STRONG><a name="[152]"></a>Start_Wav</STRONG> (Thumb, 82 bytes, Stack size 24 bytes, au_os.o(i.Start_Wav))
-<BR><BR>[Stack]<UL><LI>Max Depth = 168 + Unknown Stack Size
+<P><STRONG><a name="[152]"></a>Start_Wav</STRONG> (Thumb, 86 bytes, Stack size 16 bytes, au_os.o(i.Start_Wav))
+<BR><BR>[Stack]<UL><LI>Max Depth = 160 + Unknown Stack Size
 <LI>Call Chain = Start_Wav &rArr; USART_SendData &rArr; vsprintf &rArr; _printf_char_common &rArr; __printf
 </UL>
 <BR>[Calls]<UL><LI><a href="#[17f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskCreate
@@ -2763,12 +2763,11 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[61]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Wav_Task
 </UL>
 
-<P><STRONG><a name="[19a]"></a>Wav_Player</STRONG> (Thumb, 406 bytes, Stack size 64 bytes, au_os.o(i.Wav_Player))
+<P><STRONG><a name="[19a]"></a>Wav_Player</STRONG> (Thumb, 374 bytes, Stack size 64 bytes, au_os.o(i.Wav_Player))
 <BR><BR>[Stack]<UL><LI>Max Depth = 912 + Unknown Stack Size
 <LI>Call Chain = Wav_Player &rArr; f_open &rArr; dir_register &rArr; dir_find &rArr; dir_next &rArr; create_chain &rArr; put_fat &rArr; move_window &rArr; sync_window &rArr; disk_write
 </UL>
-<BR>[Calls]<UL><LI><a href="#[155]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskDelay
-<LI><a href="#[ef]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART_SendData
+<BR>[Calls]<UL><LI><a href="#[ef]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART_SendData
 <LI><a href="#[10d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_DAC_Stop_DMA
 <LI><a href="#[126]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_TIM_Base_Stop
 <LI><a href="#[125]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_TIM_Base_Start
@@ -2785,7 +2784,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[61]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Wav_Task
 </UL>
 
-<P><STRONG><a name="[19f]"></a>Wav_Player_Init</STRONG> (Thumb, 286 bytes, Stack size 32 bytes, au_os.o(i.Wav_Player_Init))
+<P><STRONG><a name="[19f]"></a>Wav_Player_Init</STRONG> (Thumb, 306 bytes, Stack size 32 bytes, au_os.o(i.Wav_Player_Init))
 <BR><BR>[Stack]<UL><LI>Max Depth = 200 + Unknown Stack Size
 <LI>Call Chain = Wav_Player_Init &rArr; f_lseek &rArr; validate &rArr; lock_fs &rArr; ff_req_grant &rArr; xQueueSemaphoreTake &rArr; xTaskResumeAll &rArr; xTaskIncrementTick
 </UL>
@@ -2809,7 +2808,7 @@ Global Symbols
 <LI><a href="#[19a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Wav_Player
 </UL>
 
-<P><STRONG><a name="[61]"></a>Wav_Task</STRONG> (Thumb, 194 bytes, Stack size 704 bytes, au_os.o(i.Wav_Task))
+<P><STRONG><a name="[61]"></a>Wav_Task</STRONG> (Thumb, 204 bytes, Stack size 704 bytes, au_os.o(i.Wav_Task))
 <BR><BR>[Stack]<UL><LI>Max Depth = 2608 + Unknown Stack Size
 <LI>Call Chain = Wav_Task &rArr; Wav_OpenFile &rArr; f_open &rArr; dir_register &rArr; dir_find &rArr; dir_next &rArr; create_chain &rArr; put_fat &rArr; move_window &rArr; sync_window &rArr; disk_write
 </UL>
@@ -3506,7 +3505,6 @@ Global Symbols
 <LI><a href="#[1db]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;prvAddCurrentTaskToDelayedList
 </UL>
 <BR>[Called By]<UL><LI><a href="#[62]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Key_Scan_Task
-<LI><a href="#[19a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Wav_Player
 </UL>
 
 <P><STRONG><a name="[183]"></a>vTaskDelete</STRONG> (Thumb, 130 bytes, Stack size 16 bytes, tasks.o(i.vTaskDelete))
@@ -4528,11 +4526,11 @@ Local Symbols
 <P><STRONG><a name="[1aa]"></a>dir_find</STRONG> (Thumb, 320 bytes, Stack size 48 bytes, ff.o(i.dir_find))
 <BR><BR>[Stack]<UL><LI>Max Depth = 176<LI>Call Chain = dir_find &rArr; dir_next &rArr; create_chain &rArr; put_fat &rArr; move_window &rArr; sync_window &rArr; disk_write
 </UL>
-<BR>[Calls]<UL><LI><a href="#[1ad]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sum_sfn
-<LI><a href="#[1a1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;move_window
+<BR>[Calls]<UL><LI><a href="#[1a1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;move_window
 <LI><a href="#[1ab]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dir_sdi
 <LI><a href="#[1ae]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dir_next
 <LI><a href="#[1ac]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ff_wtoupper
+<LI><a href="#[1ad]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sum_sfn
 </UL>
 <BR>[Called By]<UL><LI><a href="#[1c2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;follow_path
 <LI><a href="#[1b2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dir_register
@@ -4556,9 +4554,9 @@ Local Symbols
 <P><STRONG><a name="[1b1]"></a>dir_read</STRONG> (Thumb, 258 bytes, Stack size 40 bytes, ff.o(i.dir_read))
 <BR><BR>[Stack]<UL><LI>Max Depth = 168<LI>Call Chain = dir_read &rArr; dir_next &rArr; create_chain &rArr; put_fat &rArr; move_window &rArr; sync_window &rArr; disk_write
 </UL>
-<BR>[Calls]<UL><LI><a href="#[1ad]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sum_sfn
-<LI><a href="#[1a1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;move_window
+<BR>[Calls]<UL><LI><a href="#[1a1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;move_window
 <LI><a href="#[1ae]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dir_next
+<LI><a href="#[1ad]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sum_sfn
 </UL>
 <BR>[Called By]<UL><LI><a href="#[168]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_readdir
 </UL>
@@ -4566,14 +4564,14 @@ Local Symbols
 <P><STRONG><a name="[1b2]"></a>dir_register</STRONG> (Thumb, 460 bytes, Stack size 56 bytes, ff.o(i.dir_register))
 <BR><BR>[Stack]<UL><LI>Max Depth = 232<LI>Call Chain = dir_register &rArr; dir_find &rArr; dir_next &rArr; create_chain &rArr; put_fat &rArr; move_window &rArr; sync_window &rArr; disk_write
 </UL>
-<BR>[Calls]<UL><LI><a href="#[1ad]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sum_sfn
-<LI><a href="#[1a1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;move_window
+<BR>[Calls]<UL><LI><a href="#[1a1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;move_window
 <LI><a href="#[1a9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mem_set
 <LI><a href="#[1b3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mem_cpy
 <LI><a href="#[1b4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gen_numname
 <LI><a href="#[1ab]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dir_sdi
 <LI><a href="#[1ae]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dir_next
 <LI><a href="#[1aa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dir_find
+<LI><a href="#[1ad]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sum_sfn
 </UL>
 <BR>[Called By]<UL><LI><a href="#[198]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_open
 </UL>

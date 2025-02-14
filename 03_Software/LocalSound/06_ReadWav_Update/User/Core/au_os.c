@@ -1,7 +1,7 @@
 /*
  * @Author: YourName
  * @Date: 2025-01-22 10:30:01
- * @LastEditTime: 2025-02-14 16:23:32
+ * @LastEditTime: 2025-02-14 16:51:55
  * @LastEditors: YourName
  * @Description:
  * @FilePath: \MDK-ARMd:\Work_YJH\Projection\04_MyPrj\02_BleAudio\03_Software\LocalSound\06_ReadWav_Update\User\Core\au_os.c
@@ -107,6 +107,7 @@ void Wav_Task(void const *argument)
     // int16_t Wav_DacOutout_Buf[WavBuff_Size * 2] = {0};
 
     // wav_ch.Ch_r = WAV_CH;
+    Wav_Debug_Print("wav_ch.Ch_r:%d\r\n", sizeof(int16_t) * WavBuff_Size * 2);
     wav_ch.Ch_r = malloc(sizeof(int16_t) * WavBuff_Size * 2);
     wav_ch.Ch_l = NULL; // 暂时只用单声道播放
     wav_ch.Len = WavBuff_Size * 2;
@@ -322,6 +323,8 @@ int Wav_OpenFile(FIL *file, char *path, Audio_WAV_Info *wav)
  *         -3：文件读取失败
  *          1：成功
  */
+
+volatile int16_t * pointer=NULL;
 int Wav_Player_Init(FIL *file, char *path, Audio_WAV_Info *wav, Wav_CH_Data *wav_ch)
 {
     FRESULT f_res;
@@ -347,6 +350,7 @@ int Wav_Player_Init(FIL *file, char *path, Audio_WAV_Info *wav, Wav_CH_Data *wav
 
     Wav_Debug_Print("tmpBuf len:%d\r\n", wavTmplen);
     int16_t *tmpBuf = (int16_t *)malloc(wavTmplen);
+		pointer = tmpBuf;
     // int16_t *tmpBuf = WAV_TmpBuf;
 
     if (tmpBuf == NULL)
@@ -378,8 +382,16 @@ int Wav_Player_Init(FIL *file, char *path, Audio_WAV_Info *wav, Wav_CH_Data *wav
 
         // printf_WavInfo((wav_ch->Ch_r + i * (wav_ch->Len / 2)), WavBuff_Size);
 
-        if (i == 0) // 清零wav的文件信息，防止输出奇怪的声音
-            memset(wav_ch->Ch_r, 0, wav->wavLen * 2);
+        if (wav->fmt_ck.nChannels == 1)
+        {
+            if (i == 0) // 清零wav的文件信息，防止输出奇怪的声音
+                memset(wav_ch->Ch_r, 0, wav->wavLen * 2);
+        }
+        else
+        {
+            if (i == 0) // 清零wav的文件信息，防止输出奇怪的声音
+                memset(wav_ch->Ch_r, 0, wav->wavLen);
+        }
         // Wav_Debug_Print("\r\n");
         // Wav_Debug_Print("\r\n");
         // Wav_Debug_Print("\r\n");
