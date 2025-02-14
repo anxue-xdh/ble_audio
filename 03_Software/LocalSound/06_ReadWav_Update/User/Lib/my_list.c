@@ -118,6 +118,10 @@ void list_init(yList *list)
 	list->len = 0;
 }
 
+// void list_reinit(yList *list, void (*reinit)(void *))
+// {
+// }
+
 /**
  * @brief 销毁链表
  *
@@ -144,6 +148,10 @@ void list_destroy(yList *list, void (*destroy)(void *))
 		free(n);
 		n = t; // 把n free掉之后，再把t给n，相当于把n->next给n,如此循环遍历链表，挨个删除，
 	}
+
+	// anxue
+	list->head = NULL;
+	list->tail = NULL;
 }
 
 void list_insert_at_head(yList *list, void *data) // 头插法
@@ -320,8 +328,7 @@ void *list_get_element(yList *list, int idx)
  * @param list 需要排序的链表
  * @param compare 用于比较链表元素大小的函数指针
  */
-void list_sort(yList *list,
-			   int (*compare)(const void *, const void *))
+void list_sort(yList *list, int (*compare)(const void *, const void *))
 {
 	yList tmp;
 	struct node *n;
@@ -347,14 +354,15 @@ void list_sort(yList *list,
  * @param list 指向链表的指针
  * @param handle 指向回调函数的指针，该回调函数接受一个void*类型的参数
  */
-void list_traverse(yList *list, void (*handle)(void *))
+void list_traverse(yList *list, void (*handle)(void *, int))
 {
 	struct node *p;
+	int idx = 1;
 	p = list->head;
 
 	while (p)
 	{
-		handle(p->data);
+		handle(p->data, idx++);
 		p = p->next;
 	}
 }

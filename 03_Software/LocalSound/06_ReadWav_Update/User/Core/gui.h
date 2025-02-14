@@ -13,6 +13,7 @@
 #include "basic.h"
 
 #include "fatfs.h"
+#include "my_list.h"
 
 #define SDFile_Name_Len 64
 #define SDFile_Name_Num 16
@@ -22,12 +23,14 @@
 #define GUI_TaskBit_Key_Down 0x04
 
 extern TaskHandle_t GUI_Task_Handle;
-extern signed char MusicList_Pointer;
-extern char MusicList_Num;
-extern char MusicList[SDFile_Name_Num][SDFile_Name_Len];
+extern u8 MicList_Idx_Gui;
+extern u8 MicList_Idx_au;
+extern yList MicList;
+// extern char MusicList[SDFile_Name_Num][SDFile_Name_Len];
 
 void GUI_Init(void);
 void GUI_Task(void *argument);
-FRESULT SD_Read_FileInfo(const char *path, char (*list)[64]);
+FRESULT MicList_Update(const char *path);
+void MicList_reinit(void);
 
 #endif

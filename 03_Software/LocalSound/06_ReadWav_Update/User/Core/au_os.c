@@ -1,10 +1,10 @@
 /*
  * @Author: YourName
  * @Date: 2025-01-22 10:30:01
- * @LastEditTime: 2025-02-13 14:37:39
+ * @LastEditTime: 2025-02-13 17:03:38
  * @LastEditors: YourName
  * @Description:
- * @FilePath: \06_ReadWav_Update\User\Core\au_os.c
+ * @FilePath: \MDK-ARMd:\Work_YJH\Projection\04_MyPrj\02_BleAudio\03_Software\LocalSound\06_ReadWav_Update\User\Core\au_os.c
  * °æÈ¨ÉùÃ÷
  */
 #include "au_os.h"
@@ -71,11 +71,13 @@ void Start_Wav(void)
         }
     }
 
+    char *misName = (char *)list_get_element(&MicList, MicList_Idx_Gui);
+
     Uart1_SendData("create Wav_Task_Handle\r\n");
     xTaskCreate((TaskFunction_t)Wav_Task,
                 (const char *)"Wav_Task",
                 (configSTACK_DEPTH_TYPE)2048,
-                (void *)MusicList[MusicList_Pointer],
+                (void *)misName,
                 (UBaseType_t)5,
                 &Wav_Task_Handle);
 }
@@ -116,6 +118,7 @@ void Wav_Task(void const *argument)
         vTaskDelete(NULL);
     }
 
+    MicList_Idx_au = MicList_Idx_Gui;
     Wav_Debug_Print("dac start\r\n");
     Wav_Start(wav_ch.Ch_r, WavBuff_Size * 2);
     // HAL_DAC_Start_DMA(&hdac, DAC1_CHANNEL_1, (uint32_t *)wav_ch.Ch_r, WavBuff_Size * 2, DAC_ALIGN_12B_R);
@@ -136,6 +139,7 @@ void Wav_Task(void const *argument)
     // free(wav_ch.Ch_l);
     f_close(&file);
     Wav_Stop();
+    MicList_Idx_au = 0;
 
     vTaskDelete(NULL);
 }

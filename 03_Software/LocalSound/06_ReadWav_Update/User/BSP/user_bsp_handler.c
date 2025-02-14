@@ -48,11 +48,21 @@ void Uart1_Scan_Task(void)
         }
         else if (Uart1_strcmp("sd read"))
         {
-            SD_Read_FileInfo(USERPath, MusicList);
+            MicList_Update(USERPath);
+        }
+        else if (Uart1_strcmp("micList reinit"))
+        {
+            MicList_reinit();
         }
         else if (Uart1_strcmp("music start"))
         {
             Start_Wav();
+        }
+        else if (Uart1_strcmp("music stop"))
+        {
+        }
+        else if (Uart1_strcmp("music resume"))
+        {
         }
         else if (Uart1_strcmp("music task query"))
         {

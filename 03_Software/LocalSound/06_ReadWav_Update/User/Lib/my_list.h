@@ -31,11 +31,11 @@ typedef struct
 	long len;
 } yList;
 
-#define List_insert(list, data) list_insert_at_tail(list, data)
+#define list_insert(list, data) list_insert_at_tail(list, data)
 
 extern void list_init(yList *list);
 extern bool is_empty(yList *list);
-extern void list_insert(yList *list, void *data);					 // 默认采用尾插法
+// extern void list_insert(yList *list, void *data);					 // 默认采用尾插法
 extern void list_insert_at_head(yList *list, void *data);			 // 头插法
 extern void list_insert_at_tail(yList *list, void *data);			 // 尾插法
 extern void list_insert_at_index(yList *list, void *data, long idx); // 定插法
@@ -43,7 +43,7 @@ extern void list_insert_at_index(yList *list, void *data, long idx); // 定插法
 extern void *list_delete(yList *list, void *key, int (*compare)(const void *, const void *));
 extern void *list_search(yList *list, void *data, int (*compare)(const void *, const void *));
 extern void list_sort(yList *list, int (*compare)(const void *, const void *));
-extern void list_traverse(yList *list, void (*handle)(void *));
+extern void list_traverse(yList *list, void (*handle)(void *, int));
 extern void list_reverse(yList *list);
 extern long list_get_lenth(yList *list);
 extern void *list_get_element(yList *list, int idx);

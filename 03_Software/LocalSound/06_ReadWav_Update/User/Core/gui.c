@@ -11,7 +11,6 @@
 #include "bsp_ili9341_lcd.h"
 #include "fonts.h"
 
-#include "my_list.h"
 /* USER CODE END Includes */
 
 /* Private define ------------------------------------------------------------*/
@@ -23,17 +22,19 @@
 #endif
 
 #define GUI_SetColor(text, back) LCD_SetColors(text, back)
-#define GUI_Show_MusicList(line, str) ILI9341_DispStringLine_EN(LINE(line + 3), str)
-#define GUI_Clear(line) ILI9341_DispStringLine_EN(LINE(line + 3), "                          ")
+#define GUI_Show_MusicList(line, str) ILI9341_DispStringLine_EN(LINE(line + 2), str)
+#define GUI_Clear(line) ILI9341_DispStringLine_EN(LINE(line + 2), "                          ")
 /* USER CODE END PD */
 
 /* Private variables ---------------------------------------------------------*/
 /* USER CODE BEGIN PV */
 TaskHandle_t GUI_Task_Handle;
 
-signed char MusicList_Pointer = 0;
-char MusicList_Num = 0;
-char MusicList[SDFile_Name_Num][SDFile_Name_Len];
+// 当前GUI中高亮显示的音乐索引
+u8 MicList_Idx_Gui = 1;
+// 当前正在播放的音乐索引
+u8 MicList_Idx_au = 1;
+//  char MusicList[SDFile_Name_Num][SDFile_Name_Len];
 
 /**
 typedef struct node
@@ -42,13 +43,15 @@ typedef struct node
     struct node *next;
 }yNode;
 **/
-yList MicList;
+yList MicList;         // 音乐文件列表
+yList MicList_Playing; // 播放列表
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
 /* USER CODE BEGIN PFP */
-static void
-MusicList_Update(void);
+
+static void MicList_destroy_Func(void *data);
+static void MicList_ShowAll_Func(void *data, int idx);
 static void MusicList_MovePointer(u8 value);
 /* USER CODE END PFP */
 
@@ -76,16 +79,21 @@ void GUI_Task(void *argument)
     {
         // if (ulTaskNotifyTake(pdTRUE, portMAX_DELAY) > 1)
         //     Uart1_SendData("[ERROR] Core obliterated Data!!");
-        if (!xTaskNotifyWait(0, 0xFFFF, &xReturn, portMAX_DELAY))
-            continue;
+        xTaskNotifyWait(0, 0xFFFF, &xReturn, portMAX_DELAY);
 
         switch (xReturn)
         {
         case GUI_TaskBit_MusicList_Update:
-            MusicList_Update();
+            list_traverse(&MicList, MicList_ShowAll_Func);
+            // MusicList_Update();
             break;
         case GUI_TaskBit_Key_Up:
         case GUI_TaskBit_Key_Down:
+            if (MicList.head == NULL)
+            {
+                Gui_Debug_Print("MicList is NULL\r\n");
+                break;
+            }
             MusicList_MovePointer(xReturn);
             break;
 
@@ -97,39 +105,58 @@ void GUI_Task(void *argument)
 
 void MusicList_MovePointer(u8 value)
 {
-    GUI_Show_MusicList(MusicList_Pointer, MusicList[MusicList_Pointer]);
+    if (MicList.len == 0)
+    {
+        Gui_Debug_Print("MicList is NULL\r\n");
+        return;
+    }
+
+    char *misName = (char *)list_get_element(&MicList, MicList_Idx_Gui);
+    GUI_Show_MusicList(MicList_Idx_Gui, misName);
 
     if (value == GUI_TaskBit_Key_Up)
-        MusicList_Pointer--;
+        MicList_Idx_Gui--;
     else if (value == GUI_TaskBit_Key_Down)
-        MusicList_Pointer++;
+        MicList_Idx_Gui++;
 
-    if (MusicList_Pointer >= MusicList_Num)
-        MusicList_Pointer = 0;
-    else if (MusicList_Pointer < 0)
-        MusicList_Pointer = MusicList_Num - 1;
+    if (MicList_Idx_Gui > MicList.len)
+        MicList_Idx_Gui = 1;
+    else if (MicList_Idx_Gui <= 0)
+        MicList_Idx_Gui = MicList.len;
 
     GUI_SetColor(RED, BLUE);
-    GUI_Show_MusicList(MusicList_Pointer, MusicList[MusicList_Pointer]);
+    misName = (char *)list_get_element(&MicList, MicList_Idx_Gui);
+    GUI_Show_MusicList(MicList_Idx_Gui, misName);
 
     GUI_SetColor(BLUE, WHITE);
 }
-
-void MusicList_Update(void)
+void MicList_reinit(void)
 {
-    for (int i = 0; MusicList[i][0] != 0; i++)
+    list_destroy(&MicList, MicList_destroy_Func);
+    if (MicList.head == NULL)
     {
-        GUI_Clear(i);
-        GUI_Show_MusicList(i, MusicList[i]);
-
-        MusicList_Num++;
-        // vTaskDelay(10);
+        Gui_Debug_Print("MicList head is NULL\r\n");
     }
-
-    // memset(MusicList, 0, sizeof(MusicList)); // 临时，应该变化方法，保留下列表信息
+    if (MicList.tail == NULL)
+    {
+        Gui_Debug_Print("MicList tail is NULL\r\n");
+    }
+    Gui_Debug_Print("MicList len is %d\r\n", MicList.len);
 }
 
-FRESULT Mic_Update(const char *path, char (*list)[64])
+void MicList_ShowAll_Func(void *data, int idx)
+{
+    char *name = (char *)data;
+    GUI_Clear(idx);
+    GUI_Show_MusicList(idx, name);
+}
+
+void MicList_destroy_Func(void *data)
+{
+    free(data);
+}
+
+FRESULT MicList_Update(const char *path)
 {
     FRESULT res;
     DIR dir;
@@ -140,6 +167,7 @@ FRESULT Mic_Update(const char *path, char (*list)[64])
     nfile = ndir = 0;
     fno.lfname = name;
     fno.lfsize = 64;
+    char *tmp = NULL;
 
     res = f_opendir(&dir, path); /* Open the directory */
     if (res != FR_OK)
@@ -164,7 +192,16 @@ FRESULT Mic_Update(const char *path, char (*list)[64])
 
             if (fno.lfname[0] == 0)
                 continue;
-            memcpy(list[nfile], fno.lfname, strlen(fno.lfname));
+
+            {
+                int len = strlen(fno.lfname);
+                // 直接使用calloc分配内存，自动初始化对应的内存
+                tmp = (char *)calloc(len + 1, sizeof(char));
+                memcpy(tmp, fno.lfname, len);
+                // Gui_Debug_Print("%s\n", tmp);
+                // 将数据插入列表
+                list_insert(&MicList, tmp);
+            }
 
             nfile++;
         }
