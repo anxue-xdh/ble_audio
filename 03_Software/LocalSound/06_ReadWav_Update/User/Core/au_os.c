@@ -1,7 +1,7 @@
 /*
  * @Author: YourName
  * @Date: 2025-01-22 10:30:01
- * @LastEditTime: 2025-02-13 17:03:38
+ * @LastEditTime: 2025-02-14 16:23:32
  * @LastEditors: YourName
  * @Description:
  * @FilePath: \MDK-ARMd:\Work_YJH\Projection\04_MyPrj\02_BleAudio\03_Software\LocalSound\06_ReadWav_Update\User\Core\au_os.c
@@ -126,8 +126,8 @@ void Wav_Task(void const *argument)
     Wav_Debug_Print("循环开始\r\n");
     // vTaskDelay(portMAX_DELAY);
 
-    if (ulTaskNotifyTake(pdTRUE, portMAX_DELAY) > 1)
-        Wav_Debug_Print("[ERROR] Core obliterated Data!!");
+    // if (ulTaskNotifyTake(pdTRUE, portMAX_DELAY) > 1)
+    //     Wav_Debug_Print("[ERROR] Core obliterated Data!!");
 
     Wav_Player(&file, filePath, &WavData, &wav_ch);
 
@@ -149,8 +149,9 @@ int Wav_Player(FIL *file, char *path, Audio_WAV_Info *wav, Wav_CH_Data *wav_ch)
     FRESULT f_res;
     UINT fnum;
     int wReturn = 1;
-    u64 oldPtr = 0;
     char WriteCnt = 0; // 计数器，用于实现半写入、全写入区分
+    u64 oldPtr = 0;
+    u32 xReturn = 0;
 
     int wavTmplen = 0;
     if (wav->fmt_ck.nChannels == 1)
@@ -165,6 +166,25 @@ int Wav_Player(FIL *file, char *path, Audio_WAV_Info *wav, Wav_CH_Data *wav_ch)
 
     while (1)
     {
+        xTaskNotifyWait(0, 0xFFFF, &xReturn, portMAX_DELAY);
+        while (xReturn != Wav_PlayBit_DacNotify)
+        {
+            // Wav_Stop();
+            HAL_TIM_Base_Stop(&htim4);
+            Wav_Debug_Print("暂停播放\r\n");
+
+            xTaskNotifyWait(0, 0xFFFF, &xReturn, portMAX_DELAY);
+            if (xReturn == Wav_PlayBit_Resume)
+            {
+                // Wav_Start(wav_ch->Ch_r, WavBuff_Size * 2);
+                HAL_TIM_Base_Start(&htim4);
+                Wav_Debug_Print("继续播放\r\n");
+                break;
+            }
+        }
+        // if (ulTaskNotifyTake(pdTRUE, portMAX_DELAY) > 1)
+        //     Wav_Debug_Print("[ERROR] Core obliterated Data!!");
+
         oldPtr = f_tell(file);
 
         f_res = f_read(file, tmpBuf, wavTmplen, &fnum);
@@ -190,6 +210,7 @@ int Wav_Player(FIL *file, char *path, Audio_WAV_Info *wav, Wav_CH_Data *wav_ch)
                     Wav_Process_DualTrack((wav_ch->Ch_r + (WriteCnt % 2) * wav_ch->Len), NULL, tmpBuf, wav_ch->Len / 2);
             }
 
+            // printf_WavInfo(wav_ch->Ch_r, WavBuff_Size * 2);
             WriteCnt++;
         }
         else
@@ -222,8 +243,6 @@ int Wav_Player(FIL *file, char *path, Audio_WAV_Info *wav, Wav_CH_Data *wav_ch)
             // Wav_Debug_Print("pointer diff:%d\r\n", (ptr - oldPtr));
             continue;
         }
-        if (ulTaskNotifyTake(pdTRUE, portMAX_DELAY) > 1)
-            Wav_Debug_Print("[ERROR] Core obliterated Data!!");
     }
 
     free(tmpBuf);

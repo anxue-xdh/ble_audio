@@ -608,3 +608,5 @@ SD_Error SD_ReadMultiBlocks(uint8_t *pBuffer, uint64_t ReadAddr, uint16_t BlockS
 0000	0000	0000	0000	-001	0000	0001	0000
 ```
 
+## Feat 新增暂停与继续播放功能
+

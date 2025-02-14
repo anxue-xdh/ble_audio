@@ -27,7 +27,6 @@
 #include "usart.h"
 #include "gpio.h"
 
-
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include "user_bsp.h"
@@ -233,7 +232,6 @@ int main(void)
   MX_SPI1_Init();
   MX_FATFS_Init();
   /* USER CODE BEGIN 2 */
-  HAL_TIM_Base_Start(&htim4);
 
   // Data_16to12_Mult(output_12_array, ucDataBlock, 2048);
 

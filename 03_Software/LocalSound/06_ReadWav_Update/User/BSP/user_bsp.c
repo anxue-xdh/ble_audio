@@ -1,3 +1,12 @@
+/*
+ * @Author: YourName
+ * @Date: 2025-01-22 10:30:01
+ * @LastEditTime: 2025-02-14 15:00:56
+ * @LastEditors: YourName
+ * @Description:
+ * @FilePath: \MDK-ARMd:\Work_YJH\Projection\04_MyPrj\02_BleAudio\03_Software\LocalSound\06_ReadWav_Update\User\BSP\user_bsp.c
+ * 版权声明
+ */
 #include "user_bsp.h"
 
 #include "gui.h"
@@ -39,6 +48,7 @@ void Tim_Init()
 {
     // TIM6时间定时器初始化
     // HAL_TIM_Base_Start_IT(&htim6);
+    HAL_TIM_Base_Start(&htim4);
 
     HAL_TIM_Base_Start_IT(&htim2);
 }

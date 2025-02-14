@@ -14,6 +14,10 @@
 
 #include "fatfs.h"
 
+#define Wav_PlayBit_DacNotify 0x01
+#define Wav_PlayBit_Stop 0x02
+#define Wav_PlayBit_Resume 0x04
+
 extern TaskHandle_t Wav_Task_Handle;
 
 void Start_Wav(void);

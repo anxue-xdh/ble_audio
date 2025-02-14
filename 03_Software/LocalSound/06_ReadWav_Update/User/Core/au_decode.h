@@ -103,9 +103,9 @@ char *my_strnstr_kmp(const char *s1, const char *s2, size_t n);
 /***    ”¶”√≤„    ***/
 #include "user_bsp.h"
 
-#define Wav_Printf Uart1_SendData
+// #define Wav_Printf Uart1_SendData
 
-#define Def_Data_16to12_single(data) ((short)(data + (1 << 15)) >> 4)
+#define Def_Data_16to12_single(data) ((unsigned short)(data + (1 << 15)) >> 4)
 #define Wav_Process_SingTrack(in, out, len) Data_16to12_Mult(in, out, len)
 
 int Data_16to12_Mult(short *ret, short *data, int len);

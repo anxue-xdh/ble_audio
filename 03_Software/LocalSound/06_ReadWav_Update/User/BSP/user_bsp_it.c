@@ -7,7 +7,8 @@ void HAL_DAC_ConvHalfCpltCallbackCh1(DAC_HandleTypeDef *hdac)
 {
     BaseType_t ret = pdFALSE;
     // xSemaphoreGiveFromISR(Sem_Uart1, &xHigherPriorityTaskWoken); // 给出信号量
-    vTaskNotifyGiveFromISR(Wav_Task_Handle, &ret);
+    // vTaskNotifyGiveFromISR(Wav_Task_Handle, &ret);
+    xTaskNotifyFromISR(Wav_Task_Handle, Wav_PlayBit_DacNotify, eSetBits, &ret);
     if (ret == pdTRUE) // 需要进行任务切换
     {
         portYIELD_FROM_ISR(ret); // 执行任务切换
@@ -20,7 +21,8 @@ void HAL_DAC_ConvCpltCallbackCh1(DAC_HandleTypeDef *hdac)
 
     BaseType_t ret = pdFALSE;
     // xSemaphoreGiveFromISR(Sem_Uart1, &xHigherPriorityTaskWoken); // 给出信号量
-    vTaskNotifyGiveFromISR(Wav_Task_Handle, &ret);
+    // vTaskNotifyGiveFromISR(Wav_Task_Handle, &ret);
+    xTaskNotifyFromISR(Wav_Task_Handle, Wav_PlayBit_DacNotify, eSetBits, &ret);
     if (ret == pdTRUE) // 需要进行任务切换
     {
         portYIELD_FROM_ISR(ret); // 执行任务切换

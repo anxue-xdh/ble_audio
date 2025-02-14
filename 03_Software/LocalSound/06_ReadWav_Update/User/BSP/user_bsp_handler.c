@@ -60,9 +60,11 @@ void Uart1_Scan_Task(void)
         }
         else if (Uart1_strcmp("music stop"))
         {
+            xTaskNotify(Wav_Task_Handle, Wav_PlayBit_Stop, eSetBits);
         }
         else if (Uart1_strcmp("music resume"))
         {
+            xTaskNotify(Wav_Task_Handle, Wav_PlayBit_Resume, eSetBits);
         }
         else if (Uart1_strcmp("music task query"))
         {
