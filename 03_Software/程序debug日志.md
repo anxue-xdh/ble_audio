@@ -2,7 +2,7 @@
 
 
 
-## 2025年1月22日 
+## FR_DISK_ERR错误
 
 问题描述：sd卡频繁出现FR_DISK_ERR错误，导致歌曲播放中断
 
@@ -133,11 +133,9 @@ Note that if once this error occured at any operation to an open file, the file 
 
 16:50~17:05   三次连续实验，均为出现问题。
 
-------
+## 
 
-## 2025年1月23日
-
-### 读取失败处理
+## 读取失败处理
 
 更改了文件读取失败的处理逻辑。读取失败后，关闭文件，重新定位指针，重新读取数据。
 
@@ -233,7 +231,7 @@ continue;
 
 
 
-## 2025年2月5日
+## #emwin移植
 
 添加了emWin的功能，但是因为芯片容量问题无法正常移植。出现报错
 
@@ -247,7 +245,7 @@ continue;
 
 
 
-## 2.6
+## #列表选歌功能
 
 新增了列表选歌功能。目前不支持翻页功能。通过按键和串口功能进行上下切换选歌，蓝底高亮显示选中歌曲。
 
@@ -608,5 +606,59 @@ SD_Error SD_ReadMultiBlocks(uint8_t *pBuffer, uint64_t ReadAddr, uint16_t BlockS
 0000	0000	0000	0000	-001	0000	0001	0000
 ```
 
-## Feat 新增暂停与继续播放功能
+
+
+# Feat 新增暂停与继续播放功能
+
+## #继续播放杂音问题
+
+新增了暂停于继续播放的功能，暂停音乐功能正常无误，但是在继续播放音乐后，喇叭输出的声音会产生部分噪音，听起来像是有两段声音前后出现，导致的噪音。出现噪音的概率较大，但是出现原因不明。目前推断可能是因为SPI的DMA传输中途强制停止的原因导致出现该问题。
+
+可以尝试通过等待DMA传输完毕之后，在手动关闭传输功能，保证音频稳定性。
+
+目前音乐播放只能通过串口助手发送命令实现，不支持实体按键，或者虚拟按键
+
+### 手动暂停关闭不影响噪音输出
+
+```
+
+        xTaskNotifyWait(0, 0xFFFF, &xReturn, portMAX_DELAY);
+        while (xReturn != Wav_PlayBit_DacNotify)
+        {
+            // Wav_Stop();
+            HAL_TIM_Base_Stop(&htim4);
+            Wav_Debug_Print("暂停播放\r\n");
+
+            xTaskNotifyWait(0, 0xFFFF, &xReturn, portMAX_DELAY);
+            if (xReturn == Wav_PlayBit_Resume)
+            {
+                // Wav_Start(wav_ch->Ch_r, WavBuff_Size * 2);
+                HAL_TIM_Base_Start(&htim4);
+                Wav_Debug_Print("继续播放\r\n");
+                break;
+            }
+        }
+```
+
+通过任务通知来传输控制命令，以完成音乐的暂停与恢复播放功能
+
+
+
+## #Feat 切换音乐歌曲
+
+切换歌曲功能，通过将原有的音乐播放任务删除，然后将新歌曲作为新的播放任务进行创建，完成对音乐的重新播放。
+
+
+
+## #Feat 歌单列表
+
+通过队列的方式，存储歌单信息。
+
+程序中主要存在3个队列用于存储相对应的信息。
+
+1、音乐列表，包含SD中全部能够正确读取的Wav文件
+
+2、播放列表，一个音乐播放队列，目前只支持列表循环播放功能，该列表内的歌曲将自动播放。
+
+3、备用列表，功能未实装。
 

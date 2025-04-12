@@ -57,23 +57,28 @@ int Wav_Player(FIL *file, char *path, Audio_WAV_Info *wav, Wav_CH_Data *wav_ch);
 /* extern function prototypes -----------------------------------------------*/
 /* USER CODE BEGIN EFP */
 /* USER CODE END EFP */
+
 void Start_Wav(void)
 {
     if (Wav_Task_Handle != NULL)
     {
+        //获取任务状态
         eTaskState eReturn = eTaskGetState(Wav_Task_Handle);
         Uart1_SendData("Wav_Task_Handle Task is %d\r\n", eReturn);
 
         if (eReturn != eDeleted)
         {
+            //任务正常运行，则忽略本次按键命令
             Uart1_SendData("Wav_Task_Handle is running\r\n");
             return;
         }
     }
 
+        //获取选定的音乐文件名称
     char *misName = (char *)list_get_element(&MicList, MicList_Idx_Gui);
 
     Uart1_SendData("create Wav_Task_Handle\r\n");
+    //创建音乐播放任务
     xTaskCreate((TaskFunction_t)Wav_Task,
                 (const char *)"Wav_Task",
                 (configSTACK_DEPTH_TYPE)2048,

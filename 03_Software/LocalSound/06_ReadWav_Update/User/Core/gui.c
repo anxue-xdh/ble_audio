@@ -45,6 +45,7 @@ typedef struct node
 **/
 yList MicList;         // 音乐文件列表
 yList MicList_Playing; // 播放列表
+yList MicList_None; //备用列表
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
