@@ -662,3 +662,15 @@ SD_Error SD_ReadMultiBlocks(uint8_t *pBuffer, uint64_t ReadAddr, uint16_t BlockS
 
 3、备用列表，功能未实装。
 
+
+
+## #蓝牙功能开发
+
+采用ESP32-c3系列芯片
+
+> E:/WorkSpace/ESP32/ESP32_A2DP/01_A2DP_Sink/main/bt_app_core.c:10:10: fatal error: freertos/xtensa_api.h: No such file or directory
+>    10 | #include "freertos/xtensa_api.h"
+
+espidf示例程序，a2dp sink程序，编译无法通过，抛出无法找到对应的头文件。
+
+原因：esp32-c3系列芯片不支持a2dp功能，需要使用该功能需要使用其他芯片来实现整体功能。
