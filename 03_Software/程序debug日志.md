@@ -674,3 +674,18 @@ SD_Error SD_ReadMultiBlocks(uint8_t *pBuffer, uint64_t ReadAddr, uint16_t BlockS
 espidf示例程序，a2dp sink程序，编译无法通过，抛出无法找到对应的头文件。
 
 原因：esp32-c3系列芯片不支持a2dp功能，需要使用该功能需要使用其他芯片来实现整体功能。
+
+
+
+## #蓝牙基本功能介绍
+
+使用ESP32-D0WDQ6芯片的模块进行蓝牙功能的开发。采用esp-idf中的a2dp-sink例程，将esp32模块作为蓝牙接收端，通过蓝牙接收手机的音频信号，将该信号内部转化后通过串口（其他通讯端口）传输到stm32主控芯片上，在输出到喇叭进行音频输出。
+
+esp32支持SBC编码，需要通过解码。
+
+
+
+```
+esp_a2d_cb_param_t * param;//a2dp的参数结构体，里面包含了绝大多数的参数信息
+```
+

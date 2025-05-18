@@ -1,4 +1,8 @@
 04_Tools/
+build
+_build
+.vscode
+.devcontainer
 
 *.zip
 *.rar
