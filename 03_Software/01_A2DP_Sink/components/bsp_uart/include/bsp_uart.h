@@ -16,8 +16,9 @@
 // 非必要的头文件
 // #include "ble_gatt_server.h" //用于提示上位机，下位机未回复
 
-#define TXD_PIN (GPIO_NUM_19)
-#define RXD_PIN (GPIO_NUM_18)
+#define BSP_UART_PORT UART_NUM_2
+#define TXD_PIN (GPIO_NUM_17)
+#define RXD_PIN (GPIO_NUM_16)
 
 #define UART_RECV_BIT BIT0
 #define RX_BUF_SIZE 1024
@@ -44,6 +45,9 @@ typedef struct
 extern Uart_Rx_Ack_Msg uart_rx_ack_msg;
 extern SemaphoreHandle_t uart_rx_ack_record_semaphore;
 extern QueueHandle_t uart_tx_queue;
+
+#define Bsp_Uart_SendData(str,len) uart_write_bytes(BSP_UART_PORT, str,len)
+
 #define uart_tx_sendData_queue(data, len) uart_tx_sendData_Hex_queue(data, len, 0x00)
 
 void uart_init(int baud_rate);

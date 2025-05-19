@@ -18,7 +18,7 @@ static void uart_rx_task(void *pt)
     while (1)
     {
         // uart read bytes 中的第4个参数ticks to wait代表最长阻塞时间
-        const int rxBytes = uart_read_bytes(UART_NUM_1, rx_buffer, RX_BUF_SIZE, 10 / portTICK_PERIOD_MS);
+        const int rxBytes = uart_read_bytes(BSP_UART_PORT, rx_buffer, RX_BUF_SIZE, 10 / portTICK_PERIOD_MS);
         if (rxBytes > 0)
         {
             rx_buffer[rxBytes] = 0;
@@ -26,7 +26,7 @@ static void uart_rx_task(void *pt)
             // ESP_LOGI(RX_TASK_TAG, "Read %d bytes: '%s'", rxBytes, rx_buffer);
             // ESP_LOG_BUFFER_HEXDUMP(RX_TASK_TAG, rx_buffer, rxBytes, ESP_LOG_INFO);
 
-            uart_rx_info_analysis(rx_buffer, rxBytes);
+            // uart_rx_info_analysis(rx_buffer, rxBytes);
             // xTaskCreate(uart_rx_info_analysis_task, "rx info", 2048, rx_buffer, 2, NULL);
         }
     }
@@ -49,7 +49,7 @@ static void uart_tx_task(void *pt)
         if (xQueueReceive(uart_tx_queue, (void *)&msg, (portTickType)portMAX_DELAY))
         {
             //  发送数据
-            uart_write_bytes(UART_NUM_1, (const char *)msg->param, msg->len);
+            uart_write_bytes(BSP_UART_PORT, (const char *)msg->param, msg->len);
             ESP_LOGI(TX_TASK_TAG, "[uart] uart write_len %d", msg->len);
 
             // 释放空间
@@ -76,14 +76,14 @@ void uart_init(int baud_rate)
     // We won't use a buffer for sending data.
 
     // install uart driver
-    uart_driver_install(UART_NUM_1, RX_BUF_SIZE * 2, 0, 0, NULL, 0);
+    uart_driver_install(BSP_UART_PORT, RX_BUF_SIZE * 2, 0, 0, NULL, 0);
 
     // init uart config param
-    uart_param_config(UART_NUM_1, &uart_config);
+    uart_param_config(BSP_UART_PORT, &uart_config);
 
     vTaskDelay(100 / portTICK_PERIOD_MS);
     // set Tx Rx Rts Cts pin
-    uart_set_pin(UART_NUM_1, TXD_PIN, RXD_PIN, UART_PIN_NO_CHANGE, UART_PIN_NO_CHANGE);
+    uart_set_pin(BSP_UART_PORT, TXD_PIN, RXD_PIN, UART_PIN_NO_CHANGE, UART_PIN_NO_CHANGE);
     vTaskDelay(100 / portTICK_PERIOD_MS);
 
     uart_tx_queue = xQueueCreate(10, sizeof(Uart_Tx_Msg *));
@@ -91,10 +91,15 @@ void uart_init(int baud_rate)
 
     ESP_LOGI("UART_TAG", "uart init complete");
 
-    // xTaskCreate(uart_rx_task, "uart rx task", 4096, NULL, 3, NULL);
-    // xTaskCreate(uart_tx_task, "uart tx task", 2048, NULL, 3, NULL);
+    xTaskCreate(uart_rx_task, "uart rx task", 4096, NULL, 3, NULL);
+    xTaskCreate(uart_tx_task, "uart tx task", 2048, NULL, 3, NULL);
 
     ESP_LOGI("UART_TAG", "uart init task create");
+
+    const char str[] = "uart send data";
+    //  发送数据
+    Bsp_Uart_SendData( str, strlen(str));
+    // ESP_LOGI("UART_TAG",(char *) str);
 }
 
 void uart_tx_sendData_Hex_queue(char *data, int len, char cmd)
@@ -124,7 +129,7 @@ void uart_tx_SendData(const char *data)
     esp_log_level_set(TX_TASK_TAG, ESP_LOG_INFO);
 
     const int len = strlen(data);
-    uart_write_bytes(UART_NUM_1, data, len);
+    uart_write_bytes(BSP_UART_PORT, data, len);
 
     ESP_LOGI(TX_TASK_TAG, "%s", data);
 }
@@ -134,7 +139,7 @@ void uart_tx_sendData_Hex(const char *data, int len)
     static const char *TX_TASK_TAG = "TX_TASK";
     esp_log_level_set(TX_TASK_TAG, ESP_LOG_INFO);
 
-    uart_write_bytes(UART_NUM_1, data, len);
+    uart_write_bytes(BSP_UART_PORT, data, len);
 
     esp_log_buffer_hex(TX_TASK_TAG, data, len);
     // ESP_LOGI(TX_TASK_TAG, "Wrote %d bytes", txBytes);

@@ -25,6 +25,8 @@
 #include "esp_a2dp_api.h"
 #include "esp_avrc_api.h"
 
+
+#include "sbc_decoder.h"
 #include "bsp_uart.h"
 
 /* device name */
@@ -200,4 +202,6 @@ void app_main(void)
     bt_app_task_start_up();
     /* bluetooth device name, connection mode and profile set up */
     bt_app_work_dispatch(bt_av_hdl_stack_evt, BT_APP_EVT_STACK_UP, NULL, 0, NULL);
+
+
 }

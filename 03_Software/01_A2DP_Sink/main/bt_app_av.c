@@ -28,6 +28,8 @@
 #endif
 
 #include "sys/lock.h"
+#include "bsp_uart.h"
+
 
 /* AVRCP used transaction labels */
 #define APP_RC_CT_TL_GET_CAPS            (0)
@@ -541,7 +543,8 @@ void bt_app_a2d_data_cb(const uint8_t *data, uint32_t len)
     // // // ESP_LOGI(BT_AV_TAG, "data len:%d, data:%s", len, data);
     // ESP_LOGI(BT_AV_TAG, "data len:%d", (int)len);
     // ESP_LOGI(BT_AV_TAG ,"\r\n ******************* \r\n");
-    ESP_LOGI(BT_AV_TAG, "data s_pkt_cnt:%d", (int)s_pkt_cnt);
+    // ESP_LOGI(BT_AV_TAG, "data s_pkt_cnt:%d", (int)s_pkt_cnt);
+    Bsp_Uart_SendData(data,len);
 
     /* log the number every 100 packets */
     if (++s_pkt_cnt % 100 == 0) {
