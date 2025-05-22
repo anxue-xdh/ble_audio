@@ -1,0 +1,27 @@
+--cpu Cortex-M3
+"01_i2s_slaverx\startup_stm32f103xe.o"
+"01_i2s_slaverx\main.o"
+"01_i2s_slaverx\gpio.o"
+"01_i2s_slaverx\dma.o"
+"01_i2s_slaverx\i2s.o"
+"01_i2s_slaverx\stm32f1xx_it.o"
+"01_i2s_slaverx\stm32f1xx_hal_msp.o"
+"01_i2s_slaverx\stm32f1xx_hal_gpio_ex.o"
+"01_i2s_slaverx\stm32f1xx_hal_i2s.o"
+"01_i2s_slaverx\stm32f1xx_hal.o"
+"01_i2s_slaverx\stm32f1xx_hal_rcc.o"
+"01_i2s_slaverx\stm32f1xx_hal_rcc_ex.o"
+"01_i2s_slaverx\stm32f1xx_hal_gpio.o"
+"01_i2s_slaverx\stm32f1xx_hal_dma.o"
+"01_i2s_slaverx\stm32f1xx_hal_cortex.o"
+"01_i2s_slaverx\stm32f1xx_hal_pwr.o"
+"01_i2s_slaverx\stm32f1xx_hal_flash.o"
+"01_i2s_slaverx\stm32f1xx_hal_flash_ex.o"
+"01_i2s_slaverx\stm32f1xx_hal_exti.o"
+"01_i2s_slaverx\stm32f1xx_hal_tim.o"
+"01_i2s_slaverx\stm32f1xx_hal_tim_ex.o"
+"01_i2s_slaverx\system_stm32f1xx.o"
+--strict --scatter "01_I2S_SlaveRx\01_I2S_SlaveRx.sct"
+--summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols
+--info sizes --info totals --info unused --info veneers
+--list "01_I2S_SlaveRx.map" -o 01_I2S_SlaveRx\01_I2S_SlaveRx.axf
