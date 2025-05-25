@@ -26,7 +26,7 @@
 #include "esp_avrc_api.h"
 
 
-#include "sbc_decoder.h"
+// #include "sbc_decoder.h"
 #include "bsp_uart.h"
 
 /* device name */
@@ -157,7 +157,7 @@ void app_main(void)
     }
     ESP_ERROR_CHECK(err);
 
-    uart_init(115200);
+    // uart_init(115200);
 
     /*
      * This example only uses the functions of Classical Bluetooth.

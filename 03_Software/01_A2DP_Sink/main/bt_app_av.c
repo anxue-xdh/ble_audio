@@ -193,11 +193,11 @@ void bt_i2s_driver_install(void)
         .clk_cfg = I2S_STD_CLK_DEFAULT_CONFIG(44100),
         .slot_cfg = I2S_STD_MSB_SLOT_DEFAULT_CONFIG(I2S_DATA_BIT_WIDTH_16BIT, I2S_SLOT_MODE_STEREO),
         .gpio_cfg = {
-            .mclk = I2S_GPIO_UNUSED,    // 主时钟(MCLK)
-            .bclk = CONFIG_EXAMPLE_I2S_BCK_PIN, // 位时钟(BCLK)
-            .ws = CONFIG_EXAMPLE_I2S_LRCK_PIN,  // 左右声道时钟(WS)
-            .dout = CONFIG_EXAMPLE_I2S_DATA_PIN,    // 数据输出(DOUT)
-            .din = I2S_GPIO_UNUSED, // 数据输入(DIN)
+            .mclk = I2S_GPIO_UNUSED,             // 主时钟(MCLK)
+            .bclk = CONFIG_EXAMPLE_I2S_BCK_PIN,  // 位时钟(BCLK)   gpio_num_26
+            .ws = CONFIG_EXAMPLE_I2S_LRCK_PIN,   // 左右声道时钟(WS) gpio_num_22
+            .dout = CONFIG_EXAMPLE_I2S_DATA_PIN, // 数据输出(DOUT) gpio_num_25
+            .din = I2S_GPIO_UNUSED,              // 数据输入(DIN)
             .invert_flags = {
                 .mclk_inv = false,
                 .bclk_inv = false,
