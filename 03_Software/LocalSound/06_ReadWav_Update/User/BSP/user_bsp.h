@@ -8,6 +8,7 @@
 #include "usart.h"
 #include "gpio.h"
 #include "dac.h"
+#include "i2s.h"
 
 #include "FreeRTOS.h"
 #include "task.h"
@@ -52,5 +53,8 @@ void Key_Scan_Task(void);
 /*******    Key    **********/
 
 void USER_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim);
+
+/*******    i2s dma    **********/
+extern volatile uint8_t dma_rx_complete;
 
 #endif

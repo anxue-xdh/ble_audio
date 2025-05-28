@@ -3,7 +3,20 @@
 #include "bsp_sysTimer.h"
 #include "au_os.h"
 
-void HAL_DAC_ConvHalfCpltCallbackCh1(DAC_HandleTypeDef *hdac)
+// DMA接收过半完成回调
+void HAL_I2S_RxHalfCpltCallback(I2S_HandleTypeDef *hi2s)
+{
+}
+
+
+// DMA接收完成回调
+void HAL_I2S_RxCpltCallback(I2S_HandleTypeDef *hi2s)
+{
+    dma_rx_complete = 1;
+    // 可以在这里处理接收到的数据
+}
+
+    void HAL_DAC_ConvHalfCpltCallbackCh1(DAC_HandleTypeDef *hdac)
 {
     BaseType_t ret = pdFALSE;
     // xSemaphoreGiveFromISR(Sem_Uart1, &xHigherPriorityTaskWoken); // 给出信号量

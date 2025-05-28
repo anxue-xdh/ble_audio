@@ -55,8 +55,8 @@ I (../Middlewares/Third_Party/FreeRTOS/Source/include/queue.h)(0x682AEFCC)
 I (../Middlewares/Third_Party/FatFs/src/ff_gen_drv.h)(0x682AEFCC)
 I (../Middlewares/Third_Party/FatFs/src/diskio.h)(0x682AEFCC)
 I (../FATFS/Target/user_diskio.h)(0x682AEFCC)
-I (../User/BSP/user_bsp.h)(0x682AEFCD)
-I (../User/BSP/user_bsp_config.h)(0x682AEFCD)
+I (../User/BSP/user_bsp.h)(0x683539F8)
+I (../User/BSP/user_bsp_config.h)(0x6836BC5B)
 I (E:\WorkSpace\STM32\Software\Keil\Core\ARM\ARMCC\include\string.h)(0x6025237E)
 I (E:\WorkSpace\STM32\Software\Keil\Core\ARM\ARMCC\include\stdio.h)(0x60252374)
 I (E:\WorkSpace\STM32\Software\Keil\Core\ARM\ARMCC\include\stdlib.h)(0x60252374)
@@ -149,8 +149,8 @@ I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim_ex.h)(0x666444AD)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h)(0x682AEFCC)
 I (../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os.h)(0x682AEFCC)
 I (../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os2.h)(0x682AEFCC)
-I (../User/BSP/user_bsp.h)(0x682AEFCD)
-I (../User/BSP/user_bsp_config.h)(0x682AEFCD)
+I (../User/BSP/user_bsp.h)(0x683539F8)
+I (../User/BSP/user_bsp_config.h)(0x6836BC5B)
 I (E:\WorkSpace\STM32\Software\Keil\Core\ARM\ARMCC\include\string.h)(0x6025237E)
 I (E:\WorkSpace\STM32\Software\Keil\Core\ARM\ARMCC\include\stdio.h)(0x60252374)
 I (E:\WorkSpace\STM32\Software\Keil\Core\ARM\ARMCC\include\stdlib.h)(0x60252374)
@@ -160,6 +160,7 @@ I (../Core/Inc/tim.h)(0x682AEFCC)
 I (../Core/Inc/usart.h)(0x682AEFCC)
 I (../Core/Inc/gpio.h)(0x682AEFCC)
 I (../Core/Inc/dac.h)(0x682AEFCC)
+I (../Core/Inc/i2s.h)(0x682ED3A8)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/semphr.h)(0x682AEFCC)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/queue.h)(0x682AEFCC)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/event_groups.h)(0x682AEFCC)
@@ -383,8 +384,8 @@ I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim.h)(0x666444AD)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim_ex.h)(0x666444AD)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h)(0x682AEFCC)
 I (../Core/Inc/stm32f1xx_it.h)(0x682EDC72)
-I (../User/BSP/user_bsp.h)(0x682AEFCD)
-I (../User/BSP/user_bsp_config.h)(0x682AEFCD)
+I (../User/BSP/user_bsp.h)(0x683539F8)
+I (../User/BSP/user_bsp_config.h)(0x6836BC5B)
 I (E:\WorkSpace\STM32\Software\Keil\Core\ARM\ARMCC\include\string.h)(0x6025237E)
 I (E:\WorkSpace\STM32\Software\Keil\Core\ARM\ARMCC\include\stdio.h)(0x60252374)
 I (E:\WorkSpace\STM32\Software\Keil\Core\ARM\ARMCC\include\stdlib.h)(0x60252374)
@@ -394,6 +395,7 @@ I (../Core/Inc/tim.h)(0x682AEFCC)
 I (../Core/Inc/usart.h)(0x682AEFCC)
 I (../Core/Inc/gpio.h)(0x682AEFCC)
 I (../Core/Inc/dac.h)(0x682AEFCC)
+I (../Core/Inc/i2s.h)(0x682ED3A8)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h)(0x682AEFCC)
 I (../Core/Inc/FreeRTOSConfig.h)(0x682AEFCC)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/projdefs.h)(0x682AEFCC)
@@ -1293,9 +1295,9 @@ I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_spi.h)(0x682AEFCC)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim.h)(0x666444AD)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim_ex.h)(0x666444AD)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h)(0x682AEFCC)
-F (..\User\BSP\user_bsp.c)(0x682AEFCD)(--c99 -c --cpu Cortex-M3 -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM3 -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include -I ../User/BSP -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I ../User/Core -I ../User/MiddleWare -I ../User/sdcard -I ../FATFS/Target -I ../FATFS/App -I ../Middlewares/Third_Party/FatFs/src -I ..\Middlewares\emWin\Config -I ..\Middlewares\emWin\Inc -I ..\User\Lib-I.\RTE\_Practice_FreeRTos_0609-IE:\WorkSpace\STM32\Software\Keil\Pack\ARM\CMSIS\5.8.0\CMSIS\Core\Include-IE:\WorkSpace\STM32\Software\Keil\Pack\Keil\STM32F1xx_DFP\2.1.0\Device\Include-D__UVISION_VERSION="536" -D_RTE_ -DSTM32F10X_HD -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F103xE -DUSE_FULL_ASSERT-o practice_freertos_0609\user_bsp.o --omf_browse practice_freertos_0609\user_bsp.crf --depend practice_freertos_0609\user_bsp.d)
-I (..\User\BSP\user_bsp.h)(0x682AEFCD)
-I (..\User\BSP\user_bsp_config.h)(0x682AEFCD)
+F (..\User\BSP\user_bsp.c)(0x6836BD0A)(--c99 -c --cpu Cortex-M3 -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM3 -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include -I ../User/BSP -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I ../User/Core -I ../User/MiddleWare -I ../User/sdcard -I ../FATFS/Target -I ../FATFS/App -I ../Middlewares/Third_Party/FatFs/src -I ..\Middlewares\emWin\Config -I ..\Middlewares\emWin\Inc -I ..\User\Lib-I.\RTE\_Practice_FreeRTos_0609-IE:\WorkSpace\STM32\Software\Keil\Pack\ARM\CMSIS\5.8.0\CMSIS\Core\Include-IE:\WorkSpace\STM32\Software\Keil\Pack\Keil\STM32F1xx_DFP\2.1.0\Device\Include-D__UVISION_VERSION="536" -D_RTE_ -DSTM32F10X_HD -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F103xE -DUSE_FULL_ASSERT-o practice_freertos_0609\user_bsp.o --omf_browse practice_freertos_0609\user_bsp.crf --depend practice_freertos_0609\user_bsp.d)
+I (..\User\BSP\user_bsp.h)(0x683539F8)
+I (..\User\BSP\user_bsp_config.h)(0x6836BC5B)
 I (E:\WorkSpace\STM32\Software\Keil\Core\ARM\ARMCC\include\string.h)(0x6025237E)
 I (E:\WorkSpace\STM32\Software\Keil\Core\ARM\ARMCC\include\stdio.h)(0x60252374)
 I (E:\WorkSpace\STM32\Software\Keil\Core\ARM\ARMCC\include\stdlib.h)(0x60252374)
@@ -1337,6 +1339,7 @@ I (../Core/Inc/tim.h)(0x682AEFCC)
 I (../Core/Inc/usart.h)(0x682AEFCC)
 I (../Core/Inc/gpio.h)(0x682AEFCC)
 I (../Core/Inc/dac.h)(0x682AEFCC)
+I (../Core/Inc/i2s.h)(0x682ED3A8)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h)(0x682AEFCC)
 I (../Core/Inc/FreeRTOSConfig.h)(0x682AEFCC)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/projdefs.h)(0x682AEFCC)
@@ -1364,8 +1367,8 @@ I (../Middlewares/Third_Party/FatFs/src/diskio.h)(0x682AEFCC)
 I (../FATFS/Target/user_diskio.h)(0x682AEFCC)
 I (..\User\Lib\my_list.h)(0x682AEFCD)
 F (..\User\BSP\user_bsp_handler.c)(0x682AEFCD)(--c99 -c --cpu Cortex-M3 -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM3 -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include -I ../User/BSP -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I ../User/Core -I ../User/MiddleWare -I ../User/sdcard -I ../FATFS/Target -I ../FATFS/App -I ../Middlewares/Third_Party/FatFs/src -I ..\Middlewares\emWin\Config -I ..\Middlewares\emWin\Inc -I ..\User\Lib-I.\RTE\_Practice_FreeRTos_0609-IE:\WorkSpace\STM32\Software\Keil\Pack\ARM\CMSIS\5.8.0\CMSIS\Core\Include-IE:\WorkSpace\STM32\Software\Keil\Pack\Keil\STM32F1xx_DFP\2.1.0\Device\Include-D__UVISION_VERSION="536" -D_RTE_ -DSTM32F10X_HD -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F103xE -DUSE_FULL_ASSERT-o practice_freertos_0609\user_bsp_handler.o --omf_browse practice_freertos_0609\user_bsp_handler.crf --depend practice_freertos_0609\user_bsp_handler.d)
-I (..\User\BSP\user_bsp.h)(0x682AEFCD)
-I (..\User\BSP\user_bsp_config.h)(0x682AEFCD)
+I (..\User\BSP\user_bsp.h)(0x683539F8)
+I (..\User\BSP\user_bsp_config.h)(0x6836BC5B)
 I (E:\WorkSpace\STM32\Software\Keil\Core\ARM\ARMCC\include\string.h)(0x6025237E)
 I (E:\WorkSpace\STM32\Software\Keil\Core\ARM\ARMCC\include\stdio.h)(0x60252374)
 I (E:\WorkSpace\STM32\Software\Keil\Core\ARM\ARMCC\include\stdlib.h)(0x60252374)
@@ -1407,6 +1410,7 @@ I (../Core/Inc/tim.h)(0x682AEFCC)
 I (../Core/Inc/usart.h)(0x682AEFCC)
 I (../Core/Inc/gpio.h)(0x682AEFCC)
 I (../Core/Inc/dac.h)(0x682AEFCC)
+I (../Core/Inc/i2s.h)(0x682ED3A8)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h)(0x682AEFCC)
 I (../Core/Inc/FreeRTOSConfig.h)(0x682AEFCC)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/projdefs.h)(0x682AEFCC)
@@ -1434,9 +1438,9 @@ I (../Middlewares/Third_Party/FatFs/src/diskio.h)(0x682AEFCC)
 I (../FATFS/Target/user_diskio.h)(0x682AEFCC)
 I (..\User\Lib\my_list.h)(0x682AEFCD)
 I (../User/Core/au_os.h)(0x682AEFCD)
-F (..\User\BSP\user_bsp_it.c)(0x682AEFCD)(--c99 -c --cpu Cortex-M3 -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM3 -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include -I ../User/BSP -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I ../User/Core -I ../User/MiddleWare -I ../User/sdcard -I ../FATFS/Target -I ../FATFS/App -I ../Middlewares/Third_Party/FatFs/src -I ..\Middlewares\emWin\Config -I ..\Middlewares\emWin\Inc -I ..\User\Lib-I.\RTE\_Practice_FreeRTos_0609-IE:\WorkSpace\STM32\Software\Keil\Pack\ARM\CMSIS\5.8.0\CMSIS\Core\Include-IE:\WorkSpace\STM32\Software\Keil\Pack\Keil\STM32F1xx_DFP\2.1.0\Device\Include-D__UVISION_VERSION="536" -D_RTE_ -DSTM32F10X_HD -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F103xE -DUSE_FULL_ASSERT-o practice_freertos_0609\user_bsp_it.o --omf_browse practice_freertos_0609\user_bsp_it.crf --depend practice_freertos_0609\user_bsp_it.d)
-I (..\User\BSP\user_bsp.h)(0x682AEFCD)
-I (..\User\BSP\user_bsp_config.h)(0x682AEFCD)
+F (..\User\BSP\user_bsp_it.c)(0x683539C3)(--c99 -c --cpu Cortex-M3 -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM3 -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include -I ../User/BSP -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I ../User/Core -I ../User/MiddleWare -I ../User/sdcard -I ../FATFS/Target -I ../FATFS/App -I ../Middlewares/Third_Party/FatFs/src -I ..\Middlewares\emWin\Config -I ..\Middlewares\emWin\Inc -I ..\User\Lib-I.\RTE\_Practice_FreeRTos_0609-IE:\WorkSpace\STM32\Software\Keil\Pack\ARM\CMSIS\5.8.0\CMSIS\Core\Include-IE:\WorkSpace\STM32\Software\Keil\Pack\Keil\STM32F1xx_DFP\2.1.0\Device\Include-D__UVISION_VERSION="536" -D_RTE_ -DSTM32F10X_HD -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F103xE -DUSE_FULL_ASSERT-o practice_freertos_0609\user_bsp_it.o --omf_browse practice_freertos_0609\user_bsp_it.crf --depend practice_freertos_0609\user_bsp_it.d)
+I (..\User\BSP\user_bsp.h)(0x683539F8)
+I (..\User\BSP\user_bsp_config.h)(0x6836BC5B)
 I (E:\WorkSpace\STM32\Software\Keil\Core\ARM\ARMCC\include\string.h)(0x6025237E)
 I (E:\WorkSpace\STM32\Software\Keil\Core\ARM\ARMCC\include\stdio.h)(0x60252374)
 I (E:\WorkSpace\STM32\Software\Keil\Core\ARM\ARMCC\include\stdlib.h)(0x60252374)
@@ -1478,6 +1482,7 @@ I (../Core/Inc/tim.h)(0x682AEFCC)
 I (../Core/Inc/usart.h)(0x682AEFCC)
 I (../Core/Inc/gpio.h)(0x682AEFCC)
 I (../Core/Inc/dac.h)(0x682AEFCC)
+I (../Core/Inc/i2s.h)(0x682ED3A8)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h)(0x682AEFCC)
 I (../Core/Inc/FreeRTOSConfig.h)(0x682AEFCC)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/projdefs.h)(0x682AEFCC)
@@ -1626,8 +1631,8 @@ I (../Middlewares/Third_Party/FreeRTOS/Source/include/queue.h)(0x682AEFCC)
 I (../Middlewares/Third_Party/FatFs/src/ff_gen_drv.h)(0x682AEFCC)
 I (../Middlewares/Third_Party/FatFs/src/diskio.h)(0x682AEFCC)
 I (../FATFS/Target/user_diskio.h)(0x682AEFCC)
-I (../User/BSP/user_bsp.h)(0x682AEFCD)
-I (../User/BSP/user_bsp_config.h)(0x682AEFCD)
+I (../User/BSP/user_bsp.h)(0x683539F8)
+I (../User/BSP/user_bsp_config.h)(0x6836BC5B)
 I (E:\WorkSpace\STM32\Software\Keil\Core\ARM\ARMCC\include\string.h)(0x6025237E)
 I (E:\WorkSpace\STM32\Software\Keil\Core\ARM\ARMCC\include\stdlib.h)(0x60252374)
 I (E:\WorkSpace\STM32\Software\Keil\Core\ARM\ARMCC\include\stdarg.h)(0x60252376)
@@ -1636,6 +1641,7 @@ I (../Core/Inc/tim.h)(0x682AEFCC)
 I (../Core/Inc/usart.h)(0x682AEFCC)
 I (../Core/Inc/gpio.h)(0x682AEFCC)
 I (../Core/Inc/dac.h)(0x682AEFCC)
+I (../Core/Inc/i2s.h)(0x682ED3A8)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/task.h)(0x682AEFCC)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/list.h)(0x682AEFCC)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/event_groups.h)(0x682AEFCC)
@@ -1681,8 +1687,8 @@ I (E:\WorkSpace\STM32\Software\Keil\Core\ARM\ARMCC\include\stdio.h)(0x60252374)
 I (E:\WorkSpace\STM32\Software\Keil\Core\ARM\ARMCC\include\stdbool.h)(0x6025237C)
 I (..\User\Core\au_config.h)(0x682AEFCD)
 I (E:\WorkSpace\STM32\Software\Keil\Core\ARM\ARMCC\include\string.h)(0x6025237E)
-I (../User/BSP/user_bsp.h)(0x682AEFCD)
-I (../User/BSP/user_bsp_config.h)(0x682AEFCD)
+I (../User/BSP/user_bsp.h)(0x683539F8)
+I (../User/BSP/user_bsp_config.h)(0x6836BC5B)
 I (E:\WorkSpace\STM32\Software\Keil\Core\ARM\ARMCC\include\stdlib.h)(0x60252374)
 I (E:\WorkSpace\STM32\Software\Keil\Core\ARM\ARMCC\include\stdarg.h)(0x60252376)
 I (../Core/Inc/dma.h)(0x682AEFCC)
@@ -1691,6 +1697,7 @@ I (../Core/Inc/tim.h)(0x682AEFCC)
 I (../Core/Inc/usart.h)(0x682AEFCC)
 I (../Core/Inc/gpio.h)(0x682AEFCC)
 I (../Core/Inc/dac.h)(0x682AEFCC)
+I (../Core/Inc/i2s.h)(0x682ED3A8)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h)(0x682AEFCC)
 I (../Core/Inc/FreeRTOSConfig.h)(0x682AEFCC)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/projdefs.h)(0x682AEFCC)
@@ -1759,8 +1766,8 @@ I (../Middlewares/Third_Party/FreeRTOS/Source/include/queue.h)(0x682AEFCC)
 I (../Middlewares/Third_Party/FatFs/src/ff_gen_drv.h)(0x682AEFCC)
 I (../Middlewares/Third_Party/FatFs/src/diskio.h)(0x682AEFCC)
 I (../FATFS/Target/user_diskio.h)(0x682AEFCC)
-I (../User/BSP/user_bsp.h)(0x682AEFCD)
-I (../User/BSP/user_bsp_config.h)(0x682AEFCD)
+I (../User/BSP/user_bsp.h)(0x683539F8)
+I (../User/BSP/user_bsp_config.h)(0x6836BC5B)
 I (E:\WorkSpace\STM32\Software\Keil\Core\ARM\ARMCC\include\string.h)(0x6025237E)
 I (E:\WorkSpace\STM32\Software\Keil\Core\ARM\ARMCC\include\stdlib.h)(0x60252374)
 I (E:\WorkSpace\STM32\Software\Keil\Core\ARM\ARMCC\include\stdarg.h)(0x60252376)
@@ -1769,6 +1776,7 @@ I (../Core/Inc/tim.h)(0x682AEFCC)
 I (../Core/Inc/usart.h)(0x682AEFCC)
 I (../Core/Inc/gpio.h)(0x682AEFCC)
 I (../Core/Inc/dac.h)(0x682AEFCC)
+I (../Core/Inc/i2s.h)(0x682ED3A8)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/task.h)(0x682AEFCC)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/list.h)(0x682AEFCC)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/event_groups.h)(0x682AEFCC)
@@ -1887,8 +1895,8 @@ I (../Middlewares/Third_Party/FreeRTOS/Source/include/queue.h)(0x682AEFCC)
 I (../Middlewares/Third_Party/FatFs/src/ff_gen_drv.h)(0x682AEFCC)
 I (../Middlewares/Third_Party/FatFs/src/diskio.h)(0x682AEFCC)
 I (../FATFS/Target/user_diskio.h)(0x682AEFCC)
-I (../User/BSP/user_bsp.h)(0x682AEFCD)
-I (../User/BSP/user_bsp_config.h)(0x682AEFCD)
+I (../User/BSP/user_bsp.h)(0x683539F8)
+I (../User/BSP/user_bsp_config.h)(0x6836BC5B)
 I (E:\WorkSpace\STM32\Software\Keil\Core\ARM\ARMCC\include\string.h)(0x6025237E)
 I (E:\WorkSpace\STM32\Software\Keil\Core\ARM\ARMCC\include\stdio.h)(0x60252374)
 I (E:\WorkSpace\STM32\Software\Keil\Core\ARM\ARMCC\include\stdlib.h)(0x60252374)
@@ -1898,6 +1906,7 @@ I (../Core/Inc/tim.h)(0x682AEFCC)
 I (../Core/Inc/usart.h)(0x682AEFCC)
 I (../Core/Inc/gpio.h)(0x682AEFCC)
 I (../Core/Inc/dac.h)(0x682AEFCC)
+I (../Core/Inc/i2s.h)(0x682ED3A8)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/task.h)(0x682AEFCC)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/list.h)(0x682AEFCC)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/event_groups.h)(0x682AEFCC)

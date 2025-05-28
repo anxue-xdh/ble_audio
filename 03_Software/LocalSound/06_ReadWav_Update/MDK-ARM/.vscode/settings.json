@@ -34,6 +34,9 @@
         "assert.h": "c",
         "my_list.h": "c",
         "au_decode.h": "c",
-        "au_os.h": "c"
+        "au_os.h": "c",
+        "usart.h": "c",
+        "stm32f1xx_hal.h": "c",
+        "stm32f1xx_hal_conf.h": "c"
     }
 }

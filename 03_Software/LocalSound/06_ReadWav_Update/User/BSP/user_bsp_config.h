@@ -31,4 +31,9 @@
 
 #define BASECLOCK 72000000 / (71 + 1)
 
+
+// #define Audio_Mode_Local
+#define Audio_Mode_BLe
+
+
 #endif

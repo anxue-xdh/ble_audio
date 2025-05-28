@@ -735,3 +735,13 @@ esp_a2d_cb_param_t * param;//a2dp的参数结构体，里面包含了绝大多�
 
 ![image-20250524165904287](C:\Users\Anxue\AppData\Roaming\Typora\typora-user-images\image-20250524165904287.png)
 
+
+
+## #I2S和LCD的接口冲突
+
+stm32f103芯片，I2S2和I2S3度需要使用到PB端口，但是LCD占用了全部的PB端口。考虑到蓝牙模式下，仅需要通过I2s接口接收音频信号，随后播出即可，无需使用屏幕进行控制，因此目前的方案放弃LCD显示。
+
+本地模式：LCD控制显示、SD读取，音频功放
+
+蓝牙模式：ESP32A2DP蓝牙接收，I2S通讯，音频功放。
+
