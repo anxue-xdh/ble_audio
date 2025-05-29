@@ -11,6 +11,7 @@
 
 #include "gui.h"
 #include "fatfs.h"
+#include "au_ble.h"
 
 char Uart_TxBuf[UART1_MAXLEN];
 char Uart1_Buf[UART1_MAXLEN];
@@ -20,9 +21,8 @@ char Uart1_ReveFlag = False;
 extern FRESULT SD_Read_FileInfo(const char *path, char (*list)[64]);
 extern char USERPath[4]; /* USER logical drive path */
 
-#define AUDIO_BUFFER_SIZE 1024
 // 音频接收缓冲区
-uint16_t audio_rx_buffer[AUDIO_BUFFER_SIZE];
+uint16_t ble_rx_buffer[BleBuff_Size];
 // DMA 完成标志
 volatile uint8_t dma_rx_complete = 0;
 
@@ -39,12 +39,12 @@ void System_Init(void)
     HAL_DAC_Start(&hdac, DAC_CHANNEL_1);
 
 #ifdef Audio_Mode_BLe
-    // 启动 I2S + DMA 接收
-    if (HAL_I2S_Receive_DMA(&hi2s2, audio_rx_buffer, AUDIO_BUFFER_SIZE) != HAL_OK)
-    {
-        // 错误处理
-        Error_Handler();
-    }
+    // // 启动 I2S + DMA 接收
+    // if (HAL_I2S_Receive_DMA(&hi2s2, ble_rx_buffer, BleBuff_Size) != HAL_OK)
+    // {
+    //     // 错误处理
+    //     Error_Handler();
+    // }
 
     Uart1_SendData("audio mode ble\r\n"); // 实验程序
 

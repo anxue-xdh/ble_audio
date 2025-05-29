@@ -50,6 +50,7 @@
 "practice_freertos_0609\gui.o"
 "practice_freertos_0609\au_decode.o"
 "practice_freertos_0609\au_os.o"
+"practice_freertos_0609\au_ble.o"
 "practice_freertos_0609\my_list.o"
 "practice_freertos_0609\user_diskio.o"
 "practice_freertos_0609\fatfs.o"

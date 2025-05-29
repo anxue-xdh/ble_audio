@@ -37,6 +37,9 @@
         "au_os.h": "c",
         "usart.h": "c",
         "stm32f1xx_hal.h": "c",
-        "stm32f1xx_hal_conf.h": "c"
+        "stm32f1xx_hal_conf.h": "c",
+        "au_ble.h": "c",
+        "au_config.h": "c",
+        "string.h": "c"
     }
 }

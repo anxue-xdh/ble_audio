@@ -745,3 +745,100 @@ stm32f103芯片，I2S2和I2S3度需要使用到PB端口，但是LCD占用了全�
 
 蓝牙模式：ESP32A2DP蓝牙接收，I2S通讯，音频功放。
 
+## #程序卡死在portASSERT_IF_INTERRUPT_PRIORITY_INVALID
+
+因为配置I2S的例程没有启用Freertos，导致默认生成的中断优先级为0，高于了freertos的中断优先级设定，必须高于5及其以上，因此在中断优先级检测断言时报错，导致程序卡死。
+
+在将I2S（SPI）和DMA1_CH5的优先级调整为5后，程序可以正常使用任务通知（notify）去完成数据同步。
+
+
+
+## #I2s接收功能测试
+
+I2s接收功能已正常，可以接收到由esp32发送的数据，但是stm32接收的数据波形与esp32发送的信号不相符（通过逻辑分析仪），同时将接收的数据从16位改到12位，传入dac中后，喇叭无法发出有效声音，只有嘈杂的噪音，目前原因不明。
+
+初步分析是因为接收端的程序有问题，导致无法正常接收到数据内容。
+
+重新调整了逻辑分析仪接收到的数据，通过python进行初步处理后，可以在音频软件上正常播放声音，同时声音正常无语。可以确定esp32通过i2s输出的数据为pcm音频信号。
+
+
+
+将逻辑分析仪接受到的txt文件，转化为raw文件，用于导入到音频软件中进行试听。
+
+```python
+# -*- coding: utf-8 -*-
+import struct
+
+def hex_to_signed16(s):
+    val = int(s, 16)
+    if val >= 0x8000:
+        val -= 0x10000
+    return val
+
+left = []
+right = []
+
+with open('0529_logic.txt', encoding='utf-8', errors='ignore') as f:
+    for line in f:
+        line = line.strip()
+        if 'Right channel:' in line:
+            hexstr = line.split(':')[-1].strip()
+            right.append(hex_to_signed16(hexstr))
+        elif 'Left channel:' in line:
+            hexstr = line.split(':')[-1].strip()
+            left.append(hex_to_signed16(hexstr))
+
+# 确保长度相同
+min_len = min(len(left), len(right))
+left = left[:min_len]
+right = right[:min_len]
+
+# 交错写入 raw: L,R,L,R...
+with open('output.raw', 'wb') as fout:
+    for l, r in zip(left, right):
+        # '<h' 表示小端16位有符号整数
+        fout.write(struct.pack('<h', l))
+        fout.write(struct.pack('<h', r))
+
+print(f"YES: {min_len},OUT FILE: output.raw")
+```
+
+将逻辑分析仪接收到的数据直接显示成图表
+
+```python
+# -*- coding: utf-8 -*-
+
+import matplotlib.pyplot as plt
+
+left = []
+right = []
+
+def hex_to_signed(val):
+    # """将16位无符号十六进制字符串转为有符号整数"""
+    n = int(val, 16)
+    if n >= 0x8000:
+        n -= 0x10000
+    return n
+
+with open('0529_logic.txt', encoding='utf-8') as f:
+    for line in f:
+        line = line.strip()
+        if 'Right channel:' in line:
+            hexstr = line.split(':')[-1].strip()
+            right.append(hex_to_signed(hexstr))
+        elif 'Left channel:' in line:
+            hexstr = line.split(':')[-1].strip()
+            left.append(hex_to_signed(hexstr))
+
+plt.figure(figsize=(18, 7))
+plt.plot(right, label='Right Channel')
+plt.plot(left, label='Left Channel')
+plt.xlabel('Sample Index')
+plt.ylabel('Amplitude (signed 16-bit)')
+plt.title('I2S Logic Data (16-bit signed)')
+plt.legend()
+plt.grid(True)
+plt.tight_layout()
+plt.show()
+```
+

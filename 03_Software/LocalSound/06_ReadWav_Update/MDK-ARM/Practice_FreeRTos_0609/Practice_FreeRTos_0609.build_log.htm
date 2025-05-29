@@ -22,16 +22,21 @@ Dialog DLL:      TCM.DLL V1.53.0.0
  
 <h2>Project:</h2>
 e:\WorkSpace\STM32\Projection\02_BleAudio\03_Software\LocalSound\06_ReadWav_Update\MDK-ARM\Practice_FreeRTos_0609.uvprojx
-Project File Date:  05/22/2025
+Project File Date:  05/29/2025
 
 <h2>Output:</h2>
 *** Using Compiler 'V5.06 update 7 (build 960)', folder: 'E:\WorkSpace\STM32\Software\Keil\Core\ARM\ARMCC\Bin'
 Build target 'Practice_FreeRTos_0609'
-compiling user_bsp.c...
+compiling au_ble.c...
+..\User\Core\au_ble.c(86): warning:  #177-D: variable "tmp_ret"  was declared but never referenced
+      u32 tmp_ret = 0;
+..\User\Core\au_ble.c(130): warning:  #1-D: last line of file ends without a newline
+  }
+..\User\Core\au_ble.c: 2 warnings, 0 errors
 linking...
-Program Size: Code=50832 RO-data=3920 RW-data=280 ZI-data=40872  
+Program Size: Code=51316 RO-data=3920 RW-data=284 ZI-data=40876  
 FromELF: creating hex file...
-"Practice_FreeRTos_0609\Practice_FreeRTos_0609.axf" - 0 Error(s), 0 Warning(s).
+"Practice_FreeRTos_0609\Practice_FreeRTos_0609.axf" - 0 Error(s), 2 Warning(s).
 
 <h2>Software Packages used:</h2>
 

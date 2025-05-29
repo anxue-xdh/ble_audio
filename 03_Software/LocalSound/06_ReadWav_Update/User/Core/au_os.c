@@ -19,7 +19,6 @@
 #include "au_config.h"
 
 #include "gui.h"
-
 /* USER CODE END Includes */
 
 /* Private define ------------------------------------------------------------*/

@@ -1183,6 +1183,11 @@
               <FileType>1</FileType>
               <FilePath>..\User\Core\au_os.c</FilePath>
             </File>
+            <File>
+              <FileName>au_ble.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\User\Core\au_ble.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

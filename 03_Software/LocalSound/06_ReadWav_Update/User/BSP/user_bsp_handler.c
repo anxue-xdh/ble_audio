@@ -3,6 +3,7 @@
 
 #include "gui.h"
 #include "au_os.h"
+#include "au_ble.h"
 
 // extern SemaphoreHandle_t Sem_Uart1;
 void SoftReset(void)
@@ -57,6 +58,10 @@ void Uart1_Scan_Task(void)
         else if (Uart1_strcmp("music start"))
         {
             Start_Wav();
+        }
+        else if (Uart1_strcmp("ble start"))
+        {
+            Start_Ble();
         }
         else if (Uart1_strcmp("music stop"))
         {

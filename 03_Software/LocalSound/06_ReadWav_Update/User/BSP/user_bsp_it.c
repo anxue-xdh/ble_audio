@@ -2,21 +2,35 @@
 
 #include "bsp_sysTimer.h"
 #include "au_os.h"
+#include "au_ble.h"
 
 // DMA接收过半完成回调
 void HAL_I2S_RxHalfCpltCallback(I2S_HandleTypeDef *hi2s)
 {
+    BaseType_t ret = pdFALSE;
+    
+    xTaskNotifyFromISR(Ble_Task_Handle, Ble_Bit_Rx_Half, eSetBits, &ret);
+    if (ret == pdTRUE) // 需要进行任务切换
+    {
+        portYIELD_FROM_ISR(ret); // 执行任务切换
+    }
 }
-
 
 // DMA接收完成回调
 void HAL_I2S_RxCpltCallback(I2S_HandleTypeDef *hi2s)
 {
     dma_rx_complete = 1;
-    // 可以在这里处理接收到的数据
+
+     BaseType_t ret = pdFALSE;
+
+    xTaskNotifyFromISR(Ble_Task_Handle, Ble_Bit_Rx_Compelete, eSetBits, &ret);
+    if (ret == pdTRUE) // 需要进行任务切换
+    {
+        portYIELD_FROM_ISR(ret); // 执行任务切换
+    }
 }
 
-    void HAL_DAC_ConvHalfCpltCallbackCh1(DAC_HandleTypeDef *hdac)
+void HAL_DAC_ConvHalfCpltCallbackCh1(DAC_HandleTypeDef *hdac)
 {
     BaseType_t ret = pdFALSE;
     // xSemaphoreGiveFromISR(Sem_Uart1, &xHigherPriorityTaskWoken); // 给出信号量
