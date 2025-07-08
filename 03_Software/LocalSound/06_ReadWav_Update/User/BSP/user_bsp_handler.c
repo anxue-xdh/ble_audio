@@ -3,6 +3,10 @@
 
 #include "gui.h"
 #include "au_os.h"
+#include "beta_test_framework.h"
+#include "sd_card_recovery.h"
+#include "audio_buffer_manager.h"
+#include "beta_test_init.h"
 
 // extern SemaphoreHandle_t Sem_Uart1;
 void SoftReset(void)
@@ -11,18 +15,21 @@ void SoftReset(void)
     NVIC_SystemReset();
 }
 
-/******     临时         *****/
+/******     锟斤拷时         *****/
 extern char USERPath[4]; /* USER logical drive path */
-/******     临时         *****/
+/******     锟斤拷时         *****/
 
 char strTmp[500];
 void Uart1_Scan_Task(void)
 {
     while (1)
     {
-        // if (xSemaphoreTake(Sem_Uart1, HAL_MAX_DELAY) == pdTRUE)
-        if (ulTaskNotifyTake(pdTRUE, portMAX_DELAY) > 1)
-            Uart1_SendData("[ERROR] Uart1 obliterated Data!!");
+        // Enhanced notification handling with overflow detection
+        uint32_t notification_count = ulTaskNotifyTake(pdTRUE, portMAX_DELAY);
+        if (notification_count > 1) {
+            BetaTest_IncrementCoreObliteratedErrors();
+            Uart1_SendData("[ERROR] Uart1 obliterated Data!! Count: %lu (Monitored by Beta Test)\r\n", notification_count);
+        }
 
         Uart1_SendData("[DEBUG] %s\r\n", Uart1_Buf);
         if (Uart1_strcmp("Test"))
@@ -31,13 +38,13 @@ void Uart1_Scan_Task(void)
         }
         else if (Uart1_strcmp("Query task time"))
         {
-            // 任务时间占用
+            // 锟斤拷锟斤拷时锟斤拷占锟斤拷
             vTaskGetRunTimeStats(strTmp);
             Uart1_SendData(strTmp);
         }
         else if (Uart1_strcmp("Query task resource"))
         {
-            // 任务资源占用
+            // 锟斤拷锟斤拷锟斤拷源占锟斤拷
             vTaskList(strTmp);
             Uart1_SendData(strTmp);
         }
@@ -45,6 +52,50 @@ void Uart1_Scan_Task(void)
         {
             Uart1_SendData("soft reset");
             SoftReset();
+        }
+        // Beta testing framework commands
+        else if (Uart1_strcmp("beta test init"))
+        {
+            Uart1_SendData("Initializing beta test framework...\r\n");
+            TestResult_t result = BetaTest_Init();
+            if (result == TEST_OK) {
+                Uart1_SendData("Beta test framework initialized successfully\r\n");
+            } else {
+                Uart1_SendData("Failed to initialize beta test framework\r\n");
+            }
+        }
+        else if (Uart1_strcmp("beta test run"))
+        {
+            Uart1_SendData("Running comprehensive test suite...\r\n");
+            TestResult_t result = BetaTest_RunFullSuite();
+            if (result == TEST_OK) {
+                Uart1_SendData("Test suite completed successfully\r\n");
+            } else {
+                Uart1_SendData("Test suite completed with errors\r\n");
+            }
+        }
+        else if (Uart1_strcmp("beta test report"))
+        {
+            BetaTest_GenerateReport();
+        }
+        else if (Uart1_strcmp("beta test reset"))
+        {
+            BetaTest_ResetStats();
+            Uart1_SendData("Beta test statistics reset\r\n");
+        }
+        // SD card recovery commands
+        else if (Uart1_strcmp("sd health"))
+        {
+            SDCard_GenerateHealthReport();
+        }
+        else if (Uart1_strcmp("sd stats reset"))
+        {
+            SDCard_ResetStats();
+        }
+        // Audio buffer manager commands
+        else if (Uart1_strcmp("audio health"))
+        {
+            AudioBuffer_GenerateHealthReport();
         }
         else if (Uart1_strcmp("sd read"))
         {
@@ -77,6 +128,14 @@ void Uart1_Scan_Task(void)
             {
                 Uart1_SendData("Handle is NULL!!\r\n");
             }
+        }
+        else if (Uart1_strcmp("help"))
+        {
+            BetaTest_PrintHelp();
+        }
+        else
+        {
+            Uart1_SendData("Unknown command. Type 'help' for available commands.\r\n");
         }
     }
     // vTaskDelete(NULL);
